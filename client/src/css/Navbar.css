@@ -4,14 +4,15 @@
     width: 100%;
     height: 50px;
     margin-bottom: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
     background-color: var(--footer);
     display: flex;
     flex: 1;
     flex-wrap: wrap;
+    align-items:baseline;
 }
 
-ul{
+ul {
     margin-left: 15px;
     width: fit-content;
     display: flex;
@@ -23,10 +24,33 @@ ul{
     list-style: none;
 }
 
-.nav-link{
+.nav-link {
     text-decoration: none;
+    text-align: center;
     color: white;
+    font-size: 1.2rem;
+    text-transform: uppercase;
 }
-.navbar-brand{
+.nav-link:hover {
+    color: var(--secondary-tertiary-color);
+    transition: 300ms ease;
+}
+
+.nav-link::after {
+    position: relative;
+    content: '';
+    display: block;
+    width: 0%;
+    height: 4px;
+    background-color: var(--secondary-tertiary-color);
+    transition: 300ms ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+    transition: 300ms ease;
+}
+
+.navbar-brand {
     margin-left: 15px;
 }

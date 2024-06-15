@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react';
 import '../css/Overview.css';
 import ImageWithFallback from '../partials/ImageWithFallback';
 import Background from '../partials/Background';
+import Search from '../partials/Search';
 
 function Overview() {
     const [ games, setGames ] = useState(null);
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(null)
+    const [ filter, setFilter ] = useState('');
 
     useEffect(() => {
         const getGames = async () => {
@@ -29,6 +31,13 @@ function Overview() {
         getGames();
     }, []);
 
+    const handleFilter = (searchValue) => {
+        setFilter(searchValue);
+    }
+    
+    const filtered = games ? games.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : []
+
+
     if (loading) {
         return (
             <div>Loading...</div>
@@ -42,16 +51,18 @@ function Overview() {
 
     else return (
         <>
+            <Search onSubmit={handleFilter}></Search>
             <div className='games-wrapper'>
-                {games && games.data.appids.map((app, index) => (
-                    <div key={index} className='card-wrapper'>
-                        <div className="card-body">{app.name}</div>
-                        <ImageWithFallback src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_600x900_2x.jpg`} fallbackSrc={`https://via.placeholder.com/600x900?text=${app.name}`} className="hero-capsule"/>
+                {filtered.map((app) => (
+
+                    <div key={app.appid} className='card-wrapper'>
+                        <p className="card-body">{app.name}</p>
+                        <ImageWithFallback src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_600x900_2x.jpg`} fallbackSrc={`/images/no-art.png`} className="hero-capsule" />
                         <div className="card-appid">{app.appid}</div>
                     </div>
                 ))}
             </div>
-            <Background/>
+            <Background />
         </>
     )
 }

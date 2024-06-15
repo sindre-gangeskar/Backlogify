@@ -1,8 +1,29 @@
-.search-form{
+.search-form {
     margin: 10px auto;
     text-align: center;
+    width: 60dvw;
+    padding: 25px;
+    background-color: var(--footer);
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    flex-wrap: nowrap;
+    justify-content: space-around;
 }
 
-.search-form input{
+.search-form input {
     padding: 15px;
+    width: 80%;
+    outline: none;
+    border: none;
+    color: #fff;
+    transition: 300ms ease;
+}
+.search-form input:focus{
+    outline: 2px solid var(--secondary-tertiary-color);
+    transition: 200ms ease;
+}
+
+.search-form input::placeholder{
+    font-size: 1.2rem;
 }
