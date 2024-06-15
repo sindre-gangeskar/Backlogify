@@ -57,7 +57,7 @@ function Overview() {
 
                     <div key={app.appid} className='card-wrapper'>
                         <p className="card-body">{app.name}</p>
-                        <ImageWithFallback src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_600x900_2x.jpg`} fallbackSrc={`/images/no-art.png`} className="hero-capsule" />
+                        <ImageWithFallback src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_600x900.jpg`} fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/header.jpg`} className="hero-capsule" />
                         <div className="card-appid">{app.appid}</div>
                     </div>
                 ))}
