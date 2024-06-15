@@ -1,0 +1,32 @@
+.navbar {
+    background-color: var(--footer);
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 50px;
+    padding-bottom: 20px;
+    background-color: var(--footer);
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+ul{
+    margin-left: 15px;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    list-style: none;
+}
+
+.nav-link{
+    text-decoration: none;
+    color: white;
+}
+.navbar-brand{
+    margin-left: 15px;
+}
