@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/SteamId.css';
+import Loading from '../views/Loading';
 
 function SteamId() {
     const navigate = useNavigate();
@@ -26,19 +27,21 @@ function SteamId() {
     }
 
     return (
-        <div className="form-wrapper">
-            <form className='steamid' onSubmit={handleFormSubmit}>
-                <h1>Enter Steam ID</h1>
-                <input
-                    type="text"
-                    placeholder='SteamID e.g: 76561198014858853'
-                    name='steamid'
-                    required
-                    autoComplete='steamid'
-                />
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+        <>
+            <div className="form-wrapper">
+                <form className='steamid' onSubmit={handleFormSubmit}>
+                    <h1>Enter Steam ID</h1>
+                    <input
+                        type="text"
+                        placeholder='SteamID e.g: 76561198014858853'
+                        name='steamid'
+                        required
+                        autoComplete='steamid'
+                    />
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </>
     );
 }
 

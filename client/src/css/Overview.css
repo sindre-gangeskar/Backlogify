@@ -28,9 +28,8 @@
     flex-direction: row;
     border-style: solid;
     border-width: 1px;
-    border-image: linear-gradient(0deg, var(--primary-color), var(--secondary-tertiary-color)) 1 ;
+    border-image: linear-gradient(0deg, var(--primary-color), var(--secondary-tertiary-color)) 1;
 }
-
 
 .hero-capsule {
     height: 100%;
@@ -75,46 +74,54 @@
 }
 
 .card-appid {
-    position: absolute;
-    bottom: -15%;
-    left: 50%;
+    top: -25px;
     width: 100%;
-    transform: translate(-50%, 0);
     background-color: var(--primary-color);
     text-align: center;
-}
-
-.card-appid::after {
+    height: 25px;
     position: absolute;
-    content: '';
-    display: block;
-    width: 0%;
-    height: 1px;
-    background-color: var(--primary-tertiary-color);
-    z-index: 1;
+    z-index: -1;
 }
 
-.card-body {
-    color: white;
-    z-index: 2;
+.card-title{
     width: 100%;
-    height: 60px;
-    bottom: -50%;
-    left: 50%;
-    background-color: #64646470;
-    display: flex;
-    transform: translateX(-50%);
+    height: 50px;
+    bottom: -50px;
     position: absolute;
-    align-content: center;
-    align-items: center;
+    background-color: var(--secondary-color);
+    z-index: -1;
     text-align: center;
-    backdrop-filter: blur(25px);
-    font-weight: bolder;
-    overflow: hidden;
+    align-self: baseline;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    font-size: small;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-wrapper:hover {
     scale: 1.05;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--footer);
+    border-radius: 2rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--secondary-tertiary-color);
+    border-radius: 6px;
+    height: 50px;
+    transition: 300ms ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary-color);
+
 }

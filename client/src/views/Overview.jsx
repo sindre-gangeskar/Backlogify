@@ -5,9 +5,9 @@ import { useState, useEffect } from 'react';
 import ImageWithFallback from '../partials/ImageWithFallback';
 import Background from '../partials/Background';
 import Search from '../partials/Search';
+import Loading from '../views/Loading';
 
 import '../css/Overview.css';
-import '../css/index.css';
 
 
 function Overview() {
@@ -53,7 +53,7 @@ function Overview() {
     const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : []
     if (loading) {
         return (
-            <div>Loading...</div>
+            <Loading key={loading} />
         )
     }
 
@@ -73,11 +73,11 @@ function Overview() {
             <Search onSubmit={handleFilter}></Search>
             <div className='games-wrapper'>
                 {filtered.map((app) => (
-                    <div key={app.appid} className='card-wrapper'>
-                        <p className="card-body">{app.name}</p>
-                        <ImageWithFallback src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_600x900.jpg`} fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/header.jpg`} className="hero-capsule" />
-                        <div className="card-appid">{app.appid}</div>
-                    </div>
+                        <div key={app.appid} className='card-wrapper'>
+                            <div className="card-appid">{app.appid}</div>
+                            <div className="card-title">{app.name}</div>
+                            <ImageWithFallback src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_600x900.jpg`} fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/header.jpg`} className="hero-capsule" />
+                        </div>
                 ))}
             </div>
             <Background />
