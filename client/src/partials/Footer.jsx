@@ -3,7 +3,7 @@ import '../css/Footer.css';
 function Footer(){
     return (
         <footer>
-            <p>This is an unofficial backlog application using Steam's Web API</p>
+            <p>This is an unofficial application using Steam's Web API and is not affiliated with Valve</p>
             <p>github: sindre-gangeskar</p>
         </footer>
     )

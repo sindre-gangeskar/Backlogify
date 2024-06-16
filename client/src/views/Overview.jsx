@@ -1,52 +1,70 @@
 import React from 'react';
-import { useState, useEffect, useMemo } from 'react';
-import '../css/Overview.css';
+import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 import ImageWithFallback from '../partials/ImageWithFallback';
 import Background from '../partials/Background';
 import Search from '../partials/Search';
+
+import '../css/Overview.css';
 import '../css/index.css';
+
+
 function Overview() {
+    const location = useLocation();
+    const steamid = location.state?.steamid || localStorage.getItem('steamid');
+
     const [ games, setGames ] = useState(null);
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(null)
     const [ filter, setFilter ] = useState('');
 
+
     useEffect(() => {
         const getGames = async () => {
             try {
                 setLoading(true);
-                const response = await fetch('http://localhost:3000/');
+                const response = await fetch(`http://localhost:3000/${steamid}`);
                 if (response.ok) {
                     const games = await response.json();
-                    setGames(games);
+                    if (games && games.data.appids) {
+                        setGames(games);
+                    }
+                    else {
+                        setGames(null);
+                        setError(`Could not retrieve games from Steam ID: ${steamid}`)
+                    }
                 }
-                else setError(response);
             } catch (error) {
-                setError('Could not retrieve games');
+                setError(`Could not retrieve games from Steam ID: ${steamid}`);
             }
             finally {
                 setLoading(false);
             }
         }
         getGames();
-    }, []);
+    }, [ steamid ]);
+
 
     const handleFilter = (searchValue) => {
         setFilter(searchValue);
     }
 
-    const filtered = useMemo(() => {
-        return games ? games.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : []
-    }, [games, filter])
-
+    const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : []
     if (loading) {
         return (
             <div>Loading...</div>
         )
     }
+
     if (error) {
         return (
-            <div className="error">{error}</div>
+            <>
+                <div className="games-wrapper">
+                    <h3>{error}</h3>
+                </div>
+                <Background />
+            </>
         )
     }
 

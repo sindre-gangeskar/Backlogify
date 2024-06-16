@@ -1,16 +1,17 @@
 @import './colors.css';
 
-.background{
+.background {
     position: fixed;
     z-index: -2;
     height: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    object-fit:cover;
-    mix-blend-mode:soft-light;
+    object-fit: cover;
+    mix-blend-mode: soft-light;
     filter: blur(15px);
 }
+
 .games-wrapper {
     background-color: #0023333f;
     position: relative;
@@ -21,11 +22,16 @@
     height: 40dvh;
     display: flex;
     justify-content: space-around;
-    overflow:auto;
+    overflow: auto;
     gap: 20px;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     flex-direction: row;
+    border-style: solid;
+    border-width: 1px;
+    border-image: linear-gradient(0deg, var(--primary-color), var(--secondary-tertiary-color)) 1 ;
 }
+
+
 .hero-capsule {
     height: 100%;
     width: 100%;
@@ -37,6 +43,7 @@
     background-color: black;
     overflow: hidden;
 }
+
 .card-wrapper {
     width: calc(600px / 4.2);
     height: calc(900px / 4.2);
@@ -45,6 +52,7 @@
     transition: 300ms ease;
     margin: 65px auto;
 }
+
 .card-wrapper::after {
     left: 25px;
     top: 25px;
@@ -57,6 +65,7 @@
     transition: 150ms ease;
     z-index: -1;
 }
+
 .card-wrapper:hover::after {
     left: -2px;
     top: -2px;
@@ -64,6 +73,7 @@
     bottom: -2px;
     background: linear-gradient(180deg, var(--secondary-tertiary-color), var(--third-tertiary-color));
 }
+
 .card-appid {
     position: absolute;
     bottom: -15%;
@@ -73,6 +83,7 @@
     background-color: var(--primary-color);
     text-align: center;
 }
+
 .card-appid::after {
     position: absolute;
     content: '';
@@ -82,7 +93,8 @@
     background-color: var(--primary-tertiary-color);
     z-index: 1;
 }
-.card-body{
+
+.card-body {
     color: white;
     z-index: 2;
     width: 100%;
@@ -102,6 +114,7 @@
     justify-content: center;
     font-size: small;
 }
+
 .card-wrapper:hover {
     scale: 1.05;
 }

@@ -8,7 +8,7 @@ async function getOwnedGames(id) {
             const data = await response.json();
             return data;
         }
-        else return response.message;
+        else return {message: 'Could find games associated with steam id'}
     } catch (error) {
         return error;
     }

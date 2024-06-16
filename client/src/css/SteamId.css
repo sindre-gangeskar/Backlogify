@@ -31,5 +31,17 @@
 }
 
 .form-wrapper input::placeholder {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+}
+
+.form-wrapper input:hover {
+    outline: 1px solid var(--secondary-tertiary-color);
+}
+
+.form-wrapper button{
+    margin-top: 15px;
+    width: 80%;
+}
+.form-wrapper button:hover{
+    border: 1px solid var(--secondary-tertiary-color);
 }
