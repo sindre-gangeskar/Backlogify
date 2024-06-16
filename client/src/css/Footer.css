@@ -1,4 +1,13 @@
 @import './colors.css';
-footer{
+footer {
     background-color: var(--footer);
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    height: fit-content;
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+
 }

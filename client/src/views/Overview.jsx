@@ -1,10 +1,10 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import '../css/Overview.css';
 import ImageWithFallback from '../partials/ImageWithFallback';
 import Background from '../partials/Background';
 import Search from '../partials/Search';
-
+import '../css/index.css';
 function Overview() {
     const [ games, setGames ] = useState(null);
     const [ loading, setLoading ] = useState(true);
@@ -34,9 +34,10 @@ function Overview() {
     const handleFilter = (searchValue) => {
         setFilter(searchValue);
     }
-    
-    const filtered = games ? games.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : []
 
+    const filtered = useMemo(() => {
+        return games ? games.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : []
+    }, [games, filter])
 
     if (loading) {
         return (
@@ -54,7 +55,6 @@ function Overview() {
             <Search onSubmit={handleFilter}></Search>
             <div className='games-wrapper'>
                 {filtered.map((app) => (
-
                     <div key={app.appid} className='card-wrapper'>
                         <p className="card-body">{app.name}</p>
                         <ImageWithFallback src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_600x900.jpg`} fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/header.jpg`} className="hero-capsule" />

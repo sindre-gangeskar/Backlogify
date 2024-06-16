@@ -2,13 +2,31 @@ import './css/App.css'
 import Overview from './views/Overview'
 import Navbar from './partials/Navbar';
 import Footer from './partials/Footer';
+import SteamId from './views/SteamId';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <>
-      <Navbar></Navbar>
-      <Overview />
-      <Footer />   
+      <Routes>
+        <Route path='/overview' key={'/overview'} element={
+          <>
+            <Navbar key={'navbar'} />
+            <Overview key={'overview'} />
+            <Footer key={'footer'} />
+          </>
+        }></Route>
+
+        <Route path='/' element={
+          <>
+            <Navbar key={'navbar'}/>
+            <SteamId key={'steamid'} />
+            <Footer key={'footer'}/>
+          </>
+        }>
+        </Route>
+
+      </Routes>
     </>
   )
 }

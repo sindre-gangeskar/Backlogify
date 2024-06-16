@@ -1,0 +1,35 @@
+@import '../css/colors.css';
+
+.steamid{
+    position: relative;
+}
+
+.form-wrapper{
+    width: 100%;
+    min-height: 100dvh;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    text-align: center;
+    background-color: var(--footer);
+}
+
+
+.form-wrapper input {
+    padding: 15px;
+    width: 80%;
+    outline: none;
+    border: none;
+    color: #fff;
+    transition: 300ms ease;
+}
+
+.form-wrapper input:focus {
+    outline: 2px solid var(--secondary-tertiary-color);
+    transition: 200ms ease;
+}
+
+.form-wrapper input::placeholder {
+    font-size: 1.2rem;
+}

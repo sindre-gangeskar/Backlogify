@@ -1,15 +1,5 @@
 @import './colors.css';
 
-footer {
-    background-color: var(--footer);
-    width: 100%;
-    position: absolute;
-    margin: 10px auto;
-    height: 250px;
-    text-align: center;
-    left: 50%;
-    transform: translateX(-50%);
-}
 .background{
     position: fixed;
     z-index: -2;
@@ -21,7 +11,6 @@ footer {
     mix-blend-mode:soft-light;
     filter: blur(15px);
 }
-
 .games-wrapper {
     background-color: #0023333f;
     position: relative;
@@ -29,16 +18,14 @@ footer {
     left: 50%;
     transform: translate(-50%);
     width: 60dvw;
-    height: 1500px;
+    height: 40dvh;
     display: flex;
     justify-content: space-around;
     overflow:auto;
     gap: 20px;
     flex-wrap:wrap;
     flex-direction: row;
-    margin-bottom: 80px;
 }
-
 .hero-capsule {
     height: 100%;
     width: 100%;
@@ -50,7 +37,6 @@ footer {
     background-color: black;
     overflow: hidden;
 }
-
 .card-wrapper {
     width: calc(600px / 4.2);
     height: calc(900px / 4.2);
@@ -59,7 +45,6 @@ footer {
     transition: 300ms ease;
     margin: 65px auto;
 }
-
 .card-wrapper::after {
     left: 25px;
     top: 25px;
@@ -72,7 +57,6 @@ footer {
     transition: 150ms ease;
     z-index: -1;
 }
-
 .card-wrapper:hover::after {
     left: -2px;
     top: -2px;
@@ -80,7 +64,6 @@ footer {
     bottom: -2px;
     background: linear-gradient(180deg, var(--secondary-tertiary-color), var(--third-tertiary-color));
 }
-
 .card-appid {
     position: absolute;
     bottom: -15%;
@@ -89,6 +72,15 @@ footer {
     transform: translate(-50%, 0);
     background-color: var(--primary-color);
     text-align: center;
+}
+.card-appid::after {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 0%;
+    height: 1px;
+    background-color: var(--primary-tertiary-color);
+    z-index: 1;
 }
 .card-body{
     color: white;
@@ -110,17 +102,6 @@ footer {
     justify-content: center;
     font-size: small;
 }
-
 .card-wrapper:hover {
     scale: 1.05;
-}
-
-.card-appid::after {
-    position: absolute;
-    content: '';
-    display: block;
-    width: 0%;
-    height: 1px;
-    background-color: var(--primary-tertiary-color);
-    z-index: 1;
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
+import { memo } from 'react';
 
-function ImageWithFallback({ src, alt, fallbackSrc, ...props }) {
+const ImageWithFallback = memo(({ src, alt, fallbackSrc, ...props }) => {
     const [ imgSrc, setImgSrc ] = useState(src);
 
     const handleError = () => {
@@ -11,6 +12,6 @@ function ImageWithFallback({ src, alt, fallbackSrc, ...props }) {
     return (
         <img src={imgSrc} alt={alt} onError={handleError} {...props} />
     )
-}
+})
 
 export default ImageWithFallback;

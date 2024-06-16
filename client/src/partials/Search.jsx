@@ -9,14 +9,14 @@ function Search({ onSubmit }) {
         onSubmit(name);
     } 
 
-    const handleReset = e => {
+    const handleReset = (e) => {
         e.preventDefault();
         onSubmit('');
     }
 
     return (
         <form className='search-form' onSubmit={handleFormSubmit}>
-            <input className='search' placeholder='Search for title...' name="name" required></input>
+            <input className='search' placeholder='Search for title...' name="name" autoComplete='name' required></input>
             <button type="submit">Search</button>
             <button onClick={handleReset}>Reset</button>
         </form>
