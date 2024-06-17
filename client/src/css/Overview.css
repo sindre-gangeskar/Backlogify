@@ -51,7 +51,6 @@
     transition: 300ms ease;
     margin: 65px auto;
     opacity: 0;
-    animation: fade-in 300ms forwards 500ms;
 }
 
 .card-wrapper::after {
