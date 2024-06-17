@@ -4,24 +4,31 @@ import Navbar from './partials/Navbar';
 import Footer from './partials/Footer';
 import SteamId from './views/SteamId';
 import { Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 
 function App() {
+  const [ visible, setVisible ] = useState(false);
+
+  const toggleAppIdVisibility = e => {
+    setVisible(e.target.checked);
+  }
+
   return (
     <>
       <Routes>
         <Route path='/overview' key={'/overview'} element={
           <>
             <Navbar key={'navbar'} />
-            <Overview key={'overview'} />
+            <Overview key={'overview'} setVisible={setVisible} />
             <Footer key={'footer'} />
           </>
         }></Route>
 
         <Route path='/' element={
           <>
-            <Navbar key={'navbar'}/>
+            <Navbar key={'navbar'} />
             <SteamId key={'steamid'} />
-            <Footer key={'footer'}/>
+            <Footer key={'footer'} />
           </>
         }>
         </Route>

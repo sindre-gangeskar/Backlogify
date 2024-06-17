@@ -5,25 +5,52 @@
     padding: 25px;
     background-color: var(--footer);
     display: flex;
+    flex-grow: unset;
     flex-direction: row;
-    flex: 1;
     flex-wrap: nowrap;
-    justify-content: space-around;
+    justify-content: space-between;
+    gap: 5px;
+    align-items: center;
 }
 
 .search-form input {
     padding: 15px;
+    height: 15px;
     width: 80%;
     outline: none;
     border: none;
     color: #fff;
     transition: 300ms ease;
+    margin-right: 5px;
+    font-size: 1.2rem;
 }
-.search-form input:focus{
+
+.search-form input:focus {
     outline: 2px solid var(--secondary-tertiary-color);
     transition: 200ms ease;
 }
 
-.search-form input::placeholder{
+.search-form input::placeholder {
     font-size: 1.2rem;
+}
+
+.buttons-wrapper {
+    display: grid;
+    grid-auto-flow: column;
+    width: fit-content;
+    height: fit-content;
+    font-size: small;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--secondary-tertiary-color);
+}
+
+.buttons-wrapper .toggle-appids-btn {
+    width: 15px;
+    height: 15px;
+}
+
+button{
+    outline: 1px solid var(--primary-color);
+    border-radius: 0% !important;
 }
