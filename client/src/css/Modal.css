@@ -1,0 +1,47 @@
+.modal-wrapper{
+    position: fixed;
+    z-index: 999;
+    margin: 0px auto;
+    width: 60dvw;
+    height: 80dvh;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hero-poster{
+    height: calc(900px / 2);
+    width: calc(600px / 2);
+    object-fit: contain;
+    background-color: black;
+}
+
+.modal-top{
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: var(--footer);
+    align-items: center;
+}
+
+.modal-top button{
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    padding: 0;
+    margin-right: 15px;
+}
+
+.modal-title{
+    margin-left: 10px;
+}
+
+.modal-body{
+    text-align: center;
+    align-items: center;
+    background-color: var(--footer);
+    padding: 50px;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-around;
+}

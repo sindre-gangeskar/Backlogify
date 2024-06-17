@@ -23057,15 +23057,15 @@
   {
     "appid": 1245620,
     "name": "ELDEN RING",
-    "playtime_2weeks": 1699,
-    "playtime_forever": 7444,
+    "playtime_2weeks": 1714,
+    "playtime_forever": 7459,
     "img_icon_url": "b6e290dd5a92ce98f89089a207733c70c41a1871",
     "has_community_visible_stats": true,
     "playtime_windows_forever": 7444,
     "playtime_mac_forever": 0,
-    "playtime_linux_forever": 0,
-    "playtime_deck_forever": 0,
-    "rtime_last_played": 1718137806,
+    "playtime_linux_forever": 14,
+    "playtime_deck_forever": 14,
+    "rtime_last_played": 1718621670,
     "content_descriptorids": [
       2,
       5
@@ -23417,7 +23417,6 @@
   {
     "appid": 1818750,
     "name": "MultiVersus",
-    "playtime_2weeks": 47,
     "playtime_forever": 328,
     "img_icon_url": "01fb7eab28b80a06e4da69a6b3d76dbe383bea8e",
     "has_community_visible_stats": true,

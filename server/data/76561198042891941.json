@@ -1555,7 +1555,8 @@
   {
     "appid": 300550,
     "name": "Shadowrun: Dragonfall - Director's Cut",
-    "playtime_forever": 0,
+    "playtime_2weeks": 13,
+    "playtime_forever": 13,
     "img_icon_url": "1fe5384c9e513285fd2eaf920b2615f9f0dab4b6",
     "has_community_visible_stats": true,
     "content_descriptorids": [
@@ -3027,7 +3028,7 @@
   {
     "appid": 976730,
     "name": "Halo: The Master Chief Collection",
-    "playtime_2weeks": 155,
+    "playtime_2weeks": 49,
     "playtime_forever": 894,
     "img_icon_url": "196a45d8df1981ff6b6b1872a38dc38f6c22875d",
     "has_community_visible_stats": true,
@@ -3276,7 +3277,7 @@
   {
     "appid": 1328670,
     "name": "Mass Effect™ Legendary Edition",
-    "playtime_2weeks": 1311,
+    "playtime_2weeks": 1186,
     "playtime_forever": 4696,
     "img_icon_url": "443ed7dba43882ef4298f8ed15bf67f323461e14",
     "has_community_visible_stats": true,

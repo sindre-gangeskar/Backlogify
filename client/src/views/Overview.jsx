@@ -5,6 +5,7 @@ import ImageWithFallback from '../partials/ImageWithFallback';
 import Background from '../partials/Background';
 import Search from '../partials/Search';
 import Loading from '../views/Loading';
+import Modal from '../partials/Modal';
 
 import '../css/Overview.css';
 
@@ -17,6 +18,11 @@ function Overview() {
     const [ error, setError ] = useState(null);
     const [ filter, setFilter ] = useState('');
     const [ visible, setVisible ] = useState(false);
+
+    const [ modalOpen, setModalOpen ] = useState(false);
+    const [ modalTitle, setModalTitle ] = useState(null);
+    const [ modalBody, setModalBody ] = useState(null);
+    const [ modalFooter, setModalFooter ] = useState(null);
 
     const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
 
@@ -47,6 +53,18 @@ function Overview() {
         setFilter(searchValue);
     }
 
+    function openModal(app) {
+        console.log('Opening modal for app:', app);
+        setModalTitle(app.name);
+        setModalBody(
+            <>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <HeroPoster app={app} />
+            </>
+        )
+        setModalOpen(true);
+    }
+
     if (loading) {
         return <Loading key={loading} />;
     }
@@ -62,7 +80,19 @@ function Overview() {
         );
     }
 
-    /* Create the function component, and pass it in as a CardWrapper tag in the games-wrapper element*/
+
+    const HeroPoster = ({ app }) => {
+        console.log('Hero Poster for:', app);
+        return (
+            <ImageWithFallback root={document.querySelector('.modal-wrapper')}
+                src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_600x900.jpg`}
+                fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/header.jpg`}
+                className="hero-poster"
+            />
+        )
+    }
+
+    /* Create the functional component, and pass it in as a CardWrapper tag in the games-wrapper element */
     const CardWrapper = ({ app }) => {
         const { ref, inView } = useInView({
             threshold: 0.15,
@@ -70,10 +100,12 @@ function Overview() {
             triggerOnce: false
         })
         return (
-            <div ref={ref} className={`card-wrapper ${inView ? 'visible' : ''}`} key={app.appid}>
+            <div ref={ref} className={`card-wrapper ${inView ? 'visible' : ''}`} key={app.appid} onClick={() => { openModal(app) }}>
                 <div className={`card-appid ${visible ? 'visible' : ''}`}>{app.appid}</div>
                 <div className="card-title">{app.name}</div>
                 <ImageWithFallback
+                    root={document.querySelector('.games-wrapper')}
+                    rootMargin={'1000px 0px 1000px 0px'}
                     src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_600x900.jpg`}
                     fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/header.jpg`}
                     className="hero-capsule"
@@ -91,6 +123,13 @@ function Overview() {
                 ))}
             </div>
             <Background />
+            <Modal
+                isOpen={modalOpen}
+                title={modalTitle}
+                body={modalBody}
+                footer={modalFooter}
+                onClose={() => setModalOpen(false)}
+            />
         </>
     );
 }
