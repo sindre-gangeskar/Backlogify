@@ -22,18 +22,20 @@ router.get('/:steamid', async function (req, res, next) {
     const data = await getOwnedGames(id);
 
     if (data) {
-      data.response.games.forEach(app => {
-        if (app) {
-          apps.push(app);
-        }
-      })
-      fs.writeFileSync(path.resolve(__dirname, `../data/${id}.json`), JSON.stringify(apps, null, 2));
+      const filtered = data.response.games.map(app => ({
+        appid: app.appid,
+        name: app.name,
+        playtime_forever: app.playtime_forever,
+        img_icon_url: app.img_icon_url
+      }))
+
+      fs.writeFileSync(path.resolve(__dirname, `../data/${id}.json`), JSON.stringify(filtered, null, 2));
       const saved = fs.readFileSync(path.resolve(__dirname, `../data/${id}.json`))
       return res.jsend.success({ appids: JSON.parse(saved) });
     }
 
     else {
-      res.jsend.fail({data: 'Could not find games associates with steam id'});
+      res.jsend.fail({ data: 'Could not find games associates with steam id' });
     }
 
   } catch (error) {

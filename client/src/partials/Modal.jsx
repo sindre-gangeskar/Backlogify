@@ -7,7 +7,7 @@ function Modal({ isOpen, onClose, title, body, footer }) {
         <div className="modal-wrapper">
             <span className="modal-top">
                 <h4 className="modal-title">{title}</h4>
-                <button onClick={onClose}>X</button>
+                <button onClick={onClose} className='modal-close-btn'>X</button>
             </span>
             <div className="modal-body">{body}</div>
             <div className="modal-footer">{footer}</div>

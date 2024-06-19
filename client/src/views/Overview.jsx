@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import ImageWithFallback from '../partials/ImageWithFallback';
 import Background from '../partials/Background';
 import Search from '../partials/Search';
-import Loading from '../views/Loading';
+import Loading from './Loading';
 import Modal from '../partials/Modal';
 
 import '../css/Overview.css';
@@ -54,14 +54,45 @@ function Overview() {
     }
 
     function openModal(app) {
-        console.log('Opening modal for app:', app);
-        setModalTitle(app.name);
+        setModalTitle(<div className='title'>{app.name}</div>
+        );
+
         setModalBody(
             <>
-                <p>Lorem ipsum dolor sit amet.</p>
+                <table className='gd-table-wrapper'>
+                    <thead>
+                        <tr>
+                            <td>App ID</td>
+                            <td>Title</td>
+                            <td>Total Playtime in hours</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{app.appid}</td>
+                            <td>{app.name}</td>
+                            <td>{Math.round(app.playtime_forever / 60)}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <HeroPoster app={app} />
+                <div className="library-hero-wrapper">
+                    <ImageWithFallback root={document.querySelector('.modal-body')}
+                        src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_hero.jpg`}
+                        fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/header.jpg`}
+                        className='library-hero'
+                        alt="library_hero.jpg"
+                    />
+                </div>
             </>
         )
+        setModalFooter(
+            <>
+                <span>
+                    <button>Add to Backlog</button>
+                </span>
+            </>)
+
         setModalOpen(true);
     }
 
