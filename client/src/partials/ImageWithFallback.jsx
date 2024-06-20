@@ -3,7 +3,6 @@ import { useInView } from 'react-intersection-observer';
 
 const ImageWithFallback = ({ src, alt, fallbackSrc, root, rootMargin, ...props }) => {
     const [ imgSrc, setImgSrc ] = useState(null);
-    const [ hasLoaded, setHasLoaded ] = useState(false);
     const { ref, inView } = useInView({
         root: root || null,
         triggerOnce: true,
@@ -16,11 +15,10 @@ const ImageWithFallback = ({ src, alt, fallbackSrc, root, rootMargin, ...props }
     }
 
     useEffect(() => {
-        if (inView && !hasLoaded) {
+        if (inView)
             setImgSrc(src);
-            setHasLoaded(true);
-        }
-    }, [ inView, src, hasLoaded ]);
+    }, [inView, src])
+
 
     return (
         <img ref={ref} src={imgSrc} alt={alt} onError={handleError} {...props} />

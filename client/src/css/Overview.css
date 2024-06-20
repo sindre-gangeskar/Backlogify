@@ -22,7 +22,7 @@
     height: 40dvh;
     display: flex;
     overflow: auto;
-    gap: 20px;
+    gap: 50px;
     justify-content: space-evenly;
     flex-wrap: wrap;
     flex-direction: row;

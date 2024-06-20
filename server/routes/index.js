@@ -9,8 +9,6 @@ const fs = require('fs');
 router.use(jsend.middleware);
 router.get('/:steamid', async function (req, res, next) {
   const id = req.params.steamid;
-  const apps = [];
-
   try {
     const exists = fs.existsSync(path.resolve(__dirname, `../data/${id}.json`));
 
@@ -20,7 +18,6 @@ router.get('/:steamid', async function (req, res, next) {
     }
 
     const data = await getOwnedGames(id);
-
     if (data) {
       const filtered = data.response.games.map(app => ({
         appid: app.appid,
