@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/Navbar.css';
 import { Link } from 'react-router-dom';
 function Navbar() {
-    const routes = [ { path: '/', name: 'home' }, { path: '/overview', name: 'overview' }, { path: '/backlog', name: 'backlog' } ]
+    const routes = [ { path: '/', name: 'home' }, { path: '/overview', name: 'overview' }, { path: '/overview', name: 'backlog' } ]
     return (
         <div className='nav navbar'>
             <h2 className="navbar-brand">Backlogify</h2>

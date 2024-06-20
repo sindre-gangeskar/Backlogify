@@ -1,8 +1,10 @@
 import React from 'react';
 import '../css/Loading.css';
+import Navbar from '../partials/Navbar';
 function Loading() {
     return (
         <>
+            <Navbar/>
             <div className="loading-wrapper">
                 <div className="inner"></div>
                 <div className="outer"></div>

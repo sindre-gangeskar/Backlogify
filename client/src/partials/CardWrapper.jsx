@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import { useInView } from "react-intersection-observer";
 import ImageWithFallback from "./ImageWithFallback";
-
+import '../css/CardWrapper.css'
 const CardWrapper = forwardRef(({ app, onClick, showAppID }, ref) => {
 
     return (

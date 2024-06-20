@@ -31,92 +31,6 @@
     border-image: linear-gradient(0deg, var(--primary-color), var(--secondary-tertiary-color)) 1;
 }
 
-.hero-capsule {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    overflow: hidden;
-    background-color: black;;
-}
-
-.card-wrapper {
-    width: calc(600px / 4.2);
-    height: calc(900px / 4.2);
-    margin-top: 30px;
-    position: relative;
-    transition: 300ms ease;
-    margin: 65px auto;
-    opacity: 0;
-}
-
-.card-wrapper::after {
-    left: 5px;
-    top: 5px;
-    right: 5px;
-    bottom: 5px;
-    content: '';
-    display: block;
-    position: absolute;
-    background: linear-gradient(0deg, var(--third-tertiary-color), var(--third-tertiary-color));
-    transition: 150ms ease;
-    z-index: -1;
-}
-
-.card-wrapper:hover::after {
-    left: -2px;
-    top: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(180deg, var(--secondary-tertiary-color), var(--third-tertiary-color));
-    box-shadow: 0px 0px 15px var(--secondary-tertiary-color);
-}
-
-.card-appid {
-    top: -25px;
-    width: 100%;
-    background-color: var(--primary-color);
-    text-align: center;
-    height: 25px;
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
-    transition: 300ms ease;
-}
-
-.visible {
-    opacity: 1;
-    transition: 300ms ease;
-}
-
-.card-title {
-    width: 100%;
-    height: 50px;
-    bottom: -50px;
-    position: absolute;
-    background-color: var(--secondary-color);
-    z-index: -1;
-    text-align: center;
-    align-self: baseline;
-    font-size: 12px;
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.card-wrapper:hover {
-    scale: 1.05;
-    cursor: pointer;
-    ;
-}
-
-
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -136,14 +50,4 @@
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--primary-color);
 
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
 }

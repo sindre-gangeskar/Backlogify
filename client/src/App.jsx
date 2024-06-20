@@ -9,10 +9,6 @@ import { useState } from 'react';
 function App() {
   const [ visible, setVisible ] = useState(false);
 
-  const toggleAppIdVisibility = e => {
-    setVisible(e.target.checked);
-  }
-
   return (
     <>
       <Routes>
