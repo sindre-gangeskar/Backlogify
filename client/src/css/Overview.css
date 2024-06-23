@@ -36,7 +36,7 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--footer);
+    background: var(--gray-50);
     border-radius: 2rem;
 }
 
@@ -49,5 +49,4 @@
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--primary-color);
-
 }

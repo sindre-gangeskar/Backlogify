@@ -1,6 +1,6 @@
 @import './colors.css';
 footer {
-    background-color: var(--footer);
+    background-color: var(--gray);
     width: 100%;
     bottom: 0;
     position: fixed;

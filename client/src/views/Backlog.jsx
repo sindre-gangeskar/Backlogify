@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /* Components */
@@ -7,13 +7,12 @@ import Background from '../partials/Background';
 import Search from '../partials/Search';
 import Loading from './Loading';
 import Modal from '../partials/Modal';
-import CardWrapper from '../partials/CardWrapper';
-import HeroPoster from '../partials/HeroPoster';
+import CardWrapper from '../partials/CardWrapper'
 
 /* CSS */
 import '../css/Overview.css';
 
-function Overview() {
+function Backlog() {
     const location = useLocation();
     const steamid = location.state?.steamid || localStorage.getItem('steamid');
 
@@ -28,30 +27,54 @@ function Overview() {
     const [ modalBody, setModalBody ] = useState(null);
     const [ modalFooter, setModalFooter ] = useState(null);
     const [ modalVisible, setModalVisible ] = useState(false);
-    const [ modalCurrentApp, setModalCurrentApp ] = useState(null);
     const [ modalButtonText, setModalButtonText ] = useState(null);
-
+    const [ modalCurrentApp, setModalCurrentApp ] = useState(null);
+    const [ modalButtonClicked, setModalButtonClicked ] = useState(false);
     const gamesWrapperRef = useRef(null);
     const modalWrapperRef = useRef(null);
     const gamesFormRef = useRef(null);
+
+
     const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
+    const handleAddToBacklogClick = () => {
+        setModalButtonClicked(true);
+    }
+
+    useEffect(() => {
+        if (modalOpen && modalCurrentApp) {
+            setModalButtonText(`Add ${modalCurrentApp.name} to backlog`);
+            setModalFooter(
+                <>
+                    <span>
+                        <form id='app-form' ref={gamesFormRef}>
+                            <input type="hidden" name='appid' value={modalCurrentApp.appid} />
+                            <input type="hidden" name='name' value={modalCurrentApp.name} />
+                            <input type="hidden" name='playtime_forever' value={modalCurrentApp.playtime_forever} />
+                            <input type="hidden" name='steamid' value={localStorage.getItem('steamid')} />
+                            <button type='submit' onClick={handleAddToBacklogClick}>{modalButtonText}</button>
+                        </form>
+                    </span>
+                </>)
+        }
+    }, [ modalOpen, modalCurrentApp, modalButtonText ])
+
 
     useEffect(() => {
         const getGames = async () => {
             setLoading(true);
             try {
-                const response = await fetch(`http://localhost:3000/${steamid}`);
+                const response = await fetch(`http://localhost:3000/backlog/${steamid}`);
                 if (response.ok) {
                     const games = await response.json();
                     if (games && games.data.appids) {
                         setGames(games);
                     } else {
                         setGames(null);
-                        setError(`Could not retrieve games from Steam ID: ${steamid}`);
+                        setError(`No entries found in the backlog`);
                     }
                 }
             } catch (error) {
-                setError(`Could not retrieve games from Steam ID: ${steamid}`);
+                setError(`No entries found in the backlog`);
             } finally {
                 setLoading(false);
             }
@@ -59,57 +82,6 @@ function Overview() {
         getGames();
     }, [ steamid ]);
 
-
-    useEffect(() => {
-        if (modalOpen && modalCurrentApp) {
-            let buttonText;
-
-            if (modalCurrentApp.backlogged)
-                buttonText = `${modalCurrentApp.name} is already in the backlog`
-            else buttonText = `Add ${modalCurrentApp.name} to the backlog`;
-
-            setModalFooter(
-                <>
-                    <span>
-                        <form id='app-form' ref={gamesFormRef} onSubmit={handleSubmit}>
-                            <input type="hidden" name='appid' value={modalCurrentApp.appid} />
-                            <input type="hidden" name='name' value={modalCurrentApp.name} />
-                            <input type="hidden" name='playtime_forever' value={modalCurrentApp.playtime_forever} />
-                            <input type="hidden" name='steamid' value={localStorage.getItem('steamid')} />
-                            <button type='submit' className={`modal-submit-btn ${modalCurrentApp.backlogged ? 'backlogged' : ''}'`}>{buttonText}</button>
-                        </form>
-                    </span>
-                </>
-            );
-        }
-    }, [ modalOpen, modalCurrentApp ]);
-
-
-
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const form = new FormData(gamesFormRef.current);
-        const name = form.get('name');
-        const appid = form.get('appid');
-        const playtime_forever = form.get('playtime_forever');
-        const steamid = form.get('steamid');
-
-        try {
-            const response = await fetch('http://localhost:3000/backlog', {
-                headers: { 'Content-Type': 'application/json' },
-                method: 'POST',
-                body: JSON.stringify({ appid, name, playtime_forever, steamid, backlogged: true })
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setModalButtonText(data.message);
-                setModalCurrentApp({ ...modalCurrentApp, backlogged: true });
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
     function handleFilter(searchValue) {
         setFilter(searchValue);
     }
@@ -133,7 +105,9 @@ function Overview() {
                     </tr>
                 </tbody>
             </table>
-            <HeroPoster app={app} key={app.appid} className="hero-poster-img" />
+            <div className="hero-poster">
+                <HeroPoster app={app} key={app.appid} className="hero-poster-img" />
+            </div>
             <div className="library-hero-wrapper" >
                 <ImageWithFallback root={modalWrapperRef.current} key={app.appid}
                     src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_hero.jpg`}
@@ -156,8 +130,9 @@ function Overview() {
         }, 100)
     }
 
-    if (loading)
+    if (loading) {
         return <Loading key={loading} />;
+    }
 
     if (error) {
         return (
@@ -170,12 +145,22 @@ function Overview() {
         );
     }
 
+    const HeroPoster = memo(({ app }) => {
+        return (
+            <ImageWithFallback root={modalWrapperRef.current}
+                src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_600x900.jpg`}
+                fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/header.jpg`}
+                className="hero-poster"
+            />
+        )
+    })
+
     return (
         <>
             <Search onSubmit={handleFilter} setVisible={setVisible} />
             <div className='games-wrapper' ref={gamesWrapperRef}>
                 {filtered.map((app) => (
-                    <CardWrapper key={app.appid} app={app} showAppID={visible} onClick={(() => { setModal(app); })} />
+                    <CardWrapper key={app.appid} app={app} showAppID={visible} onClick={(() => { setModal(app) })} />
                 ))}
             </div>
             <Background />
@@ -191,4 +176,4 @@ function Overview() {
     );
 }
 
-export default Overview;
+export default Backlog;

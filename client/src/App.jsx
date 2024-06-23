@@ -1,5 +1,7 @@
 import './css/App.css'
+import './css/index.css';
 import Overview from './views/Overview'
+import Backlog from './views/Backlog'
 import Navbar from './partials/Navbar';
 import Footer from './partials/Footer';
 import SteamId from './views/SteamId';
@@ -16,6 +18,13 @@ function App() {
           <>
             <Navbar key={'navbar'} />
             <Overview key={'overview'} setVisible={setVisible} />
+            <Footer key={'footer'} />
+          </>
+        }></Route>
+        <Route path='/backlog' key={'/backlog'} element={
+          <>
+            <Navbar key={'navbar'} />
+            <Backlog key={'backlog'} setVisible={setVisible} />
             <Footer key={'footer'} />
           </>
         }></Route>

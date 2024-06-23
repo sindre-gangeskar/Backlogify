@@ -1,11 +1,10 @@
 .navbar {
-    background-color: var(--footer);
     text-align: center;
     width: 100%;
     height: 50px;
     margin-bottom: 50px;
     padding-bottom: 30px;
-    background-color: var(--footer);
+    background-color: var(--gray);
     display: flex;
     flex: 1;
     flex-wrap: wrap;
