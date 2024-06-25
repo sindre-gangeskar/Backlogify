@@ -78,15 +78,31 @@
     width: 100%;
 }
 
+ .backlogged{
+    color: red;
+ }
+
 .modal-title {
     margin-left: 10px;
     z-index: 999;
     width: 100%;
 }
 
+.modal-submit-btn {
+    background: none;
+    background-image: none;
+}
 
-.backlogged {
-    background-color: red;
+.modal-wrapper .modal-footer .modal-submit-btn.backlogged {
+    position: relative;
+    background: green !important;
+    z-index: -99999999 !important;
+}
+
+.modal-submit-btn.backlogged {
+    position: relative;
+    background: green !important;
+    z-index: -99999999 !important;
 }
 
 .library-hero-wrapper {

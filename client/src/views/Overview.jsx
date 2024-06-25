@@ -6,14 +6,18 @@ import ImageWithFallback from '../partials/ImageWithFallback';
 import Background from '../partials/Background';
 import Search from '../partials/Search';
 import Loading from './Loading';
-import Modal from '../partials/Modal';
 import CardWrapper from '../partials/CardWrapper';
 import HeroPoster from '../partials/HeroPoster';
+import Modal from '../partials/Modal';
+
+/* Classes */
+import Timer from '../classes/Timer';
 
 /* CSS */
 import '../css/Overview.css';
 
 function Overview() {
+    const timer = new Timer();
     const location = useLocation();
     const steamid = location.state?.steamid || localStorage.getItem('steamid');
 
@@ -29,13 +33,15 @@ function Overview() {
     const [ modalFooter, setModalFooter ] = useState(null);
     const [ modalVisible, setModalVisible ] = useState(false);
     const [ modalCurrentApp, setModalCurrentApp ] = useState(null);
-    const [ modalButtonText, setModalButtonText ] = useState(null);
+
+    const [ loadingVisible, setLoadingVisible ] = useState(true);
 
     const gamesWrapperRef = useRef(null);
     const modalWrapperRef = useRef(null);
     const gamesFormRef = useRef(null);
     const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
 
+    /* Games */
     useEffect(() => {
         const getGames = async () => {
             setLoading(true);
@@ -53,20 +59,20 @@ function Overview() {
             } catch (error) {
                 setError(`Could not retrieve games from Steam ID: ${steamid}`);
             } finally {
+                timer.delay(0.5, (() => { setLoadingVisible(false) }));
                 setLoading(false);
             }
         };
         getGames();
     }, [ steamid ]);
 
-
+    /* Modal */
     useEffect(() => {
         if (modalOpen && modalCurrentApp) {
-            let buttonText;
+            let buttonText = `Add ${modalCurrentApp.name} to the backlog`;;
 
             if (modalCurrentApp.backlogged)
-                buttonText = `${modalCurrentApp.name} is already in the backlog`
-            else buttonText = `Add ${modalCurrentApp.name} to the backlog`;
+                buttonText = `${modalCurrentApp.name} is added to the backlog`
 
             setModalFooter(
                 <>
@@ -84,8 +90,6 @@ function Overview() {
         }
     }, [ modalOpen, modalCurrentApp ]);
 
-
-
     async function handleSubmit(event) {
         event.preventDefault();
         const form = new FormData(gamesFormRef.current);
@@ -102,10 +106,10 @@ function Overview() {
             });
 
             if (response.ok) {
-                const data = await response.json();
-                setModalButtonText(data.message);
                 setModalCurrentApp({ ...modalCurrentApp, backlogged: true });
+                modalCurrentApp.backlogged = true;
             }
+
         } catch (error) {
             console.error(error);
         }
@@ -156,9 +160,6 @@ function Overview() {
         }, 100)
     }
 
-    if (loading)
-        return <Loading key={loading} />;
-
     if (error) {
         return (
             <>
@@ -169,9 +170,9 @@ function Overview() {
             </>
         );
     }
-
     return (
         <>
+            <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />;
             <Search onSubmit={handleFilter} setVisible={setVisible} />
             <div className='games-wrapper' ref={gamesWrapperRef}>
                 {filtered.map((app) => (

@@ -1,11 +1,11 @@
 import React from 'react';
 import '../css/Loading.css';
 import Navbar from '../partials/Navbar';
-function Loading() {
+function Loading({className}) {
     return (
         <>
-            <Navbar/>
-            <div className="loading-wrapper">
+            <Navbar />
+            <div className={`loading-wrapper ${className}`}>
                 <div className="inner"></div>
                 <div className="outer"></div>
                 <h4 className='text'>Loading...</h4>

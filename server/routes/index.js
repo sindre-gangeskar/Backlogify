@@ -95,4 +95,14 @@ router.get('/backlog/:steamid', async function (req, res, next) {
   }
 })
 
+router.delete('/backlog', async function (req, res, next) {
+  const { appid, steamid } = req.body;
+  const data = JSON.parse(fs.readFileSync(path.resolve(__dirname, `../data/backlog/${steamid}.json`)));
+  const dataToKeep = data.filter(x => x.appid !== +appid);
+
+  console.log(req.body);
+
+  fs.writeFileSync(path.resolve(__dirname, `../data/backlog/${steamid}.json`), JSON.stringify(dataToKeep, null, 2));
+  res.jsend.success({ data: { appid }, message: 'Successfully removed game from backlog' });
+})
 module.exports = router;

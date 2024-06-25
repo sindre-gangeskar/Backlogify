@@ -9,10 +9,15 @@ import Loading from './Loading';
 import Modal from '../partials/Modal';
 import CardWrapper from '../partials/CardWrapper'
 
+/* Classes */
+import Timer from '../classes/Timer';
+
+
 /* CSS */
 import '../css/Overview.css';
 
 function Backlog() {
+    const timer = new Timer();
     const location = useLocation();
     const steamid = location.state?.steamid || localStorage.getItem('steamid');
 
@@ -34,33 +39,79 @@ function Backlog() {
     const modalWrapperRef = useRef(null);
     const gamesFormRef = useRef(null);
 
+    const [ refreshing, setRefreshing ] = useState(false);
+
+    const [ loadingVisible, setLoadingVisible ] = useState(true);
 
     const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
-    const handleAddToBacklogClick = () => {
-        setModalButtonClicked(true);
+
+    const removeFromBacklog = async (appid) => {
+        setModalVisible(false);
+        setRefreshing(true);
+        timer.delay(0.1, () => { setModalOpen(false) })
+
+        const response = await fetch(`http://localhost:3000/backlog`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ appid: +appid, steamid: steamid })
+        })
+
+        /* Refresh Games after deletion */
+        if (response.ok) {
+            console.log(`Deleted: ${appid} from backlog`)
+        }
+
+        setRefreshing(false);
     }
 
+    /* Refresh games after deletion */
+    useEffect(() => {
+        setLoadingVisible(false);
+        const getGames = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/backlog/${steamid}`);
+                if (response.ok) {
+                    const games = await response.json();
+                    setRefreshing(false);
+
+                    if (games && games.data.appids) {
+                        setGames(games);
+                    } else {
+                        setGames(null);
+                        setError(`No entries found in the backlog`);
+                    }
+                }
+            } catch (error) {
+                setError(`No entries found in the backlog`);
+            }
+        };
+
+        getGames();
+    }, [ refreshing ]);
+
+    /* Modal */
     useEffect(() => {
         if (modalOpen && modalCurrentApp) {
-            setModalButtonText(`Add ${modalCurrentApp.name} to backlog`);
+            setModalButtonText(`Remove ${modalCurrentApp.name} from the backlog`);
             setModalFooter(
                 <>
                     <span>
-                        <form id='app-form' ref={gamesFormRef}>
+                        <form id='app-form' ref={gamesFormRef} action=''>
                             <input type="hidden" name='appid' value={modalCurrentApp.appid} />
                             <input type="hidden" name='name' value={modalCurrentApp.name} />
                             <input type="hidden" name='playtime_forever' value={modalCurrentApp.playtime_forever} />
                             <input type="hidden" name='steamid' value={localStorage.getItem('steamid')} />
-                            <button type='submit' onClick={handleAddToBacklogClick}>{modalButtonText}</button>
+                            <button type='button' onClick={(() => { removeFromBacklog(modalCurrentApp.appid) })}>{modalButtonText}</button>
                         </form>
                     </span>
                 </>)
         }
     }, [ modalOpen, modalCurrentApp, modalButtonText ])
 
-
+    /* Games */
     useEffect(() => {
         const getGames = async () => {
+            setLoadingVisible(true);
             setLoading(true);
             try {
                 const response = await fetch(`http://localhost:3000/backlog/${steamid}`);
@@ -76,6 +127,7 @@ function Backlog() {
             } catch (error) {
                 setError(`No entries found in the backlog`);
             } finally {
+                timer.delay(0.5, (() => { setLoadingVisible(false) }));
                 setLoading(false);
             }
         };
@@ -130,10 +182,6 @@ function Backlog() {
         }, 100)
     }
 
-    if (loading) {
-        return <Loading key={loading} />;
-    }
-
     if (error) {
         return (
             <>
@@ -157,11 +205,14 @@ function Backlog() {
 
     return (
         <>
+            <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />;
             <Search onSubmit={handleFilter} setVisible={setVisible} />
             <div className='games-wrapper' ref={gamesWrapperRef}>
-                {filtered.map((app) => (
-                    <CardWrapper key={app.appid} app={app} showAppID={visible} onClick={(() => { setModal(app) })} />
-                ))}
+                {filtered.length > 0 ? (
+                    filtered.map((app) => (
+                        <CardWrapper key={app.appid} app={app} showAppID={visible} onClick={(() => { setModal(app) })} />
+                    ))
+                ) : (<h1>No games in the backlog</h1>)}
             </div>
             <Background />
             <Modal

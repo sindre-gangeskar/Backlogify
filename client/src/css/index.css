@@ -53,11 +53,6 @@ button {
   transition: 150ms ease;
 }
 
-button.backlogged{
-  scale: 150% !important;
-  background-color: red;
-}
-
 button:hover {
   border-color: var(--secondary-tertiary-color);
 }
