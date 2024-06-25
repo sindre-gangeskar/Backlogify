@@ -25,7 +25,7 @@
     "name": "Day of Defeat: Source",
     "playtime_forever": 0,
     "img_icon_url": "062754bb5853b0534283ae27dc5d58200692b22d",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 30,
@@ -46,7 +46,7 @@
     "name": "Ricochet",
     "playtime_forever": 0,
     "img_icon_url": "98c69e04cd59b838e05cb6980c12c05874c6419e",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 240,
@@ -74,21 +74,21 @@
     "name": "Darkest Hour: Europe '44-'45",
     "playtime_forever": 0,
     "img_icon_url": "fb56136d0327b403e276460aca1ff0f559b02215",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 2100,
     "name": "Dark Messiah of Might & Magic Single Player",
     "playtime_forever": 0,
     "img_icon_url": "5a08cd17d14ccb07a14f316dfa222b18a20960fd",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 2130,
     "name": "Dark Messiah of Might & Magic Multi-Player",
     "playtime_forever": 0,
     "img_icon_url": "5a08cd17d14ccb07a14f316dfa222b18a20960fd",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 2630,
@@ -123,7 +123,7 @@
     "name": "Project: Snowblind",
     "playtime_forever": 0,
     "img_icon_url": "2c591be8d5a0827df772bf136cdc0fa4176dfe5f",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 4540,
@@ -137,7 +137,7 @@
     "name": "Titan Quest: Immortal Throne",
     "playtime_forever": 896,
     "img_icon_url": "e06510f40941e9ac62688d34a57c293594049274",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 475150,
@@ -158,7 +158,7 @@
     "name": "DOOM 3",
     "playtime_forever": 0,
     "img_icon_url": "a80e3028754c85e62fcc130d3b76ddf8892699e0",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 9070,
@@ -256,14 +256,14 @@
     "name": "Max Payne",
     "playtime_forever": 0,
     "img_icon_url": "341d6de6e749fb2889ea046f57702f547853a464",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 320,
     "name": "Half-Life 2: Deathmatch",
     "playtime_forever": 245,
     "img_icon_url": "795e85364189511f4990861b578084deef086cb1",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 340,
@@ -2881,6 +2881,13 @@
     "name": "Mortal Kombat Komplete Edition",
     "playtime_forever": 172,
     "img_icon_url": "3b9c627b90f42cf650d5848e2fdd779fa4e6eb19",
+    "backlogged": false
+  },
+  {
+    "appid": 225160,
+    "name": "Shadow Warrior Classic Redux",
+    "playtime_forever": 0,
+    "img_icon_url": "782389ab2535d0bf97f1b00ae772640a9ae09b00",
     "backlogged": false
   },
   {
@@ -9578,7 +9585,7 @@
   {
     "appid": 993090,
     "name": "Lossless Scaling",
-    "playtime_forever": 426,
+    "playtime_forever": 441,
     "img_icon_url": "42900f430ed7828d2dfa25f07ac02e3de96bc520",
     "backlogged": false
   },
@@ -9671,6 +9678,13 @@
     "name": "A Plague Tale: Innocence",
     "playtime_forever": 294,
     "img_icon_url": "25e8278800f59f82e0fc2d8a61fb17ec1468a500",
+    "backlogged": false
+  },
+  {
+    "appid": 1036890,
+    "name": "Shadow Warrior 3: Definitive Edition",
+    "playtime_forever": 0,
+    "img_icon_url": "4d46374b7b87b3e6cae6aef475053ca564a17f7b",
     "backlogged": false
   },
   {
@@ -11755,7 +11769,7 @@
   {
     "appid": 1245620,
     "name": "ELDEN RING",
-    "playtime_forever": 8290,
+    "playtime_forever": 9047,
     "img_icon_url": "b6e290dd5a92ce98f89089a207733c70c41a1871",
     "backlogged": false
   },

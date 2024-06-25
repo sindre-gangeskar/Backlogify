@@ -1,43 +1,19 @@
 [
   {
-    "name": "Half-Life 2: Deathmatch",
-    "appid": 320,
-    "playtime_forever": 245,
-    "backlogged": true
-  },
-  {
-    "name": "Max Payne",
-    "appid": 12140,
+    "name": "Dark Messiah of Might & Magic Single Player",
+    "appid": 2100,
     "playtime_forever": 0,
     "backlogged": true
   },
   {
-    "name": "Day of Defeat: Source",
-    "appid": 300,
+    "name": "Ricochet",
+    "appid": 60,
     "playtime_forever": 0,
     "backlogged": true
   },
   {
-    "name": "Darkest Hour: Europe '44-'45",
-    "appid": 1280,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
-    "name": "Project: Snowblind",
-    "appid": 7010,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
-    "name": "Titan Quest: Immortal Throne",
-    "appid": 4550,
-    "playtime_forever": 896,
-    "backlogged": true
-  },
-  {
-    "name": "Dark Messiah of Might & Magic Multi-Player",
-    "appid": 2130,
+    "name": "DOOM 3",
+    "appid": 9050,
     "playtime_forever": 0,
     "backlogged": true
   }
