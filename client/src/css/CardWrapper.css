@@ -46,7 +46,7 @@
     right: -1px;
     bottom: -1px;
     background-color: #ffffff;
-    animation: hover 400ms forwards, pulse 1500ms infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: hover 400ms forwards, pulse-in-out 1500ms infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card-appid {
@@ -103,7 +103,7 @@
     }
 }
 
-@keyframes pulse {
+@keyframes pulse-in-out {
     0% {
         opacity: 0.3
     }
