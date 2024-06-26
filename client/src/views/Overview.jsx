@@ -43,28 +43,33 @@ function Overview() {
 
     /* Games */
     useEffect(() => {
+        let finished = false;
+        
         const getGames = async () => {
+            setLoadingVisible(true);
             setLoading(true);
             try {
                 const response = await fetch(`http://localhost:3000/${steamid}`);
-                if (response.ok) {
+                if (response.ok && !finished) {
                     const games = await response.json();
                     if (games && games.data.appids) {
                         setGames(games);
                     } else {
                         setGames(null);
-                        setError(`Could not retrieve games from Steam ID: ${steamid}`);
+                        setError(`No entries found in the backlog`);
                     }
                 }
             } catch (error) {
-                setError(`Could not retrieve games from Steam ID: ${steamid}`);
+                setError(`No entries found in the backlog`);
             } finally {
                 timer.delay(0.5, (() => { setLoadingVisible(false) }));
                 setLoading(false);
             }
         };
+
         getGames();
-    }, [ steamid ]);
+        return (() => finished = true)
+    }, [steamid]);
 
     /* Modal */
     useEffect(() => {

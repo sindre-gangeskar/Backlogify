@@ -11,7 +11,7 @@
     "name": "Counter-Strike: Condition Zero",
     "playtime_forever": 0,
     "img_icon_url": "077b050ef3e89cd84e2c5a575d78d53b54058236",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 100,
@@ -102,7 +102,7 @@
     "name": "Sid Meier's Pirates!",
     "playtime_forever": 0,
     "img_icon_url": "eeb9384067131b98cd71308aeded180dd9538951",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 4000,
@@ -123,7 +123,7 @@
     "name": "Project: Snowblind",
     "playtime_forever": 0,
     "img_icon_url": "2c591be8d5a0827df772bf136cdc0fa4176dfe5f",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 4540,
@@ -914,7 +914,7 @@
     "name": "Fallout: New Vegas",
     "playtime_forever": 403,
     "img_icon_url": "1711fd8c46d739feec76bd4a64eaeeca5b87e3a7",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 42700,

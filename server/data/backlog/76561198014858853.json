@@ -1,26 +1,8 @@
 [
   {
-    "name": "Counter-Strike: Condition Zero",
-    "appid": 80,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
-    "name": "Sid Meier's Pirates!",
-    "appid": 3920,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
-    "name": "Project: Snowblind",
-    "appid": 7010,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
-    "name": "Quake II",
-    "appid": 2320,
-    "playtime_forever": 21,
+    "name": "Fallout: New Vegas",
+    "appid": 22380,
+    "playtime_forever": 403,
     "backlogged": true
   }
 ]

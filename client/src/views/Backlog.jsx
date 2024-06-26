@@ -110,12 +110,13 @@ function Backlog() {
 
     /* Games */
     useEffect(() => {
+        let finished = false;
         const getGames = async () => {
             setLoadingVisible(true);
             setLoading(true);
             try {
                 const response = await fetch(`http://localhost:3000/backlog/${steamid}`);
-                if (response.ok) {
+                if (response.ok && !finished) {
                     const games = await response.json();
                     if (games && games.data.appids) {
                         setGames(games);
@@ -132,6 +133,7 @@ function Backlog() {
             }
         };
         getGames();
+        return (() => {finished = true})
     }, [ steamid ]);
 
     function handleFilter(searchValue) {
