@@ -11,7 +11,7 @@
     "name": "Counter-Strike: Condition Zero",
     "playtime_forever": 0,
     "img_icon_url": "077b050ef3e89cd84e2c5a575d78d53b54058236",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 100,
@@ -46,7 +46,7 @@
     "name": "Ricochet",
     "playtime_forever": 0,
     "img_icon_url": "98c69e04cd59b838e05cb6980c12c05874c6419e",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 240,
@@ -81,7 +81,7 @@
     "name": "Dark Messiah of Might & Magic Single Player",
     "playtime_forever": 0,
     "img_icon_url": "5a08cd17d14ccb07a14f316dfa222b18a20960fd",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 2130,
@@ -158,7 +158,7 @@
     "name": "DOOM 3",
     "playtime_forever": 0,
     "img_icon_url": "a80e3028754c85e62fcc130d3b76ddf8892699e0",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 9070,

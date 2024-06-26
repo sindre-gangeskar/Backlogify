@@ -5,7 +5,7 @@ import '../css/CardWrapper.css'
 const CardWrapper = forwardRef(({ app, onClick, showAppID }, ref) => {
 
     return (
-        <div ref={ref} className={`card-wrapper visible`} onClick={onClick}>
+        <div ref={ref} className="card-wrapper" onClick={onClick}>
             <div className={`card-appid ${showAppID === true ? 'visible' : ''}`}>{app.appid}</div>
             <div className="card-title">{app.name}</div>
             <ImageWithFallback
