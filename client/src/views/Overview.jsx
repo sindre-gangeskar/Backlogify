@@ -44,7 +44,7 @@ function Overview() {
     /* Games */
     useEffect(() => {
         let finished = false;
-        
+
         const getGames = async () => {
             setLoadingVisible(true);
             setLoading(true);
@@ -69,12 +69,12 @@ function Overview() {
 
         getGames();
         return (() => finished = true)
-    }, [steamid]);
+    }, [ steamid ]);
 
     /* Modal */
     useEffect(() => {
         if (modalOpen && modalCurrentApp) {
-            let buttonText = `Add ${modalCurrentApp.name} to the backlog`;;
+            let buttonText = `Add ${modalCurrentApp.name} to the backlog`;
 
             if (modalCurrentApp.backlogged)
                 buttonText = `${modalCurrentApp.name} is added to the backlog`
@@ -87,13 +87,13 @@ function Overview() {
                             <input type="hidden" name='name' value={modalCurrentApp.name} />
                             <input type="hidden" name='playtime_forever' value={modalCurrentApp.playtime_forever} />
                             <input type="hidden" name='steamid' value={localStorage.getItem('steamid')} />
-                            <button type='submit' className={`modal-submit-btn ${modalCurrentApp.backlogged ? 'backlogged' : ''}'`}>{buttonText}</button>
+                            <button type='submit' className={`modal-submit-btn ${modalCurrentApp.backlogged ? 'backlogged' : ''}`}>{buttonText}</button>
                         </form>
                     </span>
                 </>
             );
         }
-    }, [ modalOpen, modalCurrentApp ]);
+    }, [ modalCurrentApp ]);
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -142,7 +142,9 @@ function Overview() {
                     </tr>
                 </tbody>
             </table>
-            <HeroPoster app={app} key={app.appid} className="hero-poster-img" />
+            <div className="hero-poster-wrapper">
+                <HeroPoster app={app} key={app.appid} className="hero-poster-img" />
+            </div>
             <div className="library-hero-wrapper" >
                 <ImageWithFallback root={modalWrapperRef.current} key={app.appid}
                     src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_hero.jpg`}

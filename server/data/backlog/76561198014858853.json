@@ -1,8 +1,14 @@
 [
   {
-    "name": "Fallout: New Vegas",
-    "appid": 22380,
-    "playtime_forever": 403,
+    "name": "Far Cry",
+    "appid": 13520,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Conflict: Denied Ops",
+    "appid": 8100,
+    "playtime_forever": 0,
     "backlogged": true
   }
 ]

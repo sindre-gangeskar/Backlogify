@@ -44,14 +44,15 @@ button {
   border-radius: 8px;
   outline: none;
   border: 1px solid var(--primary-color);
+  background-color: var(--footer);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--footer);
   cursor: pointer;
   transition: 150ms ease;
 }
+
 
 button:hover {
   border-color: var(--secondary-tertiary-color);

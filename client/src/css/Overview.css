@@ -29,9 +29,6 @@
     border-image: linear-gradient(0deg, var(--primary-color), var(--secondary-tertiary-color)) 1;
 }
 
-.backlogged{
-    background-color: red;
-}
 ::-webkit-scrollbar {
     width: 10px;
 }

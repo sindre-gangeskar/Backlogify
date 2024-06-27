@@ -34,7 +34,8 @@ function Backlog() {
     const [ modalVisible, setModalVisible ] = useState(false);
     const [ modalButtonText, setModalButtonText ] = useState(null);
     const [ modalCurrentApp, setModalCurrentApp ] = useState(null);
-    const [ modalButtonClicked, setModalButtonClicked ] = useState(false);
+    const [ remove, setRemove ] = useState(false);
+
     const gamesWrapperRef = useRef(null);
     const modalWrapperRef = useRef(null);
     const gamesFormRef = useRef(null);
@@ -60,6 +61,7 @@ function Backlog() {
         if (response.ok) {
             console.log(`Deleted: ${appid} from backlog`)
         }
+        else throw new Error('Could not remove from backlog');
 
         setRefreshing(false);
     }
@@ -91,22 +93,34 @@ function Backlog() {
 
     /* Modal */
     useEffect(() => {
+   
         if (modalOpen && modalCurrentApp) {
-            setModalButtonText(`Remove ${modalCurrentApp.name} from the backlog`);
+            let buttonText = `Remove ${modalCurrentApp.name} from the backlog`;
+            setModalButtonText(buttonText);
+            if (remove) {
+                buttonText = `Removing ${modalCurrentApp.name} from the backlog`
+                setModalButtonText(buttonText);
+            }
+
             setModalFooter(
                 <>
                     <span>
-                        <form id='app-form' ref={gamesFormRef} action=''>
+                        <form id='app-form' ref={gamesFormRef}>
                             <input type="hidden" name='appid' value={modalCurrentApp.appid} />
                             <input type="hidden" name='name' value={modalCurrentApp.name} />
                             <input type="hidden" name='playtime_forever' value={modalCurrentApp.playtime_forever} />
                             <input type="hidden" name='steamid' value={localStorage.getItem('steamid')} />
-                            <button type='button' onClick={(() => { removeFromBacklog(modalCurrentApp.appid) })}>{modalButtonText}</button>
+                            <button type='button' className={`${remove === true ? 'removed' : ''}`} onClick={(() => {
+                                if (confirm(`Are you sure you want to remove ${modalCurrentApp.name} from the backlog?`)) {
+                                    setRemove(true);
+                                    timer.delay(1, (() => { removeFromBacklog(modalCurrentApp.appid).then(() => { setRemove(false) }) }))
+                                }
+                            })}>{modalButtonText}</button>
                         </form>
                     </span>
                 </>)
         }
-    }, [ modalOpen, modalCurrentApp, modalButtonText ])
+    }, [ modalOpen, modalCurrentApp, modalButtonText, remove ])
 
     /* Games */
     useEffect(() => {
@@ -133,7 +147,7 @@ function Backlog() {
             }
         };
         getGames();
-        return (() => {finished = true})
+        return (() => { finished = true })
     }, [ steamid ]);
 
     function handleFilter(searchValue) {
@@ -159,7 +173,7 @@ function Backlog() {
                     </tr>
                 </tbody>
             </table>
-            <div className="hero-poster">
+            <div className="hero-poster-wrapper">
                 <HeroPoster app={app} key={app.appid} className="hero-poster-img" />
             </div>
             <div className="library-hero-wrapper" >
