@@ -1,13 +1,12 @@
 import React, { forwardRef } from "react";
-import { useInView } from "react-intersection-observer";
 import ImageWithFallback from "./ImageWithFallback";
 import '../css/CardWrapper.css'
-const CardWrapper = forwardRef(({ app, onClick, showAppID }, ref) => {
+const CardWrapper = forwardRef(({ app, onClick, showAppID, showGameTitle }, ref) => {
 
     return (
         <div ref={ref} className="card-wrapper" onClick={onClick}>
             <div className={`card-appid ${showAppID === true ? 'visible' : ''}`}>{app.appid}</div>
-            <div className="card-title">{app.name}</div>
+            <div className={`card-title ${showGameTitle === true ? 'visible' : ''}`}>{app.name}</div>
             <ImageWithFallback
                 root={ref}
                 rootMargin={'1000px 0px 1000px 0px'}

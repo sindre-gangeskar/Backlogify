@@ -25,7 +25,8 @@ function Overview() {
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(null);
     const [ filter, setFilter ] = useState('');
-    const [ visible, setVisible ] = useState(false);
+    const [ appIdVisibility, setAppIDVisibility ] = useState(false);
+    const [ gameTitleVisibility, setGameTitleVisibility ] = useState(false);
 
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ modalTitle, setModalTitle ] = useState(null);
@@ -35,6 +36,7 @@ function Overview() {
     const [ modalCurrentApp, setModalCurrentApp ] = useState(null);
 
     const [ loadingVisible, setLoadingVisible ] = useState(true);
+
 
     const gamesWrapperRef = useRef(null);
     const modalWrapperRef = useRef(null);
@@ -143,7 +145,7 @@ function Overview() {
                 </tbody>
             </table>
             <div className="hero-poster-wrapper">
-                <HeroPoster app={app} key={app.appid} className="hero-poster-img" />
+                <HeroPoster app={app} key={app.appid} className="hero-poster" />
             </div>
             <div className="library-hero-wrapper" >
                 <ImageWithFallback root={modalWrapperRef.current} key={app.appid}
@@ -180,10 +182,10 @@ function Overview() {
     return (
         <>
             <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />;
-            <Search onSubmit={handleFilter} setVisible={setVisible} />
+            <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} />
             <div className='games-wrapper' ref={gamesWrapperRef}>
                 {filtered.map((app) => (
-                    <CardWrapper key={app.appid} app={app} showAppID={visible} onClick={(() => { setModal(app); })} />
+                    <CardWrapper key={app.appid} app={app} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} onClick={(() => { setModal(app); })} />
                 ))}
             </div>
             <Background />

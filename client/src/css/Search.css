@@ -42,15 +42,25 @@
     font-size: small;
     justify-content: center;
     align-items: center;
+    gap: 15px;
     border-bottom: 1px solid var(--secondary-tertiary-color);
 }
 
 .buttons-wrapper .toggle-appids-btn {
     width: 15px;
-    height: 15px;
+    height: 15px;;
 }
 
-button{
-    outline: 1px solid var(--primary-color);
-    border-radius: 0% !important;
+.reset-btn, .search-btn, .reset-btn:active, .search-btn:active, .search-btn:focus, .reset-btn:focus{
+    display: grid;
+    font-size: 1.5rem;
+    padding: 0;
+    text-align: center;
+    justify-content: center;
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+button:hover{
+    color: var(--secondary-tertiary-color);
 }

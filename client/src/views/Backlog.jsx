@@ -25,7 +25,8 @@ function Backlog() {
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(null);
     const [ filter, setFilter ] = useState('');
-    const [ visible, setVisible ] = useState(false);
+    const [ appIdVisibility, setAppIDVisibility ] = useState(false);
+    const [ gameTitleVisibility, setGameTitleVisibility ] = useState(false);
 
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ modalTitle, setModalTitle ] = useState(null);
@@ -222,11 +223,11 @@ function Backlog() {
     return (
         <>
             <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />;
-            <Search onSubmit={handleFilter} setVisible={setVisible} />
+            <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} />
             <div className='games-wrapper' ref={gamesWrapperRef}>
                 {filtered.length > 0 ? (
                     filtered.map((app) => (
-                        <CardWrapper key={app.appid} app={app} showAppID={visible} onClick={(() => { setModal(app) })} />
+                        <CardWrapper key={app.appid} app={app} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} onClick={(() => { setModal(app); })} />
                     ))
                 ) : (<h1>No games in the backlog</h1>)}
             </div>
