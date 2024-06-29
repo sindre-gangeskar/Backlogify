@@ -13,6 +13,7 @@ router.get('/:steamid', async function (req, res, next) {
     fs.mkdirSync(path.resolve(__dirname, '../data/backlog'));
 
   const id = req.params.steamid;
+
   try {
     const exists = fs.existsSync(path.resolve(__dirname, `../data/${id}.json`));
     const backlogExists = fs.existsSync(path.resolve(__dirname, `../data/backlog/${id}.json`));
@@ -39,7 +40,7 @@ router.get('/:steamid', async function (req, res, next) {
 
     const data = await getOwnedGames(id);
 
-    if (data) {
+    if (data.response.games && data.response.games.length > 0) {
       const filtered = data.response.games.map(app => ({
         appid: app.appid,
         name: app.name,
@@ -51,14 +52,10 @@ router.get('/:steamid', async function (req, res, next) {
       fs.writeFileSync(path.resolve(__dirname, `../data/${id}.json`), JSON.stringify(filtered, null, 2));
       const saved = fs.readFileSync(path.resolve(__dirname, `../data/${id}.json`))
       return res.jsend.success({ appids: JSON.parse(saved) });
-    }
-
-    else {
-      res.jsend.fail({ data: 'Could not find games associates with steam id' });
-    }
+    } else return res.jsend.success({ appids: [], message: 'ASDSADA' });
 
   } catch (error) {
-    return res.jsend.error({ message: 'something went wrong' });
+    return res.jsend.fail({ message: `Could not find games associated with steam id: ${id}`, appids: []});
   }
 
 });

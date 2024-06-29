@@ -52,17 +52,25 @@ function Overview() {
             setLoading(true);
             try {
                 const response = await fetch(`http://localhost:3000/${steamid}`);
+
                 if (response.ok && !finished) {
-                    const games = await response.json();
-                    if (games && games.data.appids) {
-                        setGames(games);
-                    } else {
-                        setGames(null);
-                        setError(`No entries found in the backlog`);
+                    const data = await response.json();
+
+                    if (data && data.data.appids.length > 0) {
+                        console.log(data);
+                        setGames(data);
+                    }
+
+                    else {
+                        if (data) {
+                            console.log(data);
+                            setError(data.data.message);
+                        }
                     }
                 }
             } catch (error) {
-                setError(`No entries found in the backlog`);
+                console.log(error.message);
+                setError(error.message);
             } finally {
                 timer.delay(0.5, (() => { setLoadingVisible(false) }));
                 setLoading(false);
