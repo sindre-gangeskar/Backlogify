@@ -40,5 +40,35 @@
     "appid": 22300,
     "playtime_forever": 643,
     "backlogged": true
+  },
+  {
+    "name": "BioShock",
+    "appid": 7670,
+    "playtime_forever": 169,
+    "backlogged": true
+  },
+  {
+    "name": "Left 4 Dead 2",
+    "appid": 550,
+    "playtime_forever": 1270,
+    "backlogged": true
+  },
+  {
+    "name": "Stronghold Crusader HD",
+    "appid": 40970,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Half-Life 2: Lost Coast",
+    "appid": 340,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Dark Messiah of Might & Magic Multi-Player",
+    "appid": 2130,
+    "playtime_forever": 0,
+    "backlogged": true
   }
 ]

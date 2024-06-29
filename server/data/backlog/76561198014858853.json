@@ -1,23 +1,5 @@
 [
   {
-    "name": "Counter-Strike",
-    "appid": 10,
-    "playtime_forever": 16,
-    "backlogged": true
-  },
-  {
-    "name": "Counter-Strike: Condition Zero",
-    "appid": 80,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
-    "name": "Day of Defeat: Source",
-    "appid": 300,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
     "name": "Counter-Strike: Condition Zero Deleted Scenes",
     "appid": 100,
     "playtime_forever": 0,
@@ -45,6 +27,30 @@
     "name": "ELDEN RING",
     "appid": 1245620,
     "playtime_forever": 9047,
+    "backlogged": true
+  },
+  {
+    "name": "Wolfenstein 3D",
+    "appid": 2270,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Titan Quest Anniversary Edition",
+    "appid": 475150,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "DOOM 3",
+    "appid": 9050,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Titan Quest",
+    "appid": 4540,
+    "playtime_forever": 3,
     "backlogged": true
   }
 ]
