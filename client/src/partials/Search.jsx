@@ -41,7 +41,7 @@ function Search({ onSubmit, setAppIDVisibility, setGameTitleVisibility }) {
                     <span className="buttons-wrapper">
                         <button type="submit" className='search-btn'><RxMagnifyingGlass /></button>
                         <button onClick={handleReset} className='reset-btn'><RxReset /></button>
-                        <button type='button' className="dropdown-btn" onClick={toggleDown}><RxHamburgerMenu /></button>
+                        <button type='button' className={`dropdown-btn ${dropdownShown ? 'active' : ''}`} onClick={toggleDown}><RxHamburgerMenu /></button>
                     </span>
                 </form>
 

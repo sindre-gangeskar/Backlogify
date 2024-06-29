@@ -1,8 +1,50 @@
 [
   {
-    "name": "Ricochet",
-    "appid": 60,
+    "name": "Counter-Strike",
+    "appid": 10,
+    "playtime_forever": 16,
+    "backlogged": true
+  },
+  {
+    "name": "Counter-Strike: Condition Zero",
+    "appid": 80,
     "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Day of Defeat: Source",
+    "appid": 300,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Counter-Strike: Condition Zero Deleted Scenes",
+    "appid": 100,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Call of Duty 2",
+    "appid": 2630,
+    "playtime_forever": 8,
+    "backlogged": true
+  },
+  {
+    "name": "Project: Snowblind",
+    "appid": 7010,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Half-Life: Opposing Force",
+    "appid": 50,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "ELDEN RING",
+    "appid": 1245620,
+    "playtime_forever": 9047,
     "backlogged": true
   }
 ]

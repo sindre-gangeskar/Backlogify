@@ -104,7 +104,6 @@
     grid-auto-flow: column;
     align-items: center;
     width: 250px;
-    height: fit-content;
     margin: 0;
     text-wrap: nowrap;
     justify-content: space-between;
@@ -125,6 +124,10 @@
 .shown {
     transition: 300ms ease;
     opacity: 1;
+}
+
+.active{
+    color: var(--secondary-tertiary-color);
 }
 
 button:hover {

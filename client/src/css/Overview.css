@@ -10,23 +10,25 @@
     filter: blur(15px);
 }
 
+
+
 .games-wrapper {
-    background-color: #0023333f;
     position: relative;
     padding: 30px;
     left: 50%;
     transform: translate(-50%);
-    width: 60dvw;
-    height: 40dvh;
+    width: 60vw;
+    height: 40vh;
     display: flex;
     overflow: auto;
     gap: 50px;
     justify-content: space-evenly;
     flex-wrap: wrap;
     flex-direction: row;
+    box-shadow: 0px 0px 40px black;
     border-style: solid;
     border-width: 1px;
-    border-image: linear-gradient(0deg, var(--primary-color), var(--secondary-tertiary-color)) 1;
+    border-image: linear-gradient(185deg, var(--third-tertiary-color), var(--secondary-tertiary-color)) 1 stretch;
 }
 
 ::-webkit-scrollbar {

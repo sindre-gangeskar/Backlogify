@@ -38,6 +38,7 @@ function SteamId() {
                     />
                     <button type="submit">Submit</button>
                 </form>
+                <pre className='info-label'>Steam ID is not a sensitive type of data. <br />It is only a way to identify your account. <br />It cannot be used to log in to someone's account</pre>
             </div>
         </>
     );

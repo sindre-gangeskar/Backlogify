@@ -1,8 +1,8 @@
-.steamid{
+.steamid {
     position: relative;
 }
 
-.form-wrapper{
+.form-wrapper {
     width: 100%;
     min-height: 100dvh;
     display: grid;
@@ -36,10 +36,27 @@
     outline: 1px solid var(--secondary-tertiary-color);
 }
 
-.form-wrapper button{
-    margin-top: 15px;
+.form-wrapper button {
     width: 80%;
-}
-.form-wrapper button:hover{
+    margin-top: 15px;
+    border-radius: 0;
     border: 1px solid var(--secondary-tertiary-color);
+    background: linear-gradient(45deg, var(--secondary-tertiary-color), var(--third-tertiary-color));
+    transition: 500ms ease;
+}
+
+.form-wrapper button:hover {
+    color: white;
+    outline-color: none;
+    outline: 1px solid var(--secondary-tertiary-color);
+}
+
+.info-label{
+    text-align: center;
+    position: absolute;
+    margin: 0px auto;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    margin-bottom: 100px;
 }

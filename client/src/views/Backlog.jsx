@@ -111,7 +111,7 @@ function Backlog() {
                             <input type="hidden" name='name' value={modalCurrentApp.name} />
                             <input type="hidden" name='playtime_forever' value={modalCurrentApp.playtime_forever} />
                             <input type="hidden" name='steamid' value={localStorage.getItem('steamid')} />
-                            <button type='button' className={`${remove === true ? 'removed' : ''}`} onClick={(() => {
+                            <button type='button' className={`modal-footer-btn ${remove === true ? 'removed' : 'remove'}`} onClick={(() => {
                                 if (confirm(`Are you sure you want to remove ${modalCurrentApp.name} from the backlog?`)) {
                                     setRemove(true);
                                     timer.delay(1, (() => { removeFromBacklog(modalCurrentApp.appid).then(() => { setRemove(false) }) }))
@@ -188,15 +188,11 @@ function Backlog() {
         </>)
 
         setModalOpen(true);
-        setTimeout(() => {
-            setModalVisible(true);
-        }, 100)
+        timer.delay(0.1, () => { setModalVisible(true) })
     }
     function closeModal() {
         setModalVisible(false);
-        setTimeout(() => {
-            setModalOpen(false);
-        }, 100)
+        timer.delay(0.5, () => {setModalOpen(false)})
     }
 
     if (error) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-
+import { BiCheckCircle } from "react-icons/bi";
 /* Components */
 import ImageWithFallback from '../partials/ImageWithFallback';
 import Background from '../partials/Background';
@@ -48,8 +48,8 @@ function Overview() {
         let finished = false;
 
         const getGames = async () => {
-            setLoadingVisible(true);
             setLoading(true);
+
             try {
                 const response = await fetch(`http://localhost:3000/${steamid}`);
 
@@ -62,23 +62,19 @@ function Overview() {
                     }
 
                     else {
-                        if (data) {
-                            console.log(data);
-                            setError(data.data.message);
-                        }
+                        console.log(data);
+                        setError(data.data.message);
                     }
                 }
             } catch (error) {
-                console.log(error.message);
                 setError(error.message);
             } finally {
-                timer.delay(0.5, (() => { setLoadingVisible(false) }));
-                setLoading(false);
+                timer.delay(1.5, (() => { setLoadingVisible(false) }))
             }
         };
 
         getGames();
-        return (() => finished = true)
+        return (() => { finished = true; setLoading(false) });
     }, [ steamid ]);
 
     /* Modal */
@@ -97,7 +93,7 @@ function Overview() {
                             <input type="hidden" name='name' value={modalCurrentApp.name} />
                             <input type="hidden" name='playtime_forever' value={modalCurrentApp.playtime_forever} />
                             <input type="hidden" name='steamid' value={localStorage.getItem('steamid')} />
-                            <button type='submit' className={`modal-submit-btn ${modalCurrentApp.backlogged ? 'backlogged' : ''}`}>{buttonText}</button>
+                            <button type='submit' className={`modal-footer-btn  ${modalCurrentApp.backlogged ? 'backlogged' : 'add'}`}>{buttonText}{modalCurrentApp.backlogged ? <BiCheckCircle className='checked' /> : '' }</button>
                         </form>
                     </span>
                 </>

@@ -1,32 +1,38 @@
 [
   {
+    "name": "Grand Theft Auto IV: The Complete Edition",
+    "appid": 12210,
+    "playtime_forever": 559,
+    "backlogged": true
+  },
+  {
+    "name": "STAR WARS™ Knights of the Old Republic™",
+    "appid": 32370,
+    "playtime_forever": 2797,
+    "backlogged": true
+  },
+  {
+    "name": "Supreme Commander 2",
+    "appid": 40100,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Half-Life",
+    "appid": 70,
+    "playtime_forever": 115,
+    "backlogged": true
+  },
+  {
     "name": "Half-Life 2",
     "appid": 220,
     "playtime_forever": 0,
     "backlogged": true
   },
   {
-    "name": "Burnout Paradise: The Ultimate Box",
-    "appid": 24740,
-    "playtime_forever": 1077,
-    "backlogged": true
-  },
-  {
-    "name": "The Last Remnant",
-    "appid": 23310,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
-    "name": "Spore: Creepy & Cute Parts Pack",
-    "appid": 17440,
-    "playtime_forever": 228,
-    "backlogged": true
-  },
-  {
-    "name": "Europa Universalis III",
-    "appid": 25800,
-    "playtime_forever": 112,
+    "name": "Dark Messiah of Might & Magic Single Player",
+    "appid": 2100,
+    "playtime_forever": 443,
     "backlogged": true
   },
   {
