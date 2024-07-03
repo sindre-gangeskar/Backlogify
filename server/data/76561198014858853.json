@@ -25,7 +25,7 @@
     "name": "Day of Defeat: Source",
     "playtime_forever": 0,
     "img_icon_url": "062754bb5853b0534283ae27dc5d58200692b22d",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 30,
@@ -39,7 +39,7 @@
     "name": "Deathmatch Classic",
     "playtime_forever": 0,
     "img_icon_url": "c525f76c8bc7353db4fd74b128c4ae2028426c2a",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 60,
@@ -67,7 +67,7 @@
     "name": "Mare Nostrum",
     "playtime_forever": 0,
     "img_icon_url": "1e1f56340d2d98a66a9b357257be8e020fb6061f",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 1280,
@@ -95,7 +95,7 @@
     "name": "Call of Duty 2",
     "playtime_forever": 8,
     "img_icon_url": "2e455daa8702a3cb9da8733232ec330a06936df3",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 3920,
@@ -151,7 +151,7 @@
     "name": "Wolfenstein 3D",
     "playtime_forever": 0,
     "img_icon_url": "fe5add27cf24416c4d94e49ba31543e4907d67f0",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 9050,
@@ -403,7 +403,7 @@
     "name": "Crysis",
     "playtime_forever": 0,
     "img_icon_url": "94bdcfce65cc63a92dcc76977f2b59750f67e3b2",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 17330,
@@ -473,7 +473,7 @@
     "name": "Grand Theft Auto IV: The Complete Edition",
     "playtime_forever": 1819,
     "img_icon_url": "a3cf6a64c73f991898a9e34681d0db8226eaa191",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 19980,
@@ -837,14 +837,14 @@
     "name": "Mafia II (Classic)",
     "playtime_forever": 1101,
     "img_icon_url": "62f1f7324e520be067aec1ab06d1ec6fa56f25bd",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 1030830,
     "name": "Mafia II: Definitive Edition",
     "playtime_forever": 385,
     "img_icon_url": "f80e173ad5c242ca0d41e30af1f6358d1e64d9b4",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 33320,
@@ -1229,7 +1229,7 @@
     "name": "Need for Speed: SHIFT",
     "playtime_forever": 0,
     "img_icon_url": "ac95a6c31c5ccb1a9d201c47437d25f0a5ac3c9a",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 47870,
@@ -1313,7 +1313,7 @@
     "name": "Bastion",
     "playtime_forever": 87,
     "img_icon_url": "8377b4460f19465c261673f76f2656bdb3288273",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 28050,

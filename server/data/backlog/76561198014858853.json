@@ -42,18 +42,6 @@
     "backlogged": true
   },
   {
-    "name": "Grand Theft Auto IV: The Complete Edition",
-    "appid": 12210,
-    "playtime_forever": 1819,
-    "backlogged": true
-  },
-  {
-    "name": "Day of Defeat: Source",
-    "appid": 300,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
     "name": "Beyond Good & Evil",
     "appid": 15130,
     "playtime_forever": 0,
@@ -201,6 +189,60 @@
     "name": "Quake II",
     "appid": 2320,
     "playtime_forever": 21,
+    "backlogged": true
+  },
+  {
+    "name": "Bastion",
+    "appid": 107100,
+    "playtime_forever": 87,
+    "backlogged": true
+  },
+  {
+    "name": "Need for Speed: SHIFT",
+    "appid": 24870,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Mafia II (Classic)",
+    "appid": 50130,
+    "playtime_forever": 1101,
+    "backlogged": true
+  },
+  {
+    "name": "Mafia II: Definitive Edition",
+    "appid": 1030830,
+    "playtime_forever": 385,
+    "backlogged": true
+  },
+  {
+    "name": "Crysis",
+    "appid": 17300,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Deathmatch Classic",
+    "appid": 40,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Mare Nostrum",
+    "appid": 1230,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Call of Duty 2",
+    "appid": 2630,
+    "playtime_forever": 8,
+    "backlogged": true
+  },
+  {
+    "name": "Wolfenstein 3D",
+    "appid": 2270,
+    "playtime_forever": 0,
     "backlogged": true
   }
 ]

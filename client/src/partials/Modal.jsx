@@ -2,7 +2,6 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { RxCross2 } from "react-icons/rx";
 import '../css/Modal.css';
-import Timer from '../classes/Timer';
 const Modal = React.memo(({ isOpen, onClose, title, body, footer, className }) => {
     const [ visible, setVisible ] = useState(false);
 
