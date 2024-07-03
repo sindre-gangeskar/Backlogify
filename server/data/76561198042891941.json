@@ -4,21 +4,21 @@
     "name": "Half-Life",
     "playtime_forever": 115,
     "img_icon_url": "95be6d131fc61f145797317ca437c9765f24b41c",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 220,
     "name": "Half-Life 2",
     "playtime_forever": 0,
     "img_icon_url": "fcfb366051782b8ebf2aa297f3b746395858cb62",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 340,
     "name": "Half-Life 2: Lost Coast",
     "playtime_forever": 0,
     "img_icon_url": "795e85364189511f4990861b578084deef086cb1",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 2100,
@@ -123,7 +123,7 @@
     "name": "Europa Universalis III",
     "playtime_forever": 112,
     "img_icon_url": "c0b8b4c7ffea1eac584af4cff08838c417b1ff1b",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 23310,
@@ -179,7 +179,7 @@
     "name": "STAR WARS™ Jedi Knight: Jedi Academy™",
     "playtime_forever": 280,
     "img_icon_url": "2e359a8df71ea18ddd77fda3f6b307e6e86ef910",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 550,

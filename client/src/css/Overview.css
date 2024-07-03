@@ -1,6 +1,6 @@
 .background {
     position: fixed;
-    z-index: -2;
+    z-index: -10;
     height: 100%;
     top: 50%;
     left: 50%;
@@ -10,10 +10,9 @@
     filter: blur(15px);
 }
 
-
-
 .games-wrapper {
     position: relative;
+    /*     background-image: linear-gradient(to bottom, var(--secondary-color) -20%, #00000017); */
     padding: 30px;
     left: 50%;
     transform: translate(-50%);
@@ -21,14 +20,28 @@
     height: 40vh;
     display: flex;
     overflow: auto;
-    gap: 50px;
+    gap: 15px;
     justify-content: space-evenly;
     flex-wrap: wrap;
     flex-direction: row;
-    box-shadow: 0px 0px 40px black;
     border-style: solid;
     border-width: 1px;
-    border-image: linear-gradient(185deg, var(--third-tertiary-color), var(--secondary-tertiary-color)) 1 stretch;
+    border-top: 0;
+    border-bottom: 0;
+    border-image: linear-gradient(to bottom, var(--third-tertiary-color), var(--secondary-color)) 1 stretch;
+}
+
+.panel {
+    width: 60vw;
+    position: relative;
+    height: 50px;
+    background-color: var(--gray);
+    text-align: center;
+    margin-bottom: 50px;
+    margin: 0px auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    align-content: center;
 }
 
 ::-webkit-scrollbar {

@@ -3,7 +3,10 @@
     --secondary-color: #0f2030;
     --primary-tertiary-color: #fff494;
     --secondary-tertiary-color: #019ef9;
+    --secondary-tertiary-color-25: hwb(202 0% 2% / 0.25);
     --third-tertiary-color: #2462d4;
+    --third-tertiary-color-50: hwb(219 14% 17% / 0.50);
+    
     --gray: #171a21;
     --success: #41af28;
     --success-darker: #205c29;

@@ -36,6 +36,7 @@ function Backlog() {
     const [ modalButtonText, setModalButtonText ] = useState(null);
     const [ modalCurrentApp, setModalCurrentApp ] = useState(null);
     const [ remove, setRemove ] = useState(false);
+    const [ gameCardScale, setGameCardScale ] = useState(parseInt(localStorage.getItem('cardScale') || 1));
 
     const gamesWrapperRef = useRef(null);
     const modalWrapperRef = useRef(null);
@@ -67,6 +68,21 @@ function Backlog() {
         setRefreshing(false);
     }
 
+    const increaseScale = () => {
+        if (gameCardScale >= 3) return;
+        setGameCardScale(gameCardScale + 1);
+    }
+
+    const decreaseScale = () => {
+        if (gameCardScale <= 0) return;
+        setGameCardScale(gameCardScale - 1);
+    }
+
+    /* Save card scale value to localStorage on change */
+    useEffect(() => {
+        localStorage.setItem('cardScale', +gameCardScale);
+    }, [ gameCardScale ])
+
     /* Refresh games after deletion */
     useEffect(() => {
         setLoadingVisible(false);
@@ -94,7 +110,7 @@ function Backlog() {
 
     /* Modal */
     useEffect(() => {
-   
+
         if (modalOpen && modalCurrentApp) {
             let buttonText = `Remove ${modalCurrentApp.name} from the backlog`;
             setModalButtonText(buttonText);
@@ -151,6 +167,7 @@ function Backlog() {
         return (() => { finished = true })
     }, [ steamid ]);
 
+
     function handleFilter(searchValue) {
         setFilter(searchValue);
     }
@@ -192,7 +209,7 @@ function Backlog() {
     }
     function closeModal() {
         setModalVisible(false);
-        timer.delay(0.5, () => {setModalOpen(false)})
+        timer.delay(0.5, () => { setModalOpen(false) })
     }
 
     if (error) {
@@ -219,14 +236,15 @@ function Backlog() {
     return (
         <>
             <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />;
-            <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} />
+            <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} increaseScale={increaseScale} decreaseScale={decreaseScale} scaleValue={gameCardScale} />
             <div className='games-wrapper' ref={gamesWrapperRef}>
                 {filtered.length > 0 ? (
                     filtered.map((app) => (
-                        <CardWrapper key={app.appid} app={app} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} onClick={(() => { setModal(app); })} />
+                        <CardWrapper key={app.appid} app={app} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} scale={gameCardScale} onClick={(() => { setModal(app); })} />
                     ))
                 ) : (<h1>No games in the backlog</h1>)}
             </div>
+            <div className="panel"></div>
             <Background />
             <Modal
                 className={`modal-wrapper ${modalVisible ? 'open' : 'close'}`}

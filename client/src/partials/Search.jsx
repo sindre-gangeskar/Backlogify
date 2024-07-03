@@ -1,16 +1,17 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import '../css/Search.css';
 import { debounce, drop } from 'lodash';
 import { RxMagnifyingGlass, RxReset } from "react-icons/rx";
-import { RxHamburgerMenu } from "react-icons/rx";
+import { HiOutlineCog8Tooth, HiCog8Tooth } from "react-icons/hi2";
+import { RxZoomIn, RxZoomOut } from 'react-icons/rx';
 
-function Search({ onSubmit, setAppIDVisibility, setGameTitleVisibility }) {
-    const [ dropdownShown, setDropdownShown ] = useState(false);
+function Search({ onSubmit, setAppIDVisibility, setGameTitleVisibility, increaseScale, decreaseScale, scaleValue }) {
+    const [ settingsShown, setSettingsShown ] = useState(false);
+    const textSizesArr = [ 'sm', 'md', 'lg', 'xl' ];
 
-    const toggleDown = () => {
-        setDropdownShown(!dropdownShown);
-        console.log(dropdownShown);
+    const toggleSettings = () => {
+        setSettingsShown(!settingsShown);
     }
 
     const handleFormSubmit = (e) => {
@@ -41,12 +42,13 @@ function Search({ onSubmit, setAppIDVisibility, setGameTitleVisibility }) {
                     <span className="buttons-wrapper">
                         <button type="submit" className='search-btn'><RxMagnifyingGlass /></button>
                         <button onClick={handleReset} className='reset-btn'><RxReset /></button>
-                        <button type='button' className={`dropdown-btn ${dropdownShown ? 'active' : ''}`} onClick={toggleDown}><RxHamburgerMenu /></button>
+                        <button type='button' className={`settings-btn ${settingsShown ? 'active' : ''}`} onClick={toggleSettings}>{settingsShown ? <HiCog8Tooth /> : <HiOutlineCog8Tooth />}</button>
                     </span>
                 </form>
 
-                <div className="dropdown-wrapper">
-                    <ul className={`dropdown-menu ${dropdownShown ? 'shown' : ''}`}>
+                <div className="settings-wrapper">
+                    <ul className={`settings-menu ${settingsShown ? 'shown' : ''}`}>Options
+                        <hr />
                         <li className='list-item'>
                             <p>Show Game Titles</p>
                             <input type="checkbox" name='toggle-game-titles' className='toggle-game-titles-btn custom-checkbox' onChange={debouncedToggleGameTitleVisibility} />
@@ -55,9 +57,18 @@ function Search({ onSubmit, setAppIDVisibility, setGameTitleVisibility }) {
                             <p>Show AppIDs</p>
                             <input type="checkbox" name='toggle-appids' className='toggle-appids-btn custom-checkbox' onChange={debouncedToggleAppIdVisibility} />
                         </li>
+                        <hr />
+
+                        <li className='list-item zoom-btn-group'>
+                            <button className='zoom-in' onClick={increaseScale}><RxZoomIn></RxZoomIn></button>
+                            <button className='zoom-out' onClick={decreaseScale}><RxZoomOut></RxZoomOut></button>
+                        </li>
+                        <li className='list-item zoom-btn-group'>
+                            <pre>{textSizesArr[ scaleValue ]}</pre>
+                        </li>
                     </ul>
                 </div>
-            </div>
+            </div >
         </>
     );
 }

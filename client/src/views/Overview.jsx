@@ -27,6 +27,7 @@ function Overview() {
     const [ filter, setFilter ] = useState('');
     const [ appIdVisibility, setAppIDVisibility ] = useState(false);
     const [ gameTitleVisibility, setGameTitleVisibility ] = useState(false);
+    const [ gameCardScale, setGameCardScale ] = useState(parseInt(localStorage.getItem('cardScale') || 1));
 
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ modalTitle, setModalTitle ] = useState(null);
@@ -93,13 +94,29 @@ function Overview() {
                             <input type="hidden" name='name' value={modalCurrentApp.name} />
                             <input type="hidden" name='playtime_forever' value={modalCurrentApp.playtime_forever} />
                             <input type="hidden" name='steamid' value={localStorage.getItem('steamid')} />
-                            <button type='submit' className={`modal-footer-btn  ${modalCurrentApp.backlogged ? 'backlogged' : 'add'}`}>{buttonText}{modalCurrentApp.backlogged ? <BiCheckCircle className='checked' /> : '' }</button>
+                            <button type='submit' className={`modal-footer-btn  ${modalCurrentApp.backlogged ? 'backlogged' : 'add'}`}>{buttonText}{modalCurrentApp.backlogged ? <BiCheckCircle className='checked' /> : ''}</button>
                         </form>
                     </span>
                 </>
             );
         }
     }, [ modalCurrentApp ]);
+
+
+    const increaseScale = () => {
+        if (gameCardScale >= 3) return;
+        setGameCardScale(gameCardScale + 1);
+    }
+
+    const decreaseScale = () => {
+        if (gameCardScale <= 0) return;
+        setGameCardScale(gameCardScale - 1);
+    }
+
+    /* Save card scale value to localStorage on change */
+    useEffect(() => {
+        localStorage.setItem('cardScale', +gameCardScale);
+    }, [ gameCardScale ])
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -173,6 +190,7 @@ function Overview() {
         }, 100)
     }
 
+
     if (error) {
         return (
             <>
@@ -186,12 +204,13 @@ function Overview() {
     return (
         <>
             <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />;
-            <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} />
+            <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} increaseScale={increaseScale} decreaseScale={decreaseScale} scaleValue={gameCardScale} />
             <div className='games-wrapper' ref={gamesWrapperRef}>
                 {filtered.map((app) => (
-                    <CardWrapper key={app.appid} app={app} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} onClick={(() => { setModal(app); })} />
+                    <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} scale={gameCardScale} onClick={(() => { setModal(app); })} />
                 ))}
             </div>
+            <div className="panel"></div>
             <Background />
             <Modal
                 className={`modal-wrapper ${modalVisible ? 'open' : 'close'}`}

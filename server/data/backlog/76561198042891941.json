@@ -18,18 +18,6 @@
     "backlogged": true
   },
   {
-    "name": "Half-Life",
-    "appid": 70,
-    "playtime_forever": 115,
-    "backlogged": true
-  },
-  {
-    "name": "Half-Life 2",
-    "appid": 220,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
     "name": "Dark Messiah of Might & Magic Single Player",
     "appid": 2100,
     "playtime_forever": 443,
@@ -66,9 +54,21 @@
     "backlogged": true
   },
   {
-    "name": "Dark Messiah of Might & Magic Multi-Player",
-    "appid": 2130,
-    "playtime_forever": 0,
+    "name": "Europa Universalis III",
+    "appid": 25800,
+    "playtime_forever": 112,
+    "backlogged": true
+  },
+  {
+    "name": "STAR WARS™ Jedi Knight: Jedi Academy™",
+    "appid": 6020,
+    "playtime_forever": 280,
+    "backlogged": true
+  },
+  {
+    "name": "Fallout: New Vegas",
+    "appid": 22380,
+    "playtime_forever": 18878,
     "backlogged": true
   }
 ]
