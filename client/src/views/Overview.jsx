@@ -29,15 +29,17 @@ function Overview() {
     const [ gameTitleVisibility, setGameTitleVisibility ] = useState(false);
     const [ gameCardScale, setGameCardScale ] = useState(parseInt(localStorage.getItem('cardScale') || 1));
 
+    const [ achievements, setAchievements ] = useState([]);
+    const [ achieved, setAchieved ] = useState([]);
+    const [ achievementProgress, setAchievementProgress ] = useState(0);
+    const [ achievementsVisible, setAchievementsVisible ] = useState(false);
+
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ modalTitle, setModalTitle ] = useState(null);
     const [ modalBody, setModalBody ] = useState(null);
     const [ modalFooter, setModalFooter ] = useState(null);
     const [ modalVisible, setModalVisible ] = useState(false);
     const [ modalCurrentApp, setModalCurrentApp ] = useState(null);
-    const [ achievements, setAchievements ] = useState([]);
-    const [ achieved, setAchieved ] = useState([]);
-    const [ achievementProgress, setAchievementProgress ] = useState(Number(0));
 
     const [ loadingVisible, setLoadingVisible ] = useState(true);
 
@@ -105,7 +107,7 @@ function Overview() {
 
     }, [ modalCurrentApp ]);
 
-    /* Set achievements for actively selected game  */
+    /* Set achievements in the modal for actively selected game  */
     useEffect(() => {
         const fetchAchievements = async () => {
             if (modalCurrentApp) {
@@ -131,7 +133,6 @@ function Overview() {
             }
         }
         fetchAchievements();
-
     }, [ modalCurrentApp ])
 
     /* Set achievement progress on achievements change */
@@ -166,7 +167,7 @@ function Overview() {
                         </tbody>
                     </table>
                     {(achievements.length > 0 ? (
-                        <div className="achievements-progress-wrapper">
+                        <div className={`achievements-progress-wrapper`}>
                             <p className='achievements-title'>{`${achieved.length} / ${achievements.length} unlocked`}</p>
                             <div className="achievements-progress-track">
                                 <div className="achievements-progress-bar" style={{ width: `${achievementProgress}%` }}></div>
@@ -191,13 +192,15 @@ function Overview() {
                 </>)
             }
         }
-        initiateModal(modalCurrentApp);;
+
+        initiateModal(modalCurrentApp);
     }, [ modalCurrentApp, achievements, achieved, achievementProgress ])
 
     /* Save card scale value to localStorage on change */
     useEffect(() => {
         localStorage.setItem('cardScale', +gameCardScale);
     }, [ gameCardScale ])
+
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -226,11 +229,11 @@ function Overview() {
     function handleFilter(searchValue) {
         setFilter(searchValue);
     }
-    function setModal(app) {
+    function initializeModal(app) {
         setModalCurrentApp(app);
         setModalOpen(true);
 
-        timer.delay(0.15, (() => {setModalVisible(true)}))
+        timer.delay(0.15, (() => { setModalVisible(true) }))
     }
     function closeModal() {
         setModalVisible(false);
@@ -263,7 +266,7 @@ function Overview() {
             <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} increaseScale={increaseScale} decreaseScale={decreaseScale} scaleValue={gameCardScale} />
             <div className='games-wrapper' ref={gamesWrapperRef}>
                 {filtered.map((app) => (
-                    <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} scale={gameCardScale} onClick={(() => { setModal(app); })} />
+                    <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
                 ))}
             </div>
             <div className="panel"></div>

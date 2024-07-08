@@ -215,6 +215,7 @@
     width: 500px;
 /*     padding: 20px;
     background-color: var(--gray); */
+    transition: 300ms ease;
 }
 .achievements-progress-track{
     position: relative;
