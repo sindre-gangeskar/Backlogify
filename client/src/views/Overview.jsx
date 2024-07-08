@@ -37,8 +37,7 @@ function Overview() {
     const [ modalCurrentApp, setModalCurrentApp ] = useState(null);
     const [ achievements, setAchievements ] = useState([]);
     const [ achieved, setAchieved ] = useState([]);
-    const [ achievementProgress, setAchievementProgress ] = useState(0);
-    const [ achievementProgressVisual, setAchievementProgressVisual ] = useState('0%');
+    const [ achievementProgress, setAchievementProgress ] = useState(Number(0));
 
     const [ loadingVisible, setLoadingVisible ] = useState(true);
 
@@ -81,7 +80,7 @@ function Overview() {
         return (() => { finished = true; setLoading(false) });
     }, [ steamid ]);
 
-    /* Modal */
+    /* Modal submission */
     useEffect(() => {
         if (modalOpen && modalCurrentApp) {
 
@@ -103,6 +102,7 @@ function Overview() {
                 </>
             );
         }
+
     }, [ modalCurrentApp ]);
 
     /* Set achievements for actively selected game  */
@@ -119,19 +119,12 @@ function Overview() {
                         if (data.data.achievements && data.data.achieved) {
                             setAchievements(data.data.achievements);
                             setAchieved(data.data.achieved);
-
-                            const achievements = data.data.achievements;
-                            const achieved = data.data.achieved;
-                            const progress = achieved / achievements * 100;
-
-                            setAchievementProgress(progress)
                         }
                         else {
                             setAchievements([]);
                             setAchieved([]);
                         }
                     }
-                    else console.log(response);
                 } catch (error) {
                     console.log(error);
                 }
@@ -141,10 +134,65 @@ function Overview() {
 
     }, [ modalCurrentApp ])
 
-    /* Check currently stored achievements */
+    /* Set achievement progress on achievements change */
     useEffect(() => {
-        setAchievementProgress(Math.round(achieved.length / achievements.length * 100));
-    }, [ modalCurrentApp, achievements ])
+        if (modalCurrentApp && achievements.length > 0) {
+            const progress = Math.round((achieved.length / achievements.length) * 100);
+            setAchievementProgress(progress);
+            console.log(`Achievement Progress: ${progress}%`);
+        }
+    }, [ achievements, achieved ]);
+
+    /* Initiate modal with data */
+    useEffect(() => {
+        const initiateModal = async () => {
+            if (modalCurrentApp) {
+                setModalTitle(<div className='title'>{modalCurrentApp.name}</div>);
+                setModalBody(<>
+                    <table className='gd-table-wrapper'>
+                        <thead>
+                            <tr>
+                                <td>App ID</td>
+                                <td>Title</td>
+                                <td>Total Playtime in hours</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{modalCurrentApp.appid}</td>
+                                <td>{modalCurrentApp.name}</td>
+                                <td>{Math.round(modalCurrentApp.playtime_forever / 60)}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {(achievements.length > 0 ? (
+                        <div className="achievements-progress-wrapper">
+                            <p className='achievements-title'>{`${achieved.length} / ${achievements.length} unlocked`}</p>
+                            <div className="achievements-progress-track">
+                                <div className="achievements-progress-bar" style={{ width: `${achievementProgress}%` }}></div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="achievements-progress-wrapper">
+                            <h4 className='achievements-text'>No achievements exist for this game</h4>
+                        </div>
+                    ))}
+                    <div className="hero-poster-wrapper">
+                        <HeroPoster app={modalCurrentApp} key={modalCurrentApp.appid} className="hero-poster" />
+                    </div>
+                    <div className="library-hero-wrapper" >
+                        <ImageWithFallback root={modalWrapperRef.current} key={modalCurrentApp.appid}
+                            src={`https://steamcdn-a.akamaihd.net/steam/apps/${modalCurrentApp.appid}/library_hero.jpg`}
+                            fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${modalCurrentApp.appid}/header.jpg`}
+                            className='library-hero'
+                            alt="library_hero.jpg"
+                        />
+                    </div>
+                </>)
+            }
+        }
+        initiateModal(modalCurrentApp);;
+    }, [ modalCurrentApp, achievements, achieved, achievementProgress ])
 
     /* Save card scale value to localStorage on change */
     useEffect(() => {
@@ -180,53 +228,9 @@ function Overview() {
     }
     function setModal(app) {
         setModalCurrentApp(app);
-        setModalTitle(<div className='title'>{app.name}</div>);
-        setModalBody(<>
-            <table className='gd-table-wrapper'>
-                <thead>
-                    <tr>
-                        <td>App ID</td>
-                        <td>Title</td>
-                        <td>Total Playtime in hours</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{app.appid}</td>
-                        <td>{app.name}</td>
-                        <td>{Math.round(app.playtime_forever / 60)}</td>
-                    </tr>
-                </tbody>
-            </table>
-            {(achievements.length > 0 ? (
-                <div className="achievements-progress-wrapper">
-                    <p className='achievements-title'>{`${achieved.length} / ${achievements.length} unlocked`}</p>
-                    <div className="achievements-progress-track">
-                        <div className="achievements-progress-bar" style={{ width: `${achievementProgress}%` }}></div>
-                    </div>
-                </div>
-            ) : (
-                <div className="achievements-progress-wrapper">
-                    <h4 className='achievements-text'>No achievements exist for this game</h4>
-                </div>
-            ))}
-            <div className="hero-poster-wrapper">
-                <HeroPoster app={app} key={app.appid} className="hero-poster" />
-            </div>
-            <div className="library-hero-wrapper" >
-                <ImageWithFallback root={modalWrapperRef.current} key={app.appid}
-                    src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_hero.jpg`}
-                    fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/header.jpg`}
-                    className='library-hero'
-                    alt="library_hero.jpg"
-                />
-            </div>
-        </>)
-
         setModalOpen(true);
-        setTimeout(() => {
-            setModalVisible(true);
-        }, 100)
+
+        timer.delay(0.15, (() => {setModalVisible(true)}))
     }
     function closeModal() {
         setModalVisible(false);
@@ -242,7 +246,6 @@ function Overview() {
         if (gameCardScale <= 0) return;
         setGameCardScale(gameCardScale - 1);
     }
-
 
     if (error) {
         return (

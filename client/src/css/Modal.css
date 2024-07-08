@@ -213,8 +213,8 @@
     margin: 10px;
     height: 20px;
     width: 500px;
-    padding: 20px;
-    background-color: var(--gray);
+/*     padding: 20px;
+    background-color: var(--gray); */
 }
 .achievements-progress-track{
     position: relative;
