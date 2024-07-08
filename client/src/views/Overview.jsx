@@ -35,9 +35,12 @@ function Overview() {
     const [ modalFooter, setModalFooter ] = useState(null);
     const [ modalVisible, setModalVisible ] = useState(false);
     const [ modalCurrentApp, setModalCurrentApp ] = useState(null);
+    const [ achievements, setAchievements ] = useState([]);
+    const [ achieved, setAchieved ] = useState([]);
+    const [ achievementProgress, setAchievementProgress ] = useState(0);
+    const [ achievementProgressVisual, setAchievementProgressVisual ] = useState('0%');
 
     const [ loadingVisible, setLoadingVisible ] = useState(true);
-
 
     const gamesWrapperRef = useRef(null);
     const modalWrapperRef = useRef(null);
@@ -81,8 +84,8 @@ function Overview() {
     /* Modal */
     useEffect(() => {
         if (modalOpen && modalCurrentApp) {
-            let buttonText = `Add ${modalCurrentApp.name} to the backlog`;
 
+            let buttonText = `Add ${modalCurrentApp.name} to the backlog`;
             if (modalCurrentApp.backlogged)
                 buttonText = `${modalCurrentApp.name} is added to the backlog`
 
@@ -102,16 +105,46 @@ function Overview() {
         }
     }, [ modalCurrentApp ]);
 
+    /* Set achievements for actively selected game  */
+    useEffect(() => {
+        const fetchAchievements = async () => {
+            if (modalCurrentApp) {
+                try {
+                    const response = await fetch(`http://localhost:3000/achievements/${steamid}/${modalCurrentApp.appid}`, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.data.achievements && data.data.achieved) {
+                            setAchievements(data.data.achievements);
+                            setAchieved(data.data.achieved);
 
-    const increaseScale = () => {
-        if (gameCardScale >= 3) return;
-        setGameCardScale(gameCardScale + 1);
-    }
+                            const achievements = data.data.achievements;
+                            const achieved = data.data.achieved;
+                            const progress = achieved / achievements * 100;
 
-    const decreaseScale = () => {
-        if (gameCardScale <= 0) return;
-        setGameCardScale(gameCardScale - 1);
-    }
+                            setAchievementProgress(progress)
+                        }
+                        else {
+                            setAchievements([]);
+                            setAchieved([]);
+                        }
+                    }
+                    else console.log(response);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        }
+        fetchAchievements();
+
+    }, [ modalCurrentApp ])
+
+    /* Check currently stored achievements */
+    useEffect(() => {
+        setAchievementProgress(Math.round(achieved.length / achievements.length * 100));
+    }, [ modalCurrentApp, achievements ])
 
     /* Save card scale value to localStorage on change */
     useEffect(() => {
@@ -165,6 +198,18 @@ function Overview() {
                     </tr>
                 </tbody>
             </table>
+            {(achievements.length > 0 ? (
+                <div className="achievements-progress-wrapper">
+                    <p className='achievements-title'>{`${achieved.length} / ${achievements.length} unlocked`}</p>
+                    <div className="achievements-progress-track">
+                        <div className="achievements-progress-bar" style={{ width: `${achievementProgress}%` }}></div>
+                    </div>
+                </div>
+            ) : (
+                <div className="achievements-progress-wrapper">
+                    <h4 className='achievements-text'>No achievements exist for this game</h4>
+                </div>
+            ))}
             <div className="hero-poster-wrapper">
                 <HeroPoster app={app} key={app.appid} className="hero-poster" />
             </div>
@@ -188,6 +233,14 @@ function Overview() {
         setTimeout(() => {
             setModalOpen(false);
         }, 100)
+    }
+    function increaseScale() {
+        if (gameCardScale >= 3) return;
+        setGameCardScale(gameCardScale + 1);
+    }
+    function decreaseScale() {
+        if (gameCardScale <= 0) return;
+        setGameCardScale(gameCardScale - 1);
     }
 
 

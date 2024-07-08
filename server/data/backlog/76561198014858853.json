@@ -244,5 +244,11 @@
     "appid": 2270,
     "playtime_forever": 0,
     "backlogged": true
+  },
+  {
+    "name": "Day of Defeat: Source",
+    "appid": 300,
+    "playtime_forever": 0,
+    "backlogged": true
   }
 ]

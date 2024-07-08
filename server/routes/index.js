@@ -55,7 +55,7 @@ router.get('/:steamid', async function (req, res, next) {
     } else return res.jsend.success({ appids: [], message: 'ASDSADA' });
 
   } catch (error) {
-    return res.jsend.fail({ message: `Could not find games associated with steam id: ${id}`, appids: []});
+    return res.jsend.fail({ message: `Could not find games associated with steam id: ${id}`, appids: [] });
   }
 
 });
@@ -74,6 +74,29 @@ router.get('/backlog/:steamid', async function (req, res, next) {
     }
   } catch (error) {
     return res.jsend.error({ message: 'something went wrong' });
+  }
+})
+
+router.get('/achievements/:steamid/:appid', async function (req, res, next) {
+  try {
+    const { steamid, appid } = req.params;
+    const response = await fetch(`http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${appid}&key=${process.env.KEY}&steamid=${steamid}&l=en`)
+    
+    if (response.ok) {
+      const data = await response.json();
+
+      if (data.playerstats.achievements) {
+        const achievements = data.playerstats.achievements;
+        const achieved = achievements.filter(x => x.achieved === 1);
+        console.log({ achievements: achievements, achieved: achieved })
+        return res.jsend.success({ achievements: achievements, achieved: achieved });
+      }
+    } else {
+      console.log('No achievements currenly exist for selected game')
+      return res.jsend.success({ message: 'No achievements currently exist for selected game' });
+    }
+  } catch (error) {
+    console.log(error);
   }
 })
 

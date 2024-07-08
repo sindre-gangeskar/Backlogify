@@ -1,3 +1,6 @@
+:root{
+    --progress-radius: 2rem;
+}
 .modal-wrapper {
     transform-origin: left top;
     position: fixed;
@@ -202,6 +205,48 @@
 
 .modal-wrapper.close>.modal-footer .modal-footer-btn {
     opacity: 0;
+}
+
+.achievements-progress-wrapper{
+    position: absolute;
+    bottom: 0;
+    margin: 10px;
+    height: 20px;
+    width: 500px;
+    padding: 20px;
+    background-color: var(--gray);
+}
+.achievements-progress-track{
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background-color: var(--primary-color);
+    border-radius: var(--progress-radius);
+}
+.achievements-progress-bar{
+    position: relative;
+    height: 20px;
+    background: linear-gradient(to right, var(--secondary-tertiary-color), var(--third-tertiary-color));
+    border-radius: var(--progress-radius)
+}
+
+.achievements-text{
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%, 50%);
+}
+.achievements-title{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 50%;
+    z-index: 1;
+    transform: translate(-50% ,-50px);
+    text-align: center;
+
 }
 
 .backlogged {
