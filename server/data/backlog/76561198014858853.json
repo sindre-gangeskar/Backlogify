@@ -1,11 +1,5 @@
 [
   {
-    "name": "Counter-Strike: Condition Zero Deleted Scenes",
-    "appid": 100,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
     "name": "Project: Snowblind",
     "appid": 7010,
     "playtime_forever": 0,
@@ -20,18 +14,6 @@
   {
     "name": "Titan Quest Anniversary Edition",
     "appid": 475150,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
-    "name": "Titan Quest",
-    "appid": 4540,
-    "playtime_forever": 3,
-    "backlogged": true
-  },
-  {
-    "name": "Heretic: Shadow of the Serpent Riders",
-    "appid": 2390,
     "playtime_forever": 0,
     "backlogged": true
   },
@@ -105,18 +87,6 @@
     "name": "Sid Meier's Pirates!",
     "appid": 3920,
     "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
-    "name": "DOOM 3: Resurrection of Evil",
-    "appid": 9070,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
-    "name": "DOOM 3: BFG Edition",
-    "appid": 208200,
-    "playtime_forever": 463,
     "backlogged": true
   },
   {
@@ -249,6 +219,144 @@
     "name": "Day of Defeat: Source",
     "appid": 300,
     "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "S.T.A.L.K.E.R.: Shadow of Chernobyl",
+    "appid": 4500,
+    "playtime_forever": 150,
+    "backlogged": true
+  },
+  {
+    "name": "Half-Life 2: Episode Two",
+    "appid": 420,
+    "playtime_forever": 318,
+    "backlogged": true
+  },
+  {
+    "name": "ELDEN RING",
+    "appid": 1245620,
+    "playtime_forever": 9047,
+    "backlogged": true
+  },
+  {
+    "name": "Vampire: The Masquerade - Bloodlines",
+    "appid": 2600,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Ricochet",
+    "appid": 60,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Team Fortress Classic",
+    "appid": 20,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Half-Life 2: Deathmatch",
+    "appid": 320,
+    "playtime_forever": 245,
+    "backlogged": true
+  },
+  {
+    "name": "Half-Life",
+    "appid": 70,
+    "playtime_forever": 71,
+    "backlogged": true
+  },
+  {
+    "name": "Half-Life: Blue Shift",
+    "appid": 130,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Silent Hill: Homecoming",
+    "appid": 19000,
+    "playtime_forever": 62,
+    "backlogged": true
+  },
+  {
+    "name": "DOOM 3: BFG Edition",
+    "appid": 208200,
+    "playtime_forever": 463,
+    "backlogged": true
+  },
+  {
+    "name": "Halo: The Master Chief Collection",
+    "appid": 976730,
+    "playtime_forever": 3819,
+    "backlogged": true
+  },
+  {
+    "name": "Halo Infinite",
+    "appid": 1240440,
+    "playtime_forever": 1131,
+    "backlogged": true
+  },
+  {
+    "name": "Counter-Strike: Condition Zero Deleted Scenes",
+    "appid": 100,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "DOOM 3: Resurrection of Evil",
+    "appid": 9070,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Hexen: Beyond Heretic",
+    "appid": 2360,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Grand Theft Auto III",
+    "appid": 12100,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Dark Messiah of Might & Magic Single Player",
+    "appid": 2100,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Titan Quest",
+    "appid": 4540,
+    "playtime_forever": 3,
+    "backlogged": true
+  },
+  {
+    "name": "Hexen: Deathkings of the Dark Citadel",
+    "appid": 2370,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Red Orchestra: Ostfront 41-45",
+    "appid": 1200,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "BioShock Remastered",
+    "appid": 409710,
+    "playtime_forever": 70,
+    "backlogged": true
+  },
+  {
+    "name": "Half-Life 2",
+    "appid": 220,
+    "playtime_forever": 25,
     "backlogged": true
   }
 ]

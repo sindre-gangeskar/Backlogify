@@ -11,7 +11,7 @@
     "name": "Half-Life 2",
     "playtime_forever": 0,
     "img_icon_url": "fcfb366051782b8ebf2aa297f3b746395858cb62",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 340,
@@ -39,7 +39,7 @@
     "name": "GUN",
     "playtime_forever": 898,
     "img_icon_url": "e8203b27619704c8e7f6fc16150b614e63759852",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 4000,

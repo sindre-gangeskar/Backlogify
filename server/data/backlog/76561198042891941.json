@@ -70,5 +70,35 @@
     "appid": 22380,
     "playtime_forever": 18878,
     "backlogged": true
+  },
+  {
+    "name": "Half-Life 2",
+    "appid": 220,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "GUN",
+    "appid": 2610,
+    "playtime_forever": 898,
+    "backlogged": true
+  },
+  {
+    "name": "Dark Messiah of Might & Magic Multi-Player",
+    "appid": 2130,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Garry's Mod",
+    "appid": 4000,
+    "playtime_forever": 355,
+    "backlogged": true
+  },
+  {
+    "name": "BioShock Remastered",
+    "appid": 409710,
+    "playtime_forever": 94,
+    "backlogged": true
   }
 ]

@@ -9,6 +9,7 @@ import Loading from './Loading';
 import CardWrapper from '../partials/CardWrapper';
 import HeroPoster from '../partials/HeroPoster';
 import Modal from '../partials/Modal';
+import AchievementsProgress from '../partials/AchievementsProgress';
 
 /* Classes */
 import Timer from '../classes/Timer';
@@ -33,6 +34,7 @@ function Overview() {
     const [ achieved, setAchieved ] = useState([]);
     const [ achievementProgress, setAchievementProgress ] = useState(0);
     const [ achievementsVisible, setAchievementsVisible ] = useState(false);
+    const [ achievementTransition, setAchievementTransition ] = useState(false);
 
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ modalTitle, setModalTitle ] = useState(null);
@@ -46,6 +48,7 @@ function Overview() {
     const gamesWrapperRef = useRef(null);
     const modalWrapperRef = useRef(null);
     const gamesFormRef = useRef(null);
+    const progressBarRef = useRef(null);
     const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
 
     /* Games */
@@ -105,7 +108,7 @@ function Overview() {
             );
         }
 
-    }, [ modalCurrentApp ]);
+    }, [ modalCurrentApp ])
 
     /* Set achievements in the modal for actively selected game  */
     useEffect(() => {
@@ -140,9 +143,8 @@ function Overview() {
         if (modalCurrentApp && achievements.length > 0) {
             const progress = Math.round((achieved.length / achievements.length) * 100);
             setAchievementProgress(progress);
-            console.log(`Achievement Progress: ${progress}%`);
         }
-    }, [ achievements, achieved ]);
+    }, [ achievements, modalOpen ])
 
     /* Initiate modal with data */
     useEffect(() => {
@@ -166,21 +168,11 @@ function Overview() {
                             </tr>
                         </tbody>
                     </table>
-                    {(achievements.length > 0 ? (
-                        <div className={`achievements-progress-wrapper`}>
-                            <p className='achievements-title'>{`${achieved.length} / ${achievements.length} unlocked`}</p>
-                            <div className="achievements-progress-track">
-                                <div className="achievements-progress-bar" style={{ width: `${achievementProgress}%` }}></div>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="achievements-progress-wrapper">
-                            <h4 className='achievements-text'>No achievements exist for this game</h4>
-                        </div>
-                    ))}
+                    <AchievementsProgress progress={achievementProgress} achievements={achievements} achieved={achieved} visible={achievementsVisible} key={modalCurrentApp} ref={progressBarRef} play={achievementTransition} />
                     <div className="hero-poster-wrapper">
                         <HeroPoster app={modalCurrentApp} key={modalCurrentApp.appid} className="hero-poster" />
                     </div>
+
                     <div className="library-hero-wrapper" >
                         <ImageWithFallback root={modalWrapperRef.current} key={modalCurrentApp.appid}
                             src={`https://steamcdn-a.akamaihd.net/steam/apps/${modalCurrentApp.appid}/library_hero.jpg`}
@@ -194,14 +186,36 @@ function Overview() {
         }
 
         initiateModal(modalCurrentApp);
-    }, [ modalCurrentApp, achievements, achieved, achievementProgress ])
+    }, [ modalCurrentApp, achievementProgress, achievements, achieved, achievementTransition ])
 
     /* Save card scale value to localStorage on change */
     useEffect(() => {
         localStorage.setItem('cardScale', +gameCardScale);
     }, [ gameCardScale ])
 
+    /* Set progress bar visibility */
+    useEffect(() => {
+        if (modalCurrentApp && modalOpen) {
+            timer.delay(0.1, () => { setAchievementsVisible(true); console.log('Set to visible!'); })
+        }
+        if (!modalOpen) {
+            timer.delay(0.1, () => { setAchievementsVisible(false); console.log('Set to hidden!'); });
+        }
 
+    }, [ modalOpen ])
+
+    /* Initialize the achievement bar transition  */
+    useEffect(() => {
+        if (achievementsVisible) {
+            timer.delay(1.0, () => {
+                setAchievementTransition(true);
+            })
+        }
+        else {
+            setAchievementTransition(false);
+        }
+
+    }, [ achievementsVisible ])
     async function handleSubmit(event) {
         event.preventDefault();
         const form = new FormData(gamesFormRef.current);
@@ -232,14 +246,13 @@ function Overview() {
     function initializeModal(app) {
         setModalCurrentApp(app);
         setModalOpen(true);
-
-        timer.delay(0.15, (() => { setModalVisible(true) }))
+        timer.delay(0.1, (() => { setModalVisible(true) }));
     }
     function closeModal() {
         setModalVisible(false);
-        setTimeout(() => {
+        timer.delay(0.1, () => {
             setModalOpen(false);
-        }, 100)
+        });
     }
     function increaseScale() {
         if (gameCardScale >= 3) return;
@@ -262,7 +275,7 @@ function Overview() {
     }
     return (
         <>
-            <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />;
+            <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />
             <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} increaseScale={increaseScale} decreaseScale={decreaseScale} scaleValue={gameCardScale} />
             <div className='games-wrapper' ref={gamesWrapperRef}>
                 {filtered.map((app) => (
