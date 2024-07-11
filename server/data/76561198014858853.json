@@ -4,196 +4,196 @@
     "name": "Counter-Strike",
     "playtime_forever": 16,
     "img_icon_url": "6b0312cda02f5f777efa2f3318c307ff9acafbb5",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 80,
     "name": "Counter-Strike: Condition Zero",
     "playtime_forever": 0,
     "img_icon_url": "077b050ef3e89cd84e2c5a575d78d53b54058236",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 100,
     "name": "Counter-Strike: Condition Zero Deleted Scenes",
     "playtime_forever": 0,
     "img_icon_url": "077b050ef3e89cd84e2c5a575d78d53b54058236",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 300,
     "name": "Day of Defeat: Source",
     "playtime_forever": 0,
     "img_icon_url": "062754bb5853b0534283ae27dc5d58200692b22d",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 30,
     "name": "Day of Defeat",
     "playtime_forever": 0,
     "img_icon_url": "aadc0ce51ff6ba2042d633f8ec033b0de62091d0",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 40,
     "name": "Deathmatch Classic",
     "playtime_forever": 0,
     "img_icon_url": "c525f76c8bc7353db4fd74b128c4ae2028426c2a",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 60,
     "name": "Ricochet",
     "playtime_forever": 0,
     "img_icon_url": "98c69e04cd59b838e05cb6980c12c05874c6419e",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 240,
     "name": "Counter-Strike: Source",
     "playtime_forever": 280,
     "img_icon_url": "9052fa60c496a1c03383b27687ec50f4bf0f0e10",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 1200,
     "name": "Red Orchestra: Ostfront 41-45",
     "playtime_forever": 0,
     "img_icon_url": "66519d69efc5b98bdafe61347db4ec8be01dff7b",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 1230,
     "name": "Mare Nostrum",
     "playtime_forever": 0,
     "img_icon_url": "1e1f56340d2d98a66a9b357257be8e020fb6061f",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 1280,
     "name": "Darkest Hour: Europe '44-'45",
     "playtime_forever": 0,
     "img_icon_url": "fb56136d0327b403e276460aca1ff0f559b02215",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 2100,
     "name": "Dark Messiah of Might & Magic Single Player",
     "playtime_forever": 0,
     "img_icon_url": "5a08cd17d14ccb07a14f316dfa222b18a20960fd",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 2130,
     "name": "Dark Messiah of Might & Magic Multi-Player",
     "playtime_forever": 0,
     "img_icon_url": "5a08cd17d14ccb07a14f316dfa222b18a20960fd",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 2630,
     "name": "Call of Duty 2",
     "playtime_forever": 8,
     "img_icon_url": "2e455daa8702a3cb9da8733232ec330a06936df3",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 3920,
     "name": "Sid Meier's Pirates!",
     "playtime_forever": 0,
     "img_icon_url": "eeb9384067131b98cd71308aeded180dd9538951",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 4000,
     "name": "Garry's Mod",
     "playtime_forever": 18,
     "img_icon_url": "4a6f25cfa2426445d0d9d6e233408de4d371ce8b",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 2600,
     "name": "Vampire: The Masquerade - Bloodlines",
     "playtime_forever": 0,
     "img_icon_url": "9fd08d0034ba09d371e1f1a179a0a3af6c36d1f0",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 7010,
     "name": "Project: Snowblind",
     "playtime_forever": 0,
     "img_icon_url": "2c591be8d5a0827df772bf136cdc0fa4176dfe5f",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 4540,
     "name": "Titan Quest",
     "playtime_forever": 3,
     "img_icon_url": "d59f857aed0d38c69960a9d80e3d23e0863f4e01",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 4550,
     "name": "Titan Quest: Immortal Throne",
     "playtime_forever": 896,
     "img_icon_url": "e06510f40941e9ac62688d34a57c293594049274",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 475150,
     "name": "Titan Quest Anniversary Edition",
     "playtime_forever": 0,
     "img_icon_url": "be3384e7936f548303c77ee2abc4c9026285f554",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 2270,
     "name": "Wolfenstein 3D",
     "playtime_forever": 0,
     "img_icon_url": "fe5add27cf24416c4d94e49ba31543e4907d67f0",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 9050,
     "name": "DOOM 3",
     "playtime_forever": 0,
     "img_icon_url": "a80e3028754c85e62fcc130d3b76ddf8892699e0",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 9070,
     "name": "DOOM 3: Resurrection of Evil",
     "playtime_forever": 0,
     "img_icon_url": "4b080a4a896d9e53f3179ff4c84fece833e18451",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 208200,
     "name": "DOOM 3: BFG Edition",
     "playtime_forever": 463,
     "img_icon_url": "00b2e4a81c7305be9203e17010d3a5ab51f53737",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 2320,
     "name": "Quake II",
     "playtime_forever": 21,
     "img_icon_url": "f4f8eda991901eae74562c30ba6e68715e3d6dcf",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 2360,
     "name": "Hexen: Beyond Heretic",
     "playtime_forever": 0,
     "img_icon_url": "1675fc2c52142b25165a1dfb15deeb614c2dbb0b",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 2370,
     "name": "Hexen: Deathkings of the Dark Citadel",
     "playtime_forever": 0,
     "img_icon_url": "1675fc2c52142b25165a1dfb15deeb614c2dbb0b",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 2390,
@@ -221,28 +221,28 @@
     "name": "BioShock Remastered",
     "playtime_forever": 70,
     "img_icon_url": "eb72262cd3ccc3219dd76392be3b60a4b6cbfd38",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 4500,
     "name": "S.T.A.L.K.E.R.: Shadow of Chernobyl",
     "playtime_forever": 150,
     "img_icon_url": "c57f5fdde74464aed0a09c2e5dd41f8973cbee8d",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 420,
     "name": "Half-Life 2: Episode Two",
     "playtime_forever": 318,
     "img_icon_url": "795e85364189511f4990861b578084deef086cb1",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 12100,
     "name": "Grand Theft Auto III",
     "playtime_forever": 0,
     "img_icon_url": "646c4b3bc16b6726e190b7a29717c4b71f9abc7d",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 12230,
@@ -256,21 +256,21 @@
     "name": "Max Payne",
     "playtime_forever": 0,
     "img_icon_url": "341d6de6e749fb2889ea046f57702f547853a464",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 320,
     "name": "Half-Life 2: Deathmatch",
     "playtime_forever": 245,
     "img_icon_url": "795e85364189511f4990861b578084deef086cb1",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 340,
     "name": "Half-Life 2: Lost Coast",
     "playtime_forever": 0,
     "img_icon_url": "795e85364189511f4990861b578084deef086cb1",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 8100,
@@ -312,35 +312,35 @@
     "name": "Team Fortress Classic",
     "playtime_forever": 0,
     "img_icon_url": "38ea7ebe3c1abbbbf4eabdbef174c41a972102b9",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 50,
     "name": "Half-Life: Opposing Force",
     "playtime_forever": 0,
     "img_icon_url": "04e81206c10e12416908c72c5f22aad411b3aeef",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 70,
     "name": "Half-Life",
     "playtime_forever": 71,
     "img_icon_url": "95be6d131fc61f145797317ca437c9765f24b41c",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 130,
     "name": "Half-Life: Blue Shift",
     "playtime_forever": 0,
     "img_icon_url": "b06fdee488b3220362c11704be4edad82abeed08",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 220,
     "name": "Half-Life 2",
     "playtime_forever": 25,
     "img_icon_url": "fcfb366051782b8ebf2aa297f3b746395858cb62",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 280,
@@ -382,7 +382,7 @@
     "name": "Beyond Good & Evil",
     "playtime_forever": 0,
     "img_icon_url": "225272b8dcf7c8c107f8a95442f67f7ce40e3a1f",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 19900,
@@ -403,14 +403,14 @@
     "name": "Crysis",
     "playtime_forever": 0,
     "img_icon_url": "94bdcfce65cc63a92dcc76977f2b59750f67e3b2",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 17330,
     "name": "Crysis Warhead",
     "playtime_forever": 0,
     "img_icon_url": "c29cf6caf9be493569091f8a95acb9139e92a485",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 17340,
@@ -480,14 +480,14 @@
     "name": "Prince of Persia",
     "playtime_forever": 0,
     "img_icon_url": "2b404bd60fb97a9c1eabb9d4a573909c014a23fd",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 17460,
     "name": "Mass Effect (2007)",
     "playtime_forever": 115,
     "img_icon_url": "57be81f70afa48c65437df93d75ba167a29687bc",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 17470,
@@ -522,7 +522,7 @@
     "name": "Silent Hill: Homecoming",
     "playtime_forever": 62,
     "img_icon_url": "4a3250c04b4a310ee6fa1abc2996c39b28bf2b7a",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 10500,
@@ -564,7 +564,7 @@
     "name": "Killing Floor",
     "playtime_forever": 903,
     "img_icon_url": "d8a2d777cb4c59cf06aa244166db232336520547",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 35420,
@@ -837,14 +837,14 @@
     "name": "Mafia II (Classic)",
     "playtime_forever": 1101,
     "img_icon_url": "62f1f7324e520be067aec1ab06d1ec6fa56f25bd",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 1030830,
     "name": "Mafia II: Definitive Edition",
     "playtime_forever": 385,
     "img_icon_url": "f80e173ad5c242ca0d41e30af1f6358d1e64d9b4",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 33320,
@@ -970,7 +970,7 @@
     "name": "Dead Space 2",
     "playtime_forever": 0,
     "img_icon_url": "6393351676edc4fdc65937a599780818fd2f18b7",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 21100,
@@ -1229,7 +1229,7 @@
     "name": "Need for Speed: SHIFT",
     "playtime_forever": 0,
     "img_icon_url": "ac95a6c31c5ccb1a9d201c47437d25f0a5ac3c9a",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 47870,
@@ -1313,7 +1313,7 @@
     "name": "Bastion",
     "playtime_forever": 87,
     "img_icon_url": "8377b4460f19465c261673f76f2656bdb3288273",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 28050,
@@ -1824,7 +1824,7 @@
     "name": "Batman: Arkham Asylum GOTY Edition",
     "playtime_forever": 116,
     "img_icon_url": "e52f91ecb0d3f20263e96fe188de1bcc8c91643e",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 113200,
@@ -1894,7 +1894,7 @@
     "name": "STAR WARS™ Knights of the Old Republic™ II: The Sith Lords™",
     "playtime_forever": 516,
     "img_icon_url": "1c9e1a68198c15eb47b35c692fbfa5adeb7a6566",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 214790,
@@ -1922,7 +1922,7 @@
     "name": "XCOM: Enemy Unknown",
     "playtime_forever": 0,
     "img_icon_url": "48be2fee1d0d511b5c7313e1359beafd36ea92ed",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 20820,
@@ -1936,7 +1936,7 @@
     "name": "Torchlight",
     "playtime_forever": 0,
     "img_icon_url": "b2a2a43e401dce3c69898b67b1b8af4481d96b08",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 107200,
@@ -2006,7 +2006,7 @@
     "name": "Mark of the Ninja",
     "playtime_forever": 0,
     "img_icon_url": "220f33169c93c2f6381cd785399fb52bfc79309f",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 206440,
@@ -3551,7 +3551,7 @@
   {
     "appid": 39210,
     "name": "FINAL FANTASY XIV Online",
-    "playtime_forever": 2804,
+    "playtime_forever": 3249,
     "img_icon_url": "98527a5229540d86ced171d8a5dff2f8a560fe80",
     "backlogged": false
   },
@@ -8584,7 +8584,7 @@
   {
     "appid": 782330,
     "name": "DOOM Eternal",
-    "playtime_forever": 796,
+    "playtime_forever": 841,
     "img_icon_url": "14235f425d27ab3b83661ba14c17d22dc90e566b",
     "backlogged": false
   },
@@ -8936,6 +8936,13 @@
     "name": "Sunset Overdrive",
     "playtime_forever": 47,
     "img_icon_url": "9870dc3dc81444a78503eecb9ca54a9628a836f5",
+    "backlogged": false
+  },
+  {
+    "appid": 848410,
+    "name": "Detached: Non-VR Edition",
+    "playtime_forever": 0,
+    "img_icon_url": "8456ab2c7f3f5423d6d658580f982f52f57b8003",
     "backlogged": false
   },
   {
@@ -9825,7 +9832,7 @@
     "name": "Halo: The Master Chief Collection",
     "playtime_forever": 3819,
     "img_icon_url": "196a45d8df1981ff6b6b1872a38dc38f6c22875d",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 418460,
@@ -9888,6 +9895,13 @@
     "name": "Fearless Fantasy",
     "playtime_forever": 0,
     "img_icon_url": "a21920f5ba87260c56760d752764c3d0572c7575",
+    "backlogged": false
+  },
+  {
+    "appid": 1085220,
+    "name": "Figment 2: Creed Valley",
+    "playtime_forever": 0,
+    "img_icon_url": "dffa19cee83b93837ad94fa3a6b522198dfeebb5",
     "backlogged": false
   },
   {
@@ -10187,7 +10201,7 @@
   {
     "appid": 1151640,
     "name": "Horizon Zero Dawn™ Complete Edition",
-    "playtime_forever": 1042,
+    "playtime_forever": 1046,
     "img_icon_url": "08a1b6df68bdc8c28c974b79325ed8c89417af48",
     "backlogged": false
   },
@@ -10413,6 +10427,13 @@
     "name": "eFootball PES 2020",
     "playtime_forever": 0,
     "img_icon_url": "0fba959dc0c76678c22910546818f705bb6fc6f5",
+    "backlogged": false
+  },
+  {
+    "appid": 1202130,
+    "name": "Starship Troopers: Terran Command",
+    "playtime_forever": 0,
+    "img_icon_url": "fc6f4f10d302a4e316bdb7f015492e63d2fff9c1",
     "backlogged": false
   },
   {
@@ -11123,6 +11144,13 @@
     "backlogged": false
   },
   {
+    "appid": 1409200,
+    "name": "HYPERVIOLENT",
+    "playtime_forever": 0,
+    "img_icon_url": "7a50fcd8ef74b7113a221ef736e75b8c49d487fc",
+    "backlogged": false
+  },
+  {
     "appid": 1419160,
     "name": "Souldiers",
     "playtime_forever": 0,
@@ -11162,6 +11190,13 @@
     "name": "OUTRIDERS",
     "playtime_forever": 761,
     "img_icon_url": "35088a2e2cbca86852288051fb34eac760577f83",
+    "backlogged": false
+  },
+  {
+    "appid": 1434540,
+    "name": "Zoeti",
+    "playtime_forever": 0,
+    "img_icon_url": "2674d45b0f6f7f8c3db016c6078bbb9c99e4f033",
     "backlogged": false
   },
   {
@@ -11218,6 +11253,13 @@
     "name": "Nioh 2 – The Complete Edition",
     "playtime_forever": 707,
     "img_icon_url": "3c0fa7884573c619e65a173f00aaa6c0f499d2ec",
+    "backlogged": false
+  },
+  {
+    "appid": 1458140,
+    "name": "Pacific Drive",
+    "playtime_forever": 111,
+    "img_icon_url": "bea29dede5c446d40700fd6c2c74abb933559716",
     "backlogged": false
   },
   {
@@ -11531,7 +11573,7 @@
   {
     "appid": 1222370,
     "name": "Necromunda: Hired Gun",
-    "playtime_forever": 0,
+    "playtime_forever": 25,
     "img_icon_url": "e7cea0acd9b1c57f477d0396ff63d81b16e56d25",
     "backlogged": false
   },
@@ -11582,7 +11624,7 @@
     "name": "Halo Infinite",
     "playtime_forever": 1131,
     "img_icon_url": "ec684b943169d675439f6cdf64fa2f2aa90d9821",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 1715130,
@@ -11636,7 +11678,7 @@
   {
     "appid": 924970,
     "name": "Back 4 Blood",
-    "playtime_forever": 623,
+    "playtime_forever": 635,
     "img_icon_url": "4a2e853e7098bb0ebe637107e8180084a3117184",
     "backlogged": false
   },
@@ -11769,9 +11811,9 @@
   {
     "appid": 1245620,
     "name": "ELDEN RING",
-    "playtime_forever": 9047,
+    "playtime_forever": 11051,
     "img_icon_url": "b6e290dd5a92ce98f89089a207733c70c41a1871",
-    "backlogged": true
+    "backlogged": false
   },
   {
     "appid": 1656780,
@@ -11790,7 +11832,7 @@
   {
     "appid": 1895880,
     "name": "Ratchet & Clank: Rift Apart",
-    "playtime_forever": 67,
+    "playtime_forever": 77,
     "img_icon_url": "fb45bd6f3ddb7ff6c63af3387ac76b7c898ba791",
     "backlogged": false
   },
@@ -11963,6 +12005,13 @@
     "backlogged": false
   },
   {
+    "appid": 2074920,
+    "name": "The First Descendant",
+    "playtime_forever": 0,
+    "img_icon_url": "a07ab51050a8e03993b1860ae929da51287f283b",
+    "backlogged": false
+  },
+  {
     "appid": 1817070,
     "name": "Marvel’s Spider-Man Remastered",
     "playtime_forever": 1462,
@@ -12061,6 +12110,20 @@
     "backlogged": false
   },
   {
+    "appid": 1182900,
+    "name": "A Plague Tale: Requiem",
+    "playtime_forever": 0,
+    "img_icon_url": "eaebd6a8952539659e28725f90802cd1a4f93d37",
+    "backlogged": false
+  },
+  {
+    "appid": 2181610,
+    "name": "Heretic's Fork",
+    "playtime_forever": 0,
+    "img_icon_url": "17cf2c54f5a2c7c7e746e40e83a2deb5b138d08d",
+    "backlogged": false
+  },
+  {
     "appid": 1938090,
     "name": "Call of Duty®",
     "playtime_forever": 6332,
@@ -12149,6 +12212,13 @@
     "name": "Hogwarts Legacy",
     "playtime_forever": 1133,
     "img_icon_url": "a9ecb94f249768d0ee5ccecbffe8d8c06d9bed59",
+    "backlogged": false
+  },
+  {
+    "appid": 2303350,
+    "name": "Sticky Business",
+    "playtime_forever": 0,
+    "img_icon_url": "1d631de062391475c0ce3c4fd69771cc34eea032",
     "backlogged": false
   },
   {
@@ -12250,6 +12320,13 @@
     "backlogged": false
   },
   {
+    "appid": 2420110,
+    "name": "Horizon Forbidden West™ Complete Edition",
+    "playtime_forever": 0,
+    "img_icon_url": "b06de101e39474f3c763a9b9aac8df876d4e482e",
+    "backlogged": false
+  },
+  {
     "appid": 2428770,
     "name": "Die in the Dungeon: Origins",
     "playtime_forever": 0,
@@ -12259,7 +12336,7 @@
   {
     "appid": 1716740,
     "name": "Starfield",
-    "playtime_forever": 1082,
+    "playtime_forever": 1101,
     "img_icon_url": "b4d5828937b2d29b875405dce97bbae0a5d01bbe",
     "backlogged": false
   },
@@ -12308,7 +12385,7 @@
   {
     "appid": 1681430,
     "name": "RoboCop: Rogue City",
-    "playtime_forever": 120,
+    "playtime_forever": 169,
     "img_icon_url": "4717f19c99830a1750e3a48020a106e47f33f57a",
     "backlogged": false
   },
@@ -12343,7 +12420,7 @@
   {
     "appid": 2215430,
     "name": "Ghost of Tsushima DIRECTOR'S CUT",
-    "playtime_forever": 505,
+    "playtime_forever": 515,
     "img_icon_url": "e87b8cbe31f7bc5f40ee6ed94ccfa18f59f04fbc",
     "backlogged": false
   },
@@ -12378,7 +12455,7 @@
   {
     "appid": 2054970,
     "name": "Dragon's Dogma 2",
-    "playtime_forever": 1396,
+    "playtime_forever": 1405,
     "img_icon_url": "f3d469e0d7a0e25ddd13db8ebf08f1c24d6478b0",
     "backlogged": false
   },
@@ -12394,6 +12471,13 @@
     "name": "The Entropy Centre",
     "playtime_forever": 0,
     "img_icon_url": "a6429a93ba42450082999df9ea1fda8a4974e079",
+    "backlogged": false
+  },
+  {
+    "appid": 2144740,
+    "name": "Ghostrunner 2",
+    "playtime_forever": 0,
+    "img_icon_url": "39fc0a6b7051f744c725f1fc518a8996b859e86d",
     "backlogged": false
   },
   {
