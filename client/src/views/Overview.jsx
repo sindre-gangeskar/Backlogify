@@ -56,6 +56,7 @@ function Overview() {
     const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
     const itemsPerPage = 100;
     const totalPages = Math.ceil(filtered.length / itemsPerPage);
+   
     /* Games */
     useEffect(() => {
         let finished = false;

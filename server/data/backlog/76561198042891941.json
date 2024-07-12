@@ -16,5 +16,11 @@
     "appid": 1086940,
     "playtime_forever": 40792,
     "backlogged": true
+  },
+  {
+    "name": "Garry's Mod",
+    "appid": 4000,
+    "playtime_forever": 355,
+    "backlogged": true
   }
 ]

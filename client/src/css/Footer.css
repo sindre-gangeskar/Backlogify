@@ -8,5 +8,5 @@ footer {
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
-    z-index: 1;
+    z-index: 5;
 }

@@ -12,7 +12,6 @@
 
 .games-wrapper {
     position: relative;
-    /*     background-image: linear-gradient(to bottom, var(--secondary-color) -20%, #00000017); */
     padding: 30px;
     left: 50%;
     transform: translate(-50%);
