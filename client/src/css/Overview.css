@@ -41,7 +41,65 @@
     margin: 0px auto;
     padding-left: 30px;
     padding-right: 30px;
+    padding-top: 25px;
+    padding-bottom: 25px;
     align-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.pagination-controls {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    text-align: center;
+    justify-content: space-between;
+    width: 250px;
+    gap: 25px;
+    text-align: center;
+}
+
+.pagination-button {
+    border: 0;
+    outline: 0;
+    font-size: 2rem;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.pagination-last-button {
+    position: absolute;
+    right: 0;
+    margin-right: 15px;
+    width: 60px;
+    height: 60px;
+}
+
+.pagination-first-button {
+    position: absolute;
+    left: 0;
+    margin-left: 15px;
+    width: 60px;
+    height: 60px;
+}
+
+.pagination-button:active,
+.pagination-button:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.disabled {
+    pointer-events: none;
+    color: gray;
 }
 
 ::-webkit-scrollbar {

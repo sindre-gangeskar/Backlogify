@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { BiCheckCircle } from "react-icons/bi";
+import { FaCircleArrowRight, FaCircleArrowLeft } from "react-icons/fa6";
 /* Components */
 import ImageWithFallback from '../partials/ImageWithFallback';
 import Background from '../partials/Background';
@@ -30,6 +31,8 @@ function Overview() {
     const [ gameTitleVisibility, setGameTitleVisibility ] = useState(false);
     const [ gameCardScale, setGameCardScale ] = useState(parseInt(localStorage.getItem('cardScale') || 1));
 
+    const [ page, setPage ] = useState(1);
+
     const [ achievements, setAchievements ] = useState([]);
     const [ achieved, setAchieved ] = useState([]);
     const [ achievementProgress, setAchievementProgress ] = useState(0);
@@ -49,8 +52,10 @@ function Overview() {
     const modalWrapperRef = useRef(null);
     const gamesFormRef = useRef(null);
     const progressBarRef = useRef(null);
-    const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
 
+    const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
+    const itemsPerPage = 100;
+    const totalPages = Math.ceil(filtered.length / itemsPerPage);
     /* Games */
     useEffect(() => {
         let finished = false;
@@ -65,7 +70,6 @@ function Overview() {
                     const data = await response.json();
 
                     if (data && data.data.appids.length > 0) {
-                        console.log(data);
                         setGames(data);
                     }
 
@@ -242,6 +246,7 @@ function Overview() {
     }
     function handleFilter(searchValue) {
         setFilter(searchValue);
+        setPage(1);
     }
     function initializeModal(app) {
         setModalCurrentApp(app);
@@ -262,6 +267,29 @@ function Overview() {
         if (gameCardScale <= 0) return;
         setGameCardScale(gameCardScale - 1);
     }
+    function paginate(itemsPerPage, currentPage, array) {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = currentPage * itemsPerPage;
+        const paginatedItems = array.slice(startIndex, endIndex);
+
+        return paginatedItems.map(app => (
+            <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
+        ))
+    }
+    function nextPage() {
+        if (page >= totalPages) return;
+        setPage(page + 1);
+    }
+    function previousPage() {
+        if (page <= 1) return;
+        setPage(page - 1);
+    }
+    function goToLastPage() {
+        setPage(totalPages);
+    }
+    function goToFirstPage() {
+        setPage(1);
+    }
 
     if (error) {
         return (
@@ -278,11 +306,27 @@ function Overview() {
             <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />
             <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} increaseScale={increaseScale} decreaseScale={decreaseScale} scaleValue={gameCardScale} />
             <div className='games-wrapper' ref={gamesWrapperRef}>
-                {filtered.map((app) => (
-                    <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
-                ))}
+                {paginate(100, page, filtered)}
             </div>
-            <div className="panel"></div>
+            <div className="panel">
+                {page !== 1 ?
+                    <button className='pagination-first-button' onClick={goToFirstPage}>1</button>
+                    : null}
+
+                <span className="pagination-controls">
+                    {page !== 1 ?
+                        <button className='pagination-button' onClick={previousPage}><FaCircleArrowLeft /></button>
+                        : <button className='pagination-button disabled hidden'><FaCircleArrowLeft /></button>}
+                    <p>{page}</p>
+                    {page !== totalPages ?
+                        <button className='pagination-button' onClick={nextPage}><FaCircleArrowRight /></button>
+                        : <button className='pagination-button disabled hidden'><FaCircleArrowRight /></button>}
+                </span>
+
+                {page !== totalPages ?
+                    <button className='pagination-last-button' onClick={goToLastPage}>{totalPages}</button>
+                    : null}
+            </div>
             <Background />
             <Modal
                 className={`modal-wrapper ${modalVisible ? 'open' : 'close'}`}
