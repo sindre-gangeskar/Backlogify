@@ -6,7 +6,7 @@ import { RxMagnifyingGlass, RxReset } from "react-icons/rx";
 import { HiOutlineCog8Tooth, HiCog8Tooth } from "react-icons/hi2";
 import { RxZoomIn, RxZoomOut } from 'react-icons/rx';
 
-function Search({ onSubmit, setAppIDVisibility, setGameTitleVisibility, increaseScale, decreaseScale, scaleValue }) {
+function Search({ onSubmit, setAppIDVisibility, setGameTitleVisibility, increaseScale, decreaseScale, scaleValue, set25PerPage, set50PerPage, set100PerPage, seeAllGames }) {
     const [ settingsShown, setSettingsShown ] = useState(false);
     const textSizesArr = [ 'sm', 'md', 'lg', 'xl' ];
 
@@ -61,10 +61,16 @@ function Search({ onSubmit, setAppIDVisibility, setGameTitleVisibility, increase
 
                         <li className='list-item zoom-btn-group'>
                             <button className='zoom-in' onClick={increaseScale}><RxZoomIn></RxZoomIn></button>
+                            <pre>{textSizesArr[ scaleValue ]}</pre>
                             <button className='zoom-out' onClick={decreaseScale}><RxZoomOut></RxZoomOut></button>
                         </li>
-                        <li className='list-item zoom-btn-group'>
-                            <pre>{textSizesArr[ scaleValue ]}</pre>
+                        <hr />
+                        <p>Games per page</p>
+                        <li className='list-item'>
+                            <button onClick={set25PerPage}>25</button>
+                            <button onClick={set50PerPage}>50</button>
+                            <button onClick={set100PerPage}>100</button>
+                            <button onClick={seeAllGames}>All</button>
                         </li>
                     </ul>
                 </div>

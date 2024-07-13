@@ -32,6 +32,7 @@ function Overview() {
     const [ gameCardScale, setGameCardScale ] = useState(parseInt(localStorage.getItem('cardScale') || 1));
 
     const [ page, setPage ] = useState(1);
+    const [ gamesPerPage, setGamesPerPage ] = useState(100);
 
     const [ achievements, setAchievements ] = useState([]);
     const [ achieved, setAchieved ] = useState([]);
@@ -54,9 +55,8 @@ function Overview() {
     const progressBarRef = useRef(null);
 
     const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
-    const itemsPerPage = 100;
-    const totalPages = Math.ceil(filtered.length / itemsPerPage);
-   
+    const totalPages = Math.ceil(filtered.length / gamesPerPage);
+
     /* Games */
     useEffect(() => {
         let finished = false;
@@ -273,6 +273,7 @@ function Overview() {
         const endIndex = currentPage * itemsPerPage;
         const paginatedItems = array.slice(startIndex, endIndex);
 
+
         return paginatedItems.map(app => (
             <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
         ))
@@ -280,16 +281,50 @@ function Overview() {
     function nextPage() {
         if (page >= totalPages) return;
         setPage(page + 1);
+        scrollToTop();
     }
     function previousPage() {
         if (page <= 1) return;
         setPage(page - 1);
+        scrollToTop();
+
     }
     function goToLastPage() {
         setPage(totalPages);
+        scrollToTop();
+
     }
     function goToFirstPage() {
         setPage(1);
+        scrollToTop();
+
+    }
+    function set25PerPage() {
+        setGamesPerPage(25);
+        scrollToTop();
+
+    }
+    function set50PerPage() {
+        setGamesPerPage(50);
+        scrollToTop();
+
+    }
+    function set100PerPage() {
+        setGamesPerPage(100);
+        scrollToTop();
+
+    }
+    function setAllInOnePage() {
+        setPage(1);
+        setGamesPerPage(filtered.length);
+        scrollToTop();
+
+    }
+    function scrollToTop() {
+        if (gamesWrapperRef.current) {
+            gamesWrapperRef.current.scrollTo('', 0);
+        } else return;
+
     }
 
     if (error) {
@@ -305,9 +340,9 @@ function Overview() {
     return (
         <>
             <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />
-            <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} increaseScale={increaseScale} decreaseScale={decreaseScale} scaleValue={gameCardScale} />
+            <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} increaseScale={increaseScale} decreaseScale={decreaseScale} scaleValue={gameCardScale} set25PerPage={set25PerPage} set50PerPage={set50PerPage} set100PerPage={set100PerPage} seeAllGames={setAllInOnePage} />
             <div className='games-wrapper' ref={gamesWrapperRef}>
-                {paginate(100, page, filtered)}
+                {paginate(gamesPerPage, page, filtered)}
             </div>
             <div className="panel">
                 {page !== 1 ?

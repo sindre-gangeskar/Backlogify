@@ -166,7 +166,7 @@ button:hover {
     }
 
     100% {
-        transform: translate(-350px, 100px);
+        transform: translate(-350px, 105px);
         opacity: 1;
     }
 }

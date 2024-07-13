@@ -46,5 +46,47 @@
     "appid": 1245620,
     "playtime_forever": 11051,
     "backlogged": true
+  },
+  {
+    "name": "SONIC THE HEDGEHOG 4 Episode I",
+    "appid": 202530,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "DOOM 3: BFG Edition",
+    "appid": 208200,
+    "playtime_forever": 463,
+    "backlogged": true
+  },
+  {
+    "name": "Project: Snowblind",
+    "appid": 7010,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Day of Defeat: Source",
+    "appid": 300,
+    "playtime_forever": 0,
+    "backlogged": true
+  },
+  {
+    "name": "Counter-Strike: Source",
+    "appid": 240,
+    "playtime_forever": 280,
+    "backlogged": true
+  },
+  {
+    "name": "Quake II",
+    "appid": 2320,
+    "playtime_forever": 21,
+    "backlogged": true
+  },
+  {
+    "name": "Dragon's Dogma 2",
+    "appid": 2054970,
+    "playtime_forever": 1405,
+    "backlogged": true
   }
 ]
