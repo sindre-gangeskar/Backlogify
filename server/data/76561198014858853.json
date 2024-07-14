@@ -1285,7 +1285,7 @@
     "name": "Quake 4",
     "playtime_forever": 18,
     "img_icon_url": "ecbd9d78b949ba6875c4adfc77ca4aab343ec858",
-    "backlogged": false
+    "backlogged": true
   },
   {
     "appid": 32800,

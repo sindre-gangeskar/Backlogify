@@ -16,18 +16,27 @@
     left: 50%;
     transform: translate(-50%);
     width: 60vw;
-    height: 40vh;
-    display: flex;
+    max-height: 40vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    justify-items: center;
     overflow: auto;
-    gap: 15px;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    flex-direction: row;
-    border-style: solid;
-    border-width: 1px;
-    border-top: 0;
-    border-bottom: 0;
-    border-image: linear-gradient(to bottom, var(--third-tertiary-color), var(--secondary-color)) 1 stretch;
+    gap: 50px;
+    justify-content: center;
+}
+
+
+.games-wrapper:has(.card-wrapper.sm) {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+.games-wrapper:has(.card-wrapper.md) {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+.games-wrapper:has(.card-wrapper.lg) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.games-wrapper:has(.card-wrapper.xl) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .panel {
@@ -106,13 +115,11 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--gray-50);
-    border-radius: 2rem;
+    background: var(--gray);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--secondary-tertiary-color);
-    border-radius: 6px;
+    background: linear-gradient(to top, var(--secondary-color) -100%, var(--third-tertiary-color));
     height: 50px;
     transition: 300ms ease;
 }

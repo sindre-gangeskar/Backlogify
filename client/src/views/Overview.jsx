@@ -11,7 +11,7 @@ import CardWrapper from '../partials/CardWrapper';
 import HeroPoster from '../partials/HeroPoster';
 import Modal from '../partials/Modal';
 import AchievementsProgress from '../partials/AchievementsProgress';
-
+import GamesWrapper from '../partials/GamesWrapper';
 /* Classes */
 import Timer from '../classes/Timer';
 
@@ -58,6 +58,7 @@ function Overview() {
     const totalPages = Math.ceil(filtered.length / gamesPerPage);
 
     /* Games */
+
     useEffect(() => {
         let finished = false;
 
@@ -312,7 +313,6 @@ function Overview() {
     function set100PerPage() {
         setGamesPerPage(100);
         scrollToTop();
-
     }
     function setAllInOnePage() {
         setPage(1);
@@ -340,10 +340,20 @@ function Overview() {
     return (
         <>
             <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />
-            <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} increaseScale={increaseScale} decreaseScale={decreaseScale} scaleValue={gameCardScale} set25PerPage={set25PerPage} set50PerPage={set50PerPage} set100PerPage={set100PerPage} seeAllGames={setAllInOnePage} />
-            <div className='games-wrapper' ref={gamesWrapperRef}>
-                {paginate(gamesPerPage, page, filtered)}
-            </div>
+
+            <Search
+                onSubmit={handleFilter}
+                setAppIDVisibility={setAppIDVisibility}
+                setGameTitleVisibility={setGameTitleVisibility}
+                increaseScale={increaseScale}
+                decreaseScale={decreaseScale}
+                scaleValue={gameCardScale}
+                set25PerPage={set25PerPage}
+                set50PerPage={set50PerPage}
+                set100PerPage={set100PerPage}
+                seeAllGames={setAllInOnePage} />
+            
+            <GamesWrapper ref={gamesWrapperRef} content={paginate(gamesPerPage, page, filtered)}/>
             <div className="panel">
                 {page !== 1 ?
                     <button className='pagination-first-button' onClick={goToFirstPage}>1</button>
