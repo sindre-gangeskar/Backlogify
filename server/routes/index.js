@@ -7,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 
 router.use(jsend.middleware);
-router.get('/:steamid', async function (req, res, next) {
+router.get(`/overview/:steamid`, async function (req, res, next) {
   const backlogPath = path.resolve(__dirname, '../data/backlog');
   if (!backlogPath)
     fs.mkdirSync(path.resolve(__dirname, '../data/backlog'));
@@ -81,7 +81,7 @@ router.get('/achievements/:steamid/:appid', async function (req, res, next) {
   try {
     const { steamid, appid } = req.params;
     const response = await fetch(`http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${appid}&key=${process.env.KEY}&steamid=${steamid}&l=en`)
-    
+
     if (response.ok) {
       const data = await response.json();
 

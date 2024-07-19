@@ -12,12 +12,6 @@
     "backlogged": true
   },
   {
-    "name": "DOOM 3",
-    "appid": 9050,
-    "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
     "name": "The Walking Dead: Season Two",
     "appid": 261030,
     "playtime_forever": 571,
@@ -27,12 +21,6 @@
     "name": "Titan Quest Anniversary Edition",
     "appid": 475150,
     "playtime_forever": 0,
-    "backlogged": true
-  },
-  {
-    "name": "Left 4 Dead 2",
-    "appid": 550,
-    "playtime_forever": 6908,
     "backlogged": true
   },
   {
@@ -92,6 +80,18 @@
   {
     "name": "Quake 4",
     "appid": 2210,
+    "playtime_forever": 18,
+    "backlogged": true
+  },
+  {
+    "name": "Counter-Strike",
+    "appid": 10,
+    "playtime_forever": 16,
+    "backlogged": true
+  },
+  {
+    "name": "Garry's Mod",
+    "appid": 4000,
     "playtime_forever": 18,
     "backlogged": true
   }

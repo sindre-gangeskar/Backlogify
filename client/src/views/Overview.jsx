@@ -20,8 +20,7 @@ import '../css/Overview.css';
 
 function Overview() {
     const timer = new Timer();
-    const location = useLocation();
-    const steamid = location.state?.steamid || localStorage.getItem('steamid');
+    const steamid = localStorage.getItem('steamid');
 
     const [ games, setGames ] = useState(null);
     const [ loading, setLoading ] = useState(true);
@@ -66,7 +65,7 @@ function Overview() {
             setLoading(true);
 
             try {
-                const response = await fetch(`http://localhost:3000/${steamid}`);
+                const response = await fetch(`http://localhost:3000/overview/${steamid}`);
 
                 if (response.ok && !finished) {
                     const data = await response.json();

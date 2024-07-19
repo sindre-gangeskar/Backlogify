@@ -37,13 +37,27 @@
 }
 
 .form-wrapper button {
-    width: 80%;
+    width: 60%;
+    margin: auto;
     margin-top: 15px;
     border-radius: 0;
     border: 1px solid var(--secondary-tertiary-color);
     background: linear-gradient(45deg, var(--secondary-tertiary-color), var(--third-tertiary-color));
     transition: 500ms ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.form-wrapper button > .steam-logo{
+    text-align: center;
+    align-self: center;
+    vertical-align:middle;
+    padding: 0;
+    margin: 0;
+}
+
+
 
 .form-wrapper button:hover {
     color: white;

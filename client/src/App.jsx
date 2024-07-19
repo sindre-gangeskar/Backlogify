@@ -7,7 +7,6 @@ import Footer from './partials/Footer';
 import SteamId from './views/SteamId';
 import { Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
-
 function App() {
   const [ visible, setVisible ] = useState(false);
 

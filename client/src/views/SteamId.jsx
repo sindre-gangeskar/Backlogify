@@ -1,46 +1,76 @@
-import { useNavigate } from 'react-router-dom';
 import '../css/SteamId.css';
+import { FaSteam } from "react-icons/fa";
+import { useEffect, useState } from 'react';
 
 function SteamId() {
-    const navigate = useNavigate();
+    const [ authenticated, setAuthenticated ] = useState(false);
 
-    const handleFormSubmit = async (e) => {
-        e.preventDefault();
-        const formdata = new FormData(e.target);
-        const steamid = formdata.get('steamid');
+    useEffect(() => {
+        const checkSteamAuthenticated = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/auth');
 
-        try {
-            const response = await fetch(`http://localhost:3000/${steamid}`)
-            if (response.ok) {
-                navigate('/overview', { state: { steamid } });
-                localStorage.setItem('steamid', steamid);
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(data);
+                    if (data.data.authenticated === true) {
+                        setAuthenticated(true);
+                        localStorage.setItem('steamid', data.data.user.steamid64)
+                        localStorage.setItem('username', data.data.user.personaname)
+                        localStorage.setItem('avatar', data.data.user.avatarfull)
+                    }
+                }
+
+                else {
+                    setAuthenticated(false);
+                }
+            } catch (error) {
+                console.error('Error checking authentication status:', error);
             }
-            else {
-                navigate('/', { state: { error: 'Please enter a valid Steam ID' } });
-            }
+        };
 
-        } catch (error) {
-            console.log(error);
+        checkSteamAuthenticated();
+    }, []);
+
+    async function handleLogin() {
+        location.href = 'http://localhost:3000/auth/login';
+    }
+
+    async function handleLogout() {
+        const response = await fetch('http://localhost:3000/auth/logout');
+
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.removeItem('steamid');
+            localStorage.removeItem('avatar');
+            localStorage.removeItem('username');
+            setAuthenticated(false);
+            console.log(data);
         }
     }
 
     return (
-        <>
-            <div className="form-wrapper">
-                <form className='steamid' onSubmit={handleFormSubmit}>
-                    <h1>Enter Steam ID</h1>
-                    <input
-                        type="text"
-                        placeholder='SteamID e.g: 76561198014858853'
-                        name='steamid'
-                        required
-                        autoComplete='steamid'
-                    />
-                    <button type="submit">Submit</button>
-                </form>
-                <pre className='info-label'>Steam ID is not a sensitive type of data. <br />It is only a way to identify your account. <br />It cannot be used to log in to someone's account</pre>
+        <div className="form-wrapper">
+            <div className='steamid'>
+                {authenticated === false ? (
+                    <>
+                        <h1>Login</h1>
+                        <button onClick={handleLogin}>Click here to login<FaSteam size={50} className='steam-logo' /></button>
+                        <p>No username or password is stored when using this application</p>
+                    </>
+                ) :
+                    <>
+                        <div className="user-wrapper">
+                            <h1>Welcome, {localStorage.getItem('username')}</h1>
+                            <div className="avatar-wrapper">
+                                <img src={localStorage.getItem('avatar')} alt="avatar" />
+                            </div>
+                            <button onClick={handleLogout}>Log out<FaSteam size={50} className='steam-logo' /></button>
+                        </div>
+                    </>
+                }
             </div>
-        </>
+        </div>
     );
 }
 
