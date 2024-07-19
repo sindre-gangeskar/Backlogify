@@ -1,43 +1,42 @@
 import React from 'react';
 import '../css/Navbar.css';
 import { Link } from 'react-router-dom';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 function Navbar() {
     const authenticatedRoutes = [ { path: '/', name: 'home' }, { path: '/overview', name: 'overview' }, { path: '/backlog', name: 'backlog' } ]
-/*     const home = { path: '/', name: 'home' };
+    const [ navbarContent, setNavbarContent ] = useState();
+    const authenticated = !!localStorage.getItem('steamid');
 
-    const [ steamid, setSteamid ] = useState(null);
-    const [ authenticated, setAuthenticated ] = useState(false);
-    const [ routes, setRoutes ] = useState([ home ]);
+    const initNavbar = () => {
+        if (authenticated) {
+            setNavbarContent(
+                <>
+                    {authenticatedRoutes.map(route => (
+                        <li key={route.name} className='nav-item'>
+                            <Link to={route.path} className='nav-link'>{route.name}</Link>
+                        </li>
+                    ))}
+                </>
+            )
+        } else {
+            setNavbarContent(
+                <li key={authenticatedRoutes[ 0 ].name} className='nav-item'>
+                    <Link to={authenticatedRoutes[ 0 ].path} className='nav-link'>{authenticatedRoutes[ 0 ].name}</Link>
+                </li>
+            )
+        }
+    }
+
 
     useEffect(() => {
-        const validate = async () => {
-            const response = await fetch('http://localhost:3000/auth');
-            if (response.ok) {
-                const data = await response.json();
-                setSteamid(data.data.user.steamid64);
-            }
-        } 
-        validate();
-    }, [])
-    
-    useEffect(() => {
-        if (steamid)
-            setRoutes(authenticatedRoutes);
-        else setRoutes([ home ]);
-    }, [steamid])
- */
+        initNavbar();
+    }, [ authenticated, navbarContent ])
+
     return (
         <div className='nav navbar'>
             <h2 className="navbar-brand">Backlogify</h2>
             <ul className='navbar-group'>
-                {authenticatedRoutes.map(route => {
-                    return (
-                        <li key={route.name} className='nav-item'>
-                            <Link to={route.path} className='nav-link'>{route.name}</Link>
-                        </li>
-                    )
-                })}
+                {navbarContent}
             </ul>
         </div >
     )

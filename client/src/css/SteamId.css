@@ -2,7 +2,8 @@
     position: relative;
 }
 
-.form-wrapper {
+.login-wrapper {
+    position: relative;
     width: 100%;
     min-height: 100dvh;
     display: grid;
@@ -13,31 +14,10 @@
     background-color: var(--gray);
 }
 
-
-.form-wrapper input {
-    padding: 15px;
-    width: 80%;
-    outline: none;
-    border: none;
-    color: #fff;
-    transition: 300ms ease;
-}
-
-.form-wrapper input:focus {
-    outline: 2px solid var(--secondary-tertiary-color);
-    transition: 200ms ease;
-}
-
-.form-wrapper input::placeholder {
-    font-size: 1.1rem;
-}
-
-.form-wrapper input:hover {
-    outline: 1px solid var(--secondary-tertiary-color);
-}
-
-.form-wrapper button {
-    width: 60%;
+.login-wrapper button {
+    position: relative;
+    z-index: 1;
+    width: 100%;
     margin: auto;
     margin-top: 15px;
     border-radius: 0;
@@ -49,28 +29,38 @@
     align-items: center;
 }
 
-.form-wrapper button > .steam-logo{
-    text-align: center;
-    align-self: center;
-    vertical-align:middle;
-    padding: 0;
-    margin: 0;
-}
-
-
-
-.form-wrapper button:hover {
+.login-wrapper button:hover {
     color: white;
     outline-color: none;
     outline: 1px solid var(--secondary-tertiary-color);
 }
 
-.info-label{
-    text-align: center;
-    position: absolute;
+.avatar-wrapper{
+    z-index: 1;
+    height: 350px;
+    width: 350px;
     margin: 0px auto;
+    padding: 0;
+    border: 6px solid var(--third-tertiary-color);
+}
+.avatar-wrapper img{
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.title{
+    position: relative;
+    font-size: 2rem;
+    z-index: 1;
+}
+.steam-background{
+    position: absolute;
+    margin: auto;
     left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    margin-bottom: 100px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    opacity: 0.3;
+    color: black;
 }

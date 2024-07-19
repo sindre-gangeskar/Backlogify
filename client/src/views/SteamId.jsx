@@ -50,22 +50,24 @@ function SteamId() {
     }
 
     return (
-        <div className="form-wrapper">
+        <div className="login-wrapper">
             <div className='steamid'>
                 {authenticated === false ? (
                     <>
-                        <h1>Login</h1>
                         <button onClick={handleLogin}>Click here to login<FaSteam size={50} className='steam-logo' /></button>
                         <p>No username or password is stored when using this application</p>
                     </>
                 ) :
                     <>
                         <div className="user-wrapper">
-                            <h1>Welcome, {localStorage.getItem('username')}</h1>
+                            <h1 className='title'>Welcome, {localStorage.getItem('username')}</h1>
                             <div className="avatar-wrapper">
                                 <img src={localStorage.getItem('avatar')} alt="avatar" />
                             </div>
                             <button onClick={handleLogout}>Log out<FaSteam size={50} className='steam-logo' /></button>
+                            <div className="steam-background">
+                                <FaSteam className='steam-background' size={1500}></FaSteam>
+                            </div>
                         </div>
                     </>
                 }
