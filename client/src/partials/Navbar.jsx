@@ -14,7 +14,6 @@ function Navbar() {
     /* Check for storage changes */
     useEffect(() => {
         window.addEventListener('storage', handleStorage);
-
         return () => {
             window.removeEventListener('storage', handleStorage);
         };
@@ -27,8 +26,6 @@ function Navbar() {
                     <Link to={route.path} className='nav-link'>{route.name}</Link>
                 </li>
             ))}
-
-
         </>
     )
     const setGuestNavbar = () => (
@@ -47,8 +44,13 @@ function Navbar() {
                 <div className="navbar-profile-wrapper">
                     <span className="nav-username">{localStorage.getItem('username')}</span>
                     <img className="nav-avatar" src={localStorage.getItem('avatar')} alt="avatar" />
+                    <ul className='profile-dropdown'>
+                        <li className='dropdown-item'>
+                            <Link to={routes[ 0 ].path} className='dropdown-item nav-link'>Log Out</Link>
+                        </li>
+                    </ul>
                 </div>
-            ) : ''}
+            ) : null}
 
         </div >
     )

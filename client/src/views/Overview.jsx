@@ -12,6 +12,7 @@ import HeroPoster from '../partials/HeroPoster';
 import Modal from '../partials/Modal';
 import AchievementsProgress from '../partials/AchievementsProgress';
 import GamesWrapper from '../partials/GamesWrapper';
+import Navbar from '../partials/Navbar';
 /* Classes */
 import Timer from '../classes/Timer';
 
@@ -339,7 +340,6 @@ function Overview() {
     return (
         <>
             <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />
-
             <Search
                 onSubmit={handleFilter}
                 setAppIDVisibility={setAppIDVisibility}

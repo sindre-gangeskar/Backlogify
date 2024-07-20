@@ -8,6 +8,7 @@ import Search from '../partials/Search';
 import Loading from './Loading';
 import Modal from '../partials/Modal';
 import CardWrapper from '../partials/CardWrapper'
+import Navbar from '../partials/Navbar';
 
 /* Classes */
 import Timer from '../classes/Timer';

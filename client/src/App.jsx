@@ -12,17 +12,16 @@ function App() {
 
   return (
     <>
+      <Navbar/>
       <Routes>
         <Route path='/overview' key={'/overview'} element={
           <>
-            <Navbar key={'navbar'} />
             <Overview key={'overview'} setVisible={setVisible} />
             <Footer key={'footer'} />
           </>
         }></Route>
         <Route path='/backlog' key={'/backlog'} element={
           <>
-            <Navbar key={'navbar'} />
             <Backlog key={'backlog'} setVisible={setVisible} />
             <Footer key={'footer'} />
           </>
@@ -30,7 +29,6 @@ function App() {
 
         <Route path='/' element={
           <>
-            <Navbar key={'navbar'} />
             <SteamId key={'steamid'} />
             <Footer key={'footer'} />
           </>

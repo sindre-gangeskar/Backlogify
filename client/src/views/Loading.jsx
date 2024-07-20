@@ -7,7 +7,6 @@ import { FaSteam } from "react-icons/fa";
 function Loading({className}) {
     return (
         <>
-            <Navbar />
             <div className={`loading-wrapper ${className}`}>
                 <div className="inner"></div>
                 <div className="outer"></div>

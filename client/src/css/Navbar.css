@@ -6,13 +6,13 @@
     padding-bottom: 30px;
     background-color: var(--gray);
     display: flex;
-    align-items:baseline;
+    align-items: baseline;
     position: absolute;
     top: 0;
     z-index: 10;
 }
 
-.navbar-profile-wrapper{
+.navbar-profile-wrapper {
     text-align: center;
     position: relative;
     display: flex;
@@ -20,17 +20,50 @@
     gap: 25px;
     margin-left: auto;
     margin-right: 25px;
+    padding: 10px;
 }
-.nav-avatar{
+
+.profile-dropdown {
+    position: absolute;
+    display: flex;
+    scale: 0;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--gray);
+    width: 100%;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.navbar-profile-wrapper:hover .profile-dropdown {
+    scale: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: dropdown 200ms ease forwards;
+}
+
+.profile-dropdown .dropdown-item {
+    font-size: 1rem;
+    list-style: none;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    text-transform: capitalize !important;
+}
+
+.nav-avatar {
     position: relative;
     float: right;
     height: 50px;
     border: 2px solid var(--secondary-tertiary-color);
 }
 
-.nav-username{
+.nav-username {
     font-weight: 600;
 }
+
 ul {
     margin-left: 15px;
     width: fit-content;
@@ -50,6 +83,7 @@ ul {
     font-size: 1.2rem;
     text-transform: uppercase;
 }
+
 .nav-link:hover {
     color: var(--secondary-tertiary-color);
     transition: 300ms ease;
@@ -72,4 +106,18 @@ ul {
 
 .navbar-brand {
     margin-left: 15px;
+}
+
+@keyframes dropdown {
+    from {
+        left: 50%;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+    }
+
+    to {
+        left: 50%;
+        opacity: 1;
+        transform: translate(-50%, 0%);
+    }
 }

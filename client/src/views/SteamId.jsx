@@ -1,7 +1,7 @@
 import '../css/SteamId.css';
 import { FaSteam } from "react-icons/fa";
 import { useEffect, useState } from 'react';
-
+import Navbar from '../partials/Navbar';
 function SteamId() {
     const [ authenticated, setAuthenticated ] = useState(false);
 
@@ -47,7 +47,7 @@ function SteamId() {
         }
     }
 
-    return (
+    return (<>
         <div className="login-wrapper">
             <div className='steamid'>
                 {authenticated === false ? (
@@ -71,6 +71,7 @@ function SteamId() {
                 }
             </div>
         </div>
+    </>
     );
 }
 
