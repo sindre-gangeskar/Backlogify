@@ -34,7 +34,9 @@ app.use(session({
     },
     store: new SQLiteStore({
         ttl: 60,
-        pruneInterval: 1
+        pruneInterval: 1,
+        dir: './db',
+        db: 'sessions.db'
     })
 }));
 
