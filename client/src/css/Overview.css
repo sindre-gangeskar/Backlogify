@@ -11,12 +11,12 @@
 }
 
 .games-wrapper {
-    position: relative;
     padding: 30px;
+    position: relative;
     left: 50%;
     transform: translate(-50%);
     width: 60vw;
-    max-height: 40vh;
+    height: 40vh;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     justify-items: center;

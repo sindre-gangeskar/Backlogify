@@ -36,7 +36,8 @@ app.use(session({
         ttl: 60,
         pruneInterval: 1,
         dir: './db',
-        db: 'sessions.db'
+        db: 'sessions.db',
+        makeDirIfNotExists: true
     })
 }));
 
