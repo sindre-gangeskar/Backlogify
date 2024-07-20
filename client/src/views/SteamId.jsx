@@ -39,7 +39,6 @@ function SteamId() {
 
     async function handleLogout() {
         const response = await fetch('http://localhost:3000/auth/logout');
-
         if (response.ok) {
             const data = await response.json();
             setAuthenticated(false);
@@ -65,7 +64,7 @@ function SteamId() {
                             </div>
                             <button onClick={handleLogout}>Log out<FaSteam size={50} className='steam-logo' /></button>
                             <div className="steam-background">
-                                <FaSteam className='steam-background' size={1500}></FaSteam>
+                                <FaSteam className='steam-background' size={1000}></FaSteam>
                             </div>
                         </div>
                     </>
