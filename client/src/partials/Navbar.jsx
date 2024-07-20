@@ -2,41 +2,44 @@ import React from 'react';
 import '../css/Navbar.css';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+
+
 function Navbar() {
-    const authenticatedRoutes = [ { path: '/', name: 'home' }, { path: '/overview', name: 'overview' }, { path: '/backlog', name: 'backlog' } ]
-    const [ navbarContent, setNavbarContent ] = useState();
-    const authenticated = !!localStorage.getItem('steamid');
+    const routes = [ { path: '/', name: 'home' }, { path: '/overview', name: 'overview' }, { path: '/backlog', name: 'backlog' } ]
+    const [ authenticated, setAuthenticated ] = useState(!!localStorage.getItem('steamid'));
 
-    const initNavbar = () => {
-        if (authenticated) {
-            setNavbarContent(
-                <>
-                    {authenticatedRoutes.map(route => (
-                        <li key={route.name} className='nav-item'>
-                            <Link to={route.path} className='nav-link'>{route.name}</Link>
-                        </li>
-                    ))}
-                </>
-            )
-        } else {
-            setNavbarContent(
-                <li key={authenticatedRoutes[ 0 ].name} className='nav-item'>
-                    <Link to={authenticatedRoutes[ 0 ].path} className='nav-link'>{authenticatedRoutes[ 0 ].name}</Link>
-                </li>
-            )
-        }
+    const handleStorage = () => {
+        setAuthenticated(!!localStorage.getItem('steamid'));
     }
-
-
+    /* Check for storage changes */
     useEffect(() => {
-        initNavbar();
-    }, [ authenticated, navbarContent ])
+        window.addEventListener('storage', handleStorage);
 
+        return () => {
+            window.removeEventListener('storage', handleStorage);
+        };
+    }, []);
+
+    const setAuthNavbar = () => (
+        <>
+            {routes.map(route => (
+                <li key={route.name} className='nav-item'>
+                    <Link to={route.path} className='nav-link'>{route.name}</Link>
+                </li>
+            ))}
+        </>
+    )
+    const setGuestNavbar = () => (
+        <li key={routes[ 0 ].name} className='nav-item'>
+            <Link to={routes[ 0 ].path} className='nav-link'>{routes[ 0 ].name}</Link>
+        </li>
+    )
+    const getNavbarContent = () => authenticated ? setAuthNavbar() : setGuestNavbar();
     return (
         <div className='nav navbar'>
             <h2 className="navbar-brand">Backlogify</h2>
             <ul className='navbar-group'>
-                {navbarContent}
+                {getNavbarContent()}
             </ul>
         </div >
     )

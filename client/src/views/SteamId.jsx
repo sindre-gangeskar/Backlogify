@@ -18,6 +18,7 @@ function SteamId() {
                         localStorage.setItem('steamid', data.data.user.steamid64)
                         localStorage.setItem('username', data.data.user.personaname)
                         localStorage.setItem('avatar', data.data.user.avatarfull)
+                        window.dispatchEvent(new Event('storage'));
                     }
                 }
 
@@ -41,11 +42,9 @@ function SteamId() {
 
         if (response.ok) {
             const data = await response.json();
-            localStorage.removeItem('steamid');
-            localStorage.removeItem('avatar');
-            localStorage.removeItem('username');
             setAuthenticated(false);
-            console.log(data);
+            localStorage.clear();
+            window.dispatchEvent(new Event('storage'));
         }
     }
 
