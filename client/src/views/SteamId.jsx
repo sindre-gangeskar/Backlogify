@@ -1,32 +1,45 @@
 import '../css/SteamId.css';
 import { FaSteam } from "react-icons/fa";
 import { useEffect, useState } from 'react';
-import Navbar from '../partials/Navbar';
+import { useNavigate } from 'react-router-dom';
 function SteamId() {
     const [ authenticated, setAuthenticated ] = useState(false);
-
+    const navigate = useNavigate();
     useEffect(() => {
         const checkSteamAuthenticated = async () => {
             try {
-                const response = await fetch('http://localhost:3000/auth');
+                const response = await fetch('http://localhost:3000/auth', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
                     if (data.data.authenticated === true) {
                         setAuthenticated(true);
                         localStorage.setItem('steamid', data.data.user.steamid64)
                         localStorage.setItem('username', data.data.user.personaname)
                         localStorage.setItem('avatar', data.data.user.avatarfull)
+                        if (!localStorage.getItem('redirected')) {
+                            localStorage.setItem('redirected', true);
+                            navigate('/overview');
+                        }
                         window.dispatchEvent(new Event('storage'));
                     }
+                    else {
+                        localStorage.clear();
+                        setAuthenticated(false);
+                    }
                 }
-
                 else {
                     setAuthenticated(false);
+                    localStorage.clear();
+
                 }
             } catch (error) {
                 console.error('Error checking authentication status:', error);
+                setAuthenticated(false);
+                localStorage.clear();
             }
         };
 
@@ -44,6 +57,7 @@ function SteamId() {
             setAuthenticated(false);
             localStorage.clear();
             window.dispatchEvent(new Event('storage'));
+
         }
     }
 

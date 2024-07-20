@@ -26,7 +26,6 @@
 .profile-dropdown {
     position: absolute;
     display: flex;
-    scale: 0;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
@@ -34,14 +33,23 @@
     width: 100%;
     margin: 0 auto;
     padding: 15px;
+    z-index: -1;
+}
+
+.navbar-profile-wrapper .profile-dropdown {
+    opacity: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 200ms ease;
 }
 
 .navbar-profile-wrapper:hover .profile-dropdown {
-    scale: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: dropdown 200ms ease forwards;
+    opacity: 1;
+    left: 50%;
+    transform: translate(-50%, 0%);
 }
 
 .profile-dropdown .dropdown-item {
@@ -106,18 +114,4 @@ ul {
 
 .navbar-brand {
     margin-left: 15px;
-}
-
-@keyframes dropdown {
-    from {
-        left: 50%;
-        opacity: 0;
-        transform: translate(-50%, -50%);
-    }
-
-    to {
-        left: 50%;
-        opacity: 1;
-        transform: translate(-50%, 0%);
-    }
 }

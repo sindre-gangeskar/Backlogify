@@ -94,5 +94,11 @@
     "appid": 4000,
     "playtime_forever": 18,
     "backlogged": true
+  },
+  {
+    "name": "Grand Theft Auto: Vice City",
+    "appid": 12110,
+    "playtime_forever": 0,
+    "backlogged": true
   }
 ]

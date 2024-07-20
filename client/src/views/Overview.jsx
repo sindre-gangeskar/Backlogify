@@ -12,7 +12,6 @@ import HeroPoster from '../partials/HeroPoster';
 import Modal from '../partials/Modal';
 import AchievementsProgress from '../partials/AchievementsProgress';
 import GamesWrapper from '../partials/GamesWrapper';
-import Navbar from '../partials/Navbar';
 /* Classes */
 import Timer from '../classes/Timer';
 
@@ -66,7 +65,10 @@ function Overview() {
             setLoading(true);
 
             try {
-                const response = await fetch(`http://localhost:3000/overview/${steamid}`);
+                const response = await fetch(`http://localhost:3000/overview/${steamid}`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
 
                 if (response.ok && !finished) {
                     const data = await response.json();
@@ -202,10 +204,10 @@ function Overview() {
     /* Set progress bar visibility */
     useEffect(() => {
         if (modalCurrentApp && modalOpen) {
-            timer.delay(0.1, () => { setAchievementsVisible(true); console.log('Set to visible!'); })
+            timer.delay(0.1, () => { setAchievementsVisible(true); })
         }
         if (!modalOpen) {
-            timer.delay(0.1, () => { setAchievementsVisible(false); console.log('Set to hidden!'); });
+            timer.delay(0.1, () => { setAchievementsVisible(false); });
         }
 
     }, [ modalOpen ])
