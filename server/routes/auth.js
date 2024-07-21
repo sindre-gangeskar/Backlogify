@@ -34,7 +34,6 @@ router.get('/login/authenticated', async function (req, res, next) {
 });
 
 router.get('/', async function (req, res, next) {
-    req.session.user ? console.log('User is authenticated', req.session) : console.log('User is logged out', req.session);
     if (req.session && req.session.user) {
         return res.jsend.success({ user: req.session.user, authenticated: true });
     } else {
@@ -43,14 +42,13 @@ router.get('/', async function (req, res, next) {
 });
 
 router.get('/logout', function (req, res, next) {
-    req.session.destroy((err) => {
-        if (err) {
-            console.error('Error destroying session:', err);
-            return res.jsend.fail({ message: 'Failed to log out' });
-        }
+    res.clearCookie('connect.sid', { domain: 'http://localhost:5173', path: '/' });
+    req.session.destroy(err => {
+        if (err) console.log('Could not delete session', err);
         res.clearCookie('connect.sid');
-        return res.jsend.success({ message: 'Successfully logged out!' });
-    });
+        return res.jsend.success({ message: 'Successfully logged out' })
+
+    })
 });
 
 module.exports = router;
