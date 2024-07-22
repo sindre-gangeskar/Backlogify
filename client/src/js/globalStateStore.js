@@ -4,7 +4,9 @@ const useGlobalState = create(
     persist(
         set => ({
             authenticated: false,
-            setAuthenticated: value => set({ authenticated: value })
+            setAuthenticated: value => set({ authenticated: value }),
+            setGames: value => set({ games: value }),
+            setBackground: value => set({ background: value })
         }),
         {
             name: 'global-storage',

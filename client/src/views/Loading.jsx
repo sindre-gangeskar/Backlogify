@@ -1,6 +1,5 @@
 import React from 'react';
 import '../css/Loading.css';
-import Navbar from '../partials/Navbar';
 import Footer from '../partials/Footer';
 import { FaSteam } from "react-icons/fa";
 

@@ -79,6 +79,10 @@ function Backlog() {
         setGameCardScale(gameCardScale - 1);
     }
 
+    useEffect(() => {
+        document.title = 'Backlog';
+    }, [])
+    
     /* Save card scale value to localStorage on change */
     useEffect(() => {
         localStorage.setItem('cardScale', +gameCardScale);

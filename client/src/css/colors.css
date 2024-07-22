@@ -8,6 +8,7 @@
     --third-tertiary-color-50: hwb(219 14% 17% / 0.50);
     
     --gray: #171a21;
+    --gray-50: #171a2179;
     --success: #41af28;
     --success-darker: #205c29;
     --danger: red;

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
 import { BiCheckCircle } from "react-icons/bi";
 import { FaCircleArrowRight, FaCircleArrowLeft } from "react-icons/fa6";
 /* Components */
@@ -12,6 +11,7 @@ import HeroPoster from '../partials/HeroPoster';
 import Modal from '../partials/Modal';
 import AchievementsProgress from '../partials/AchievementsProgress';
 import GamesWrapper from '../partials/GamesWrapper';
+import useGlobalState from '../js/globalStateStore';
 /* Classes */
 import Timer from '../js/Timer';
 
@@ -22,7 +22,7 @@ function Overview() {
     const timer = new Timer();
     const steamid = localStorage.getItem('steamid');
 
-    const [ games, setGames ] = useState(null);
+    const [ games, setGames ] = useGlobalState(state => [ state.games, state.setGames ]);
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(null);
     const [ filter, setFilter ] = useState('');
@@ -55,6 +55,10 @@ function Overview() {
 
     const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
     const totalPages = Math.ceil(filtered.length / gamesPerPage);
+
+    useEffect(() => {
+        document.title = 'Overview';
+    }, [])
 
     /* Games */
     useEffect(() => {
@@ -114,6 +118,31 @@ function Overview() {
                 </>
             );
         }
+
+        const fetchAchievements = async () => {
+            if (modalCurrentApp) {
+                try {
+                    const response = await fetch(`http://localhost:3000/achievements/${steamid}/${modalCurrentApp.appid}`, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.data.achievements && data.data.achieved) {
+                            setAchievements(data.data.achievements);
+                            setAchieved(data.data.achieved);
+                        }
+                        else {
+                            setAchievements([]);
+                            setAchieved([]);
+                        }
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        }
+        fetchAchievements();
 
     }, [ modalCurrentApp ])
 
