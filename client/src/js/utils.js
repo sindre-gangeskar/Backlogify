@@ -22,7 +22,7 @@ class Utils {
 
                     if (!localStorage.getItem('redirected')) {
                         localStorage.setItem('redirected', true);
-                        /*       navHook('/overview'); */
+                        navHook('/overview');
                     }
                     window.dispatchEvent(new Event('storage'));
                 }
@@ -41,40 +41,53 @@ class Utils {
             localStorage.clear();
         }
     };
-    /* 
-        async checkSession(navHook) {
-            const checkSession = async () => {
-                const response = await fetch('http://localhost:3000/auth', { method: 'GET', credentials: 'include' });
-                if (response.ok) {
-                    console.log('Fetched from server');
+
+    async checkSession(navHook, authenticationState) {
+        const checkSession = async () => {
+            const response = await fetch('http://localhost:3000/auth', { method: 'GET', credentials: 'include' });
+            if (response.ok) {
+                const data = await response.json();
+                if (!data.data.authenticated) {
+                    authenticationState(false);
+                    localStorage.clear();
+                    window.dispatchEvent(new Event('storage'));
+                    navHook('/');
+                    clearInterval(sessionInterval)
                 }
             }
-    
-            const sessionInterval = setInterval(async () => {
-                await checkSession();
-            }, 5000)
-    
-        } */
+        }
+
+        const sessionInterval = setInterval(async () => {
+            await checkSession();
+        }, 5000)
+
+    }
+
     handleLogin() {
         location.href = 'http://localhost:3000/auth/login';
     }
 
-    async handleLogout(authenticationState) {
-        const response = await fetch('http://localhost:3000/auth/logout', {
-            method: 'GET',
-            credentials: 'include'
-        });
-        if (response.ok) {
-            const data = await response.json();
-            console.log(data.data.message);
-            authenticationState(false);
-            localStorage.clear();
-            window.dispatchEvent(new Event('storage'));
-        } else {
-            console.log('Failed to log out');
-        }
+    async handleLogout(authenticationState, navHook) {
+        if (confirm('Are you sure you want to log out?')) {
+            const response = await fetch('http://localhost:3000/auth/logout', {
+                method: 'GET',
+                credentials: 'include'
+            });
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data.data.message);
+                authenticationState(false);
+                localStorage.clear();
+                navHook('/')
+                window.dispatchEvent(new Event('storage'));
+            } else {
+                console.log('Failed to log out');
+            }
+        } else return;
     }
 
 }
+
+
 
 export default Utils;

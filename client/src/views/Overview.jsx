@@ -13,7 +13,7 @@ import Modal from '../partials/Modal';
 import AchievementsProgress from '../partials/AchievementsProgress';
 import GamesWrapper from '../partials/GamesWrapper';
 /* Classes */
-import Timer from '../classes/Timer';
+import Timer from '../js/Timer';
 
 /* CSS */
 import '../css/Overview.css';
@@ -57,7 +57,6 @@ function Overview() {
     const totalPages = Math.ceil(filtered.length / gamesPerPage);
 
     /* Games */
-
     useEffect(() => {
         let finished = false;
 

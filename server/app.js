@@ -9,7 +9,7 @@ const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 
 const corsOptions = {
-    origin: 'http://localhost:5173', // Your React app's URL
+    origin: 'http://localhost:5173',
     credentials: true
 };
 

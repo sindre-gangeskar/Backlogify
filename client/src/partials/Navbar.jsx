@@ -1,57 +1,52 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import useGlobalState from '../js/globalStateStore';
+import Utils from '../js/utils';
 import '../css/Navbar.css';
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaSteam } from "react-icons/fa";
 
 function Navbar() {
+    const utils = new Utils();
+    const navigate = useNavigate();
     const routes = [ { path: '/', name: 'home' }, { path: '/overview', name: 'overview' }, { path: '/backlog', name: 'backlog' } ]
-    const [ authenticated, setAuthenticated ] = useState(!!localStorage.getItem('steamid'));
+    const [ authenticated, setAuthenticated ] = useGlobalState(state => [ state.authenticated, state.setAuthenticated ]);
 
-    const handleStorage = () => {
-        setAuthenticated(!!localStorage.getItem('steamid'));
-    }
-    /* Check for storage changes */
     useEffect(() => {
-        window.addEventListener('storage', handleStorage);
-        return () => {
-            window.removeEventListener('storage', handleStorage);
-        };
-    }, []);
-
+        console.log(authenticated);
+    }, [ authenticated ])
     const setAuthNavbar = () => (
         <>
-            {routes.map(route => (
-                <li key={route.name} className='nav-item'>
-                    <Link to={route.path} className='nav-link'>{route.name}</Link>
-                </li>
-            ))}
+            <ul className='navbar-group'>
+                {routes.map(route => (
+                    <li key={route.name} className='nav-item'>
+                        <Link to={route.path} className='nav-link'>{route.name}</Link>
+                    </li>
+                ))}
+            </ul>
+
+            <div className="navbar-profile-wrapper">
+                <span className="nav-username">{localStorage.getItem('username')}</span>
+                <img className="nav-avatar" src={localStorage.getItem('avatar')} alt="avatar" />
+                <ul className='profile-dropdown'>
+                    <li className='dropdown-item'>
+                        <button className='logout-btn' onClick={() => { utils.handleLogout(setAuthenticated, navigate) }}>Log out</button>
+                    </li>
+                </ul>
+            </div>
         </>
     )
     const setGuestNavbar = () => (
-        <li key={routes[ 0 ].name} className='nav-item'>
-            <Link to={routes[ 0 ].path} className='nav-link'>{routes[ 0 ].name}</Link>
-        </li>
+        <ul className="navbar-group">
+            <li key={routes[ 0 ].name} className='nav-item'>
+                <Link to={routes[ 0 ].path} className='nav-link'>{routes[ 0 ].name}</Link>
+            </li>
+        </ul>
     )
-    const getNavbarContent = () => authenticated ? setAuthNavbar() : setGuestNavbar();
+    const navbarContent = () => authenticated ? setAuthNavbar() : setGuestNavbar();
     return (
         <div className='nav navbar'>
-            <h2 className="navbar-brand"><FaSteam size={25}/> Steam Backlogify</h2>
-            <ul className='navbar-group'>
-                {getNavbarContent()}
-            </ul>
-            {authenticated ? (
-                <div className="navbar-profile-wrapper">
-                    <span className="nav-username">{localStorage.getItem('username')}</span>
-                    <img className="nav-avatar" src={localStorage.getItem('avatar')} alt="avatar" />
-                    <ul className='profile-dropdown'>
-                        <li className='dropdown-item'>
-                            <Link to={routes[ 0 ].path} className='dropdown-item nav-link'>Log Out</Link>
-                        </li>
-                    </ul>
-                </div>
-            ) : null}
-
+            <h2 className="navbar-brand"><FaSteam size={25} /> Steam Backlogify</h2>
+            {navbarContent()}
         </div >
     )
 }

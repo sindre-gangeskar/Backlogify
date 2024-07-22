@@ -11,7 +11,7 @@ import CardWrapper from '../partials/CardWrapper'
 import Navbar from '../partials/Navbar';
 
 /* Classes */
-import Timer from '../classes/Timer';
+import Timer from '../js/Timer';
 
 
 /* CSS */

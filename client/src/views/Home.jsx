@@ -1,12 +1,13 @@
-import '../css/SteamId.css';
+import '../css/Home.css';
 import { FaSteam } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Utils from '../classes/utils';
+import Utils from '../js/utils';
+import useGlobalState from '../js/globalStateStore';
 const utils = new Utils();
 
-function SteamId() {
-    const [ authenticated, setAuthenticated ] = useState(false);
+function Home() {
+    const [ authenticated, setAuthenticated ] = useGlobalState(state => [ state.authenticated, state.setAuthenticated ]);
     const navigate = useNavigate();
 
     /* Check Session State */
@@ -27,7 +28,7 @@ function SteamId() {
                 <div className="avatar-wrapper">
                     <img src={localStorage.getItem('avatar')} alt="avatar" />
                 </div>
-                <button onClick={(() => {utils.handleLogout(setAuthenticated)})}>Log out<FaSteam size={50} className='steam-logo' /></button>
+                <button onClick={(() => { utils.handleLogout(setAuthenticated, navigate) })}>Log out<FaSteam size={50} className='steam-logo' /></button>
                 <div className="steam-background">
                     <FaSteam className='steam-background' size={1000}></FaSteam>
                 </div>
@@ -46,4 +47,4 @@ function SteamId() {
     );
 }
 
-export default SteamId;
+export default Home;
