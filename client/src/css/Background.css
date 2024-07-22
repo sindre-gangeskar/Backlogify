@@ -8,5 +8,5 @@
     transform: translate(-50%, -50%);
     object-fit: cover;
     mix-blend-mode: screen;
-    filter: blur(8px) brightness(50%);
+    filter: blur(0px) brightness(50%) saturate(50%);
 }
