@@ -5,8 +5,7 @@
     left: 50%;
     transform: translate(-50%);
     width: 100%;
-    height: 100%;
-    max-height: var(--games-wrapper-height);
+    height: var(--games-wrapper-height);
     max-width: var(--games-wrapper-width);
     min-width: var(--games-wrapper-min-width);
     min-height: var(--games-wrapper-min-height);
@@ -18,6 +17,8 @@
     justify-content: center;
     background-color: var(--gray-50);
     backdrop-filter: blur(15px);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .games-wrapper:has(.card-wrapper.sm) {

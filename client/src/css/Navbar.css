@@ -22,7 +22,7 @@
     margin-right: 25px;
     min-width: 50px;
     padding: 10px;
-    border-bottom: 4px solid var(--secondary-tertiary-color);
+    border-bottom: 1px solid var(--secondary-tertiary-color);
     width: calc(250px);
     justify-content: center;
     z-index: 1;
@@ -61,12 +61,7 @@
 }
 
 .profile-dropdown .dropdown-item {
-    padding: 10px 0;
-    font-size: 1rem;
-    list-style: none;
     width: 100%;
-    text-align: center;
-    text-transform: capitalize !important;
 }
 
 .dropdown-item.nav-link:hover {
@@ -120,6 +115,7 @@ ul {
     border: none;
     box-shadow: none;
     padding: 5px;
+    text-transform: uppercase;
 }
 
 .nav-link:hover {
