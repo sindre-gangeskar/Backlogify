@@ -1,12 +1,13 @@
 footer {
     background-color: var(--gray);
-    width: 100%;
+    width: 100vw;
     bottom: 0;
-    position: fixed;
-    height: fit-content;
+    position: absolute;
     text-align: center;
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
     z-index: 5;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

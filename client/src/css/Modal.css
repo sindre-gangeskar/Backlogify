@@ -54,7 +54,13 @@
     background-color: var(--gray);
     align-items: center;
     height: 60px;
-    z-index: 10;
+    border-style: solid;
+    border-width: 100%;
+    border-image-slice: 1;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-image: linear-gradient(to right, var(--secondary-tertiary-color), var(--third-tertiary-color)) 1;
 }
 
 .modal-top button {
@@ -62,6 +68,12 @@
     height: 40px;
     justify-content: center;
     padding: 0;
+}
+
+.modal-appid{
+    margin-right: auto;
+    position: relative;
+    margin-left: 15px;
 }
 
 .modal-body {
@@ -79,29 +91,42 @@
 }
 
 .modal-close-btn {
-    border: 0px;
-    outline: 0;
-    font-size: larger;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    border-radius: 0;
+    margin: 15px;
+    margin-left: auto;
+    border: none;
+    color: var(--secondary-tertiary-color);
 }
 
 .modal-close-btn:hover {
-    color: var(--secondary-tertiary-color);
+    color: var(--danger);
 }
 
 .modal-close-btn:active {
     border: 0px;
     outline: 0;
     box-shadow: none;
-    color: red;
+    color: var(--danger-dark)
 }
 
 .modal-footer {
-    padding: 15px;
+    padding: 15px 0;
     width: 100%;
     height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-style: solid;
+    border-width: 100%;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-image: linear-gradient(to right, var(--secondary-tertiary-color), var(--third-tertiary-color)) 1;
 }
 
 .modal-footer-btn {
@@ -144,9 +169,9 @@
 }
 
 .modal-title {
-    margin-left: 10px;
-    z-index: 999;
+    position: absolute;
     width: 100%;
+    font-size: 1.5rem;
 }
 
 .library-hero-wrapper {
@@ -254,11 +279,10 @@
 }
 
 .backlogged {
-    background: none;
     background: -webkit-linear-gradient(45deg, var(--secondary-tertiary-color), var(--third-tertiary-color)) !important;
-    font-size: 1.2rem;
     background-clip: text !important;
     -webkit-text-fill-color: transparent;
+    font-size: 1.2rem;
     border: none;
     outline: none;
     pointer-events: none;

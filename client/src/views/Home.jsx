@@ -31,7 +31,7 @@ function Home() {
                 </div>
                 <button onClick={(() => { utils.handleLogout(setAuthenticated, navigate) })}>Log out<FaSteam size={50} className='steam-logo' /></button>
                 <div className="steam-background">
-                    <FaSteam className='steam-background' size={1000}></FaSteam>
+                    <FaSteam className='steam-background' size={80+'vh'}></FaSteam>
                 </div>
             </div>
         </>

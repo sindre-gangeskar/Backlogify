@@ -1,6 +1,6 @@
 :root {
     --games-wrapper-width: 80vw;
-    --games-wrapper-height: 60vh;
+    --games-wrapper-height: 50vh;
     --games-wrapper-min-height: 200px;
     --games-wrapper-min-width: 300px;
 }

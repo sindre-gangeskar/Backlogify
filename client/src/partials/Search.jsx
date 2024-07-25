@@ -1,7 +1,7 @@
 import React from 'react';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import '../css/Search.css';
-import { debounce, drop } from 'lodash';
+import { debounce } from 'lodash';
 import { RxMagnifyingGlass, RxReset } from "react-icons/rx";
 import { HiOutlineCog8Tooth, HiCog8Tooth } from "react-icons/hi2";
 import { RxZoomIn, RxZoomOut } from 'react-icons/rx';
@@ -9,7 +9,6 @@ import { RxZoomIn, RxZoomOut } from 'react-icons/rx';
 function Search({ onSubmit, setAppIDVisibility, setGameTitleVisibility, increaseScale, decreaseScale, scaleValue, set25PerPage, set50PerPage, set100PerPage, seeAllGames }) {
     const [ settingsShown, setSettingsShown ] = useState(false);
     const textSizesArr = [ 'sm', 'md', 'lg', 'xl' ];
-
     const toggleSettings = () => {
         setSettingsShown(!settingsShown);
     }

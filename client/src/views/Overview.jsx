@@ -41,6 +41,7 @@ function Overview() {
 
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ modalTitle, setModalTitle ] = useState(null);
+    const [ modalAppID, setModalAppID ] = useState(null);
     const [ modalBody, setModalBody ] = useState(null);
     const [ modalFooter, setModalFooter ] = useState(null);
     const [ modalVisible, setModalVisible ] = useState(false);
@@ -186,7 +187,8 @@ function Overview() {
     useEffect(() => {
         const initiateModal = async () => {
             if (modalCurrentApp) {
-                setModalTitle(<div className='title'>{modalCurrentApp.name}</div>);
+                setModalAppID(modalCurrentApp.appid);
+                setModalTitle(modalCurrentApp.name);
                 setModalBody(<>
                     <table className='gd-table-wrapper'>
                         <thead>
@@ -409,6 +411,7 @@ function Overview() {
                 title={modalTitle}
                 body={modalBody}
                 footer={modalFooter}
+                appid={modalAppID}
                 onClose={(() => { closeModal() })}
             />
         </>
