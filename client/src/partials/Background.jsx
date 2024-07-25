@@ -29,8 +29,8 @@ function Background() {
 
                 setBackground(`https://steamcdn-a.akamaihd.net/steam/apps/${randomizedGame.appid}/library_hero.jpg`)
             } catch (error) {
-                console.log(error);
                 setBackground('/images/library_hero1.jpg');
+                console.log(error);
             }
 
         }

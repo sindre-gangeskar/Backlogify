@@ -30,14 +30,13 @@ app.use(session({
     resave: false,
     secret: process.env.SECRET,
     cookie: {
-        maxAge: 1000 * 60 * 60
+        maxAge: 1000 * 60 * 60 * 3
     },
     store: new SQLiteStore({
-        ttl: 60,
-        pruneInterval: 1,
+        ttl: 60 * 60 * 3,
+        pruneInterval: 60 * 60 * 15,
         dir: './db',
         db: 'sessions.db',
-        makeDirIfNotExists: true
     })
 }));
 

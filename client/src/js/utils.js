@@ -59,7 +59,7 @@ class Utils {
 
         const sessionInterval = setInterval(async () => {
             await checkSession();
-        }, 5000)
+        }, 1000 * 60  * 15)
 
     }
 
@@ -69,24 +69,34 @@ class Utils {
 
     async handleLogout(authenticationState, navHook) {
         if (confirm('Are you sure you want to log out?')) {
-            const response = await fetch('http://localhost:3000/auth/logout', {
-                method: 'GET',
-                credentials: 'include'
-            });
-            if (response.ok) {
-                const data = await response.json();
-                console.log(data.data.message);
-                authenticationState(false);
-                localStorage.clear();
-                navHook('/')
-                window.dispatchEvent(new Event('storage'));
-            } else {
-                console.log('Failed to log out');
-            }
+            this.logout()
+            authenticationState(false);
+            navHook('/');
         } else return;
     }
 
+    async inactiveLogout(authenticationState, navHook) {
+        this.logout();
+        authenticationState(false);
+        navHook('/');
+    }
+
+    async logout() {
+        const response = await fetch('http://localhost:3000/auth/logout', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data.data.message);
+            localStorage.clear();
+            window.dispatchEvent(new Event('storage'));
+        } else {
+            console.log('Failed to log out');
+        }
+    }
 }
+
 
 
 

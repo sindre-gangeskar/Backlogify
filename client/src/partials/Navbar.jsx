@@ -11,9 +11,6 @@ function Navbar() {
     const routes = [ { path: '/', name: 'home' }, { path: '/overview', name: 'overview' }, { path: '/backlog', name: 'backlog' } ]
     const [ authenticated, setAuthenticated ] = useGlobalState(state => [ state.authenticated, state.setAuthenticated ]);
 
-    useEffect(() => {
-        console.log(authenticated);
-    }, [ authenticated ])
     const setAuthNavbar = () => (
         <>
             <ul className='navbar-group'>

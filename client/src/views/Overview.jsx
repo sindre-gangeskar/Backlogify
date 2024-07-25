@@ -147,33 +147,6 @@ function Overview() {
 
     }, [ modalCurrentApp ])
 
-    /* Set achievements in the modal for actively selected game  */
-    useEffect(() => {
-        const fetchAchievements = async () => {
-            if (modalCurrentApp) {
-                try {
-                    const response = await fetch(`http://localhost:3000/achievements/${steamid}/${modalCurrentApp.appid}`, {
-                        method: 'GET',
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-                    if (response.ok) {
-                        const data = await response.json();
-                        if (data.data.achievements && data.data.achieved) {
-                            setAchievements(data.data.achievements);
-                            setAchieved(data.data.achieved);
-                        }
-                        else {
-                            setAchievements([]);
-                            setAchieved([]);
-                        }
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-        }
-        fetchAchievements();
-    }, [ modalCurrentApp ])
 
     /* Set achievement progress on achievements change */
     useEffect(() => {
@@ -383,8 +356,8 @@ function Overview() {
                 set50PerPage={set50PerPage}
                 set100PerPage={set100PerPage}
                 seeAllGames={setAllInOnePage} />
-            
-            <GamesWrapper ref={gamesWrapperRef} content={paginate(gamesPerPage, page, filtered)}/>
+
+            <GamesWrapper ref={gamesWrapperRef} content={paginate(gamesPerPage, page, filtered)} />
             <div className="panel">
                 {page !== 1 ?
                     <button className='pagination-first-button' onClick={goToFirstPage}>1</button>

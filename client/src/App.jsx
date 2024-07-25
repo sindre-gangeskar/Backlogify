@@ -9,20 +9,35 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useGlobalState from './js/globalStateStore';
 import Utils from './js/utils';
-
+import { useIdleTimer } from 'react-idle-timer';
 function App() {
-  const [ setAuthenticated ] = useGlobalState(state => [ state.setAuthenticated ]);
+  const [ authenticated, setAuthenticated ] = useGlobalState(state => [ state.authenticated, state.setAuthenticated ]);
   const [ visible, setVisible ] = useState(false);
   const utils = new Utils();
   const navigate = useNavigate();
+
+  useIdleTimer({
+    disabled: !authenticated,
+    timeout: 1000 * 60 * 1,
+    onIdle: (() => {
+      alert("You've been logged out due to inactivity");
+      utils.inactiveLogout(setAuthenticated, navigate);
+    }),
+    /* promptBeforeIdle: 1000 * 60 * 0.5, */
+    /* onPrompt: (() => {
+      if (!confirm('Do you want to stay logged in?')) {
+        utils.inactiveLogout(setAuthenticated, navigate);
+      }
+    }) */
+  })
 
   useEffect(() => {
     utils.checkSession(navigate, setAuthenticated);
   }, [])
 
-
   return (
     <>
+      
       <Navbar />
       <Routes>
         <Route path='/overview' key={'/overview'} element={
@@ -37,7 +52,6 @@ function App() {
             <Footer key={'footer'} />
           </>
         }></Route>
-
         <Route path='/' element={
           <>
             <Home key={'home'} />
@@ -45,7 +59,6 @@ function App() {
           </>
         }>
         </Route>
-
       </Routes>
     </>
   )
