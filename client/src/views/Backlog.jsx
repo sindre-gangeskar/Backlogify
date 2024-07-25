@@ -241,7 +241,7 @@ function Backlog() {
 
     return (
         <>
-            <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />;
+            <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />
             <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} increaseScale={increaseScale} decreaseScale={decreaseScale} scaleValue={gameCardScale} />
             <div className='games-wrapper' ref={gamesWrapperRef}>
                 {filtered.length > 0 ? (

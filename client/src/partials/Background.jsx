@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import useGlobalState from '../js/globalStateStore';
 import '../css/Background.css'
 function Background() {
-    const [ gamesData ] = useGlobalState(state => [ state.games ]);
     const [ background, setBackground ] = useGlobalState(state => [ state.background, state.setBackground ]);
-
+    const [ gamesData ] = useGlobalState(state => [ state.games ]);
     useEffect(() => {
+        if (!gamesData) return;
+
         const getGames = new Promise((resolve, reject) => {
             if (gamesData) {
                 resolve(gamesData);
-                console.log(gamesData);
             }
-            else reject('Could not find games in storage');
+            else
+                reject('Could not find games in storage');
         })
 
         const getGameBackgrounds = async () => {
             try {
-                await getGames;
-                const filtered = gamesData.data.appids.map(game => ({
+                const games = await getGames;
+                const filtered = games.data.appids.map(game => ({
                     appid: game.appid
                 }));
 
@@ -35,9 +36,10 @@ function Background() {
 
         }
         getGameBackgrounds();
-    }, [ gamesData, setBackground ])
+    }, [ setBackground ])
 
-    return <img src={background} alt="library_hero.jpg" className='background' onError={() => {setBackground('/public/images/library_hero1.jpg')}} height={100} />;
+
+    return <img src={background} alt="library_hero.jpg" className='background' onError={() => { setBackground('/images/library_hero1.jpg') }} height={100} />;
 }
 
 export default Background;
