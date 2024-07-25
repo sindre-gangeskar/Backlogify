@@ -17,6 +17,7 @@ import Timer from '../js/Timer';
 
 /* CSS */
 import '../css/Overview.css';
+import '../css/index.css';
 
 function Overview() {
     const timer = new Timer();
@@ -227,6 +228,7 @@ function Overview() {
         }
 
     }, [ achievementsVisible ])
+
     async function handleSubmit(event) {
         event.preventDefault();
         const form = new FormData(gamesFormRef.current);
@@ -384,7 +386,7 @@ function Overview() {
                 title={modalTitle}
                 body={modalBody}
                 footer={modalFooter}
-                appid={modalAppID}
+                appid={'AppID:' + modalAppID}
                 onClose={(() => { closeModal() })}
             />
         </>

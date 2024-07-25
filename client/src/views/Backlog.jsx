@@ -16,6 +16,7 @@ import Timer from '../js/Timer';
 
 /* CSS */
 import '../css/Overview.css';
+import '../css/index.css';
 
 function Backlog() {
     const timer = new Timer();

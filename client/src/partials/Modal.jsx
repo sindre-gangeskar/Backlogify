@@ -15,13 +15,12 @@ const Modal = React.memo(({ isOpen, onClose, title, body, footer, className, app
         return null;
     }
 
-
     else
         return (
             <>
                 <div className={className}>
                     <span className="modal-top">
-                        <pre className="modal-appid">AppID: {appid}</pre>
+                        <pre className="modal-appid">{appid}</pre>
                         <div className="modal-title">{title}</div>
                         <button onClick={onClose} className='modal-close-btn'><RxCross2></RxCross2></button>
                     </span>

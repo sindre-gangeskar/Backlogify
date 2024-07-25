@@ -9,35 +9,53 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useGlobalState from './js/globalStateStore';
 import Utils from './js/utils';
+import Timer from './js/Timer';
 import { useIdleTimer } from 'react-idle-timer';
+import Modal from './partials/Modal';
+
 function App() {
   const [ authenticated, setAuthenticated ] = useGlobalState(state => [ state.authenticated, state.setAuthenticated ]);
   const [ visible, setVisible ] = useState(false);
+  const [ modalVisible, setModalVisible ] = useState(false);
+  const [ modalOpen, setModalOpen ] = useState(false);
+
   const utils = new Utils();
+  const timer = new Timer();
   const navigate = useNavigate();
 
   useIdleTimer({
     disabled: !authenticated,
-    timeout: 1000 * 60 * 1,
+    timeout: 1000 * 60 * 15,
     onIdle: (() => {
-      alert("You've been logged out due to inactivity");
+      setModalOpen(true);
+      timer.delay(0.1, () => {
+        setModalVisible(true);
+      })
       utils.inactiveLogout(setAuthenticated, navigate);
     }),
-    /* promptBeforeIdle: 1000 * 60 * 0.5, */
-    /* onPrompt: (() => {
-      if (!confirm('Do you want to stay logged in?')) {
-        utils.inactiveLogout(setAuthenticated, navigate);
-      }
-    }) */
   })
 
   useEffect(() => {
     utils.checkSession(navigate, setAuthenticated);
   }, [])
 
+
+  const modal = ({
+    title: <p>Idle Timeout</p>,
+    body: <p>Logged out due to inactivity</p>,
+    footer: <button className="modal-footer-btn add" onClick={closeModal}>OK</button>
+  })
+
+  function closeModal() {
+    setModalVisible(false);
+    timer.delay(0.1, () => {
+      setModalOpen(false);
+    })
+  }
+
   return (
     <>
-      
+      <Modal className={`modal-wrapper ${modalVisible ? 'open' : 'close'}`} title={modal.title} isOpen={modalOpen} body={modal.body} onClose={closeModal} footer={modal.footer} appid={null} ></Modal>
       <Navbar />
       <Routes>
         <Route path='/overview' key={'/overview'} element={
