@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BiCheckCircle } from "react-icons/bi";
+import { RxCross2 } from 'react-icons/rx';
 import { FaCircleArrowRight, FaCircleArrowLeft } from "react-icons/fa6";
 /* Components */
 import ImageWithFallback from '../partials/ImageWithFallback';
@@ -100,27 +101,6 @@ function Overview() {
 
     /* Modal submission */
     useEffect(() => {
-        if (modalOpen && modalCurrentApp) {
-
-            let buttonText = `Add ${modalCurrentApp.name} to the backlog`;
-            if (modalCurrentApp.backlogged)
-                buttonText = `${modalCurrentApp.name} is added to the backlog`
-
-            setModalFooter(
-                <>
-                    <span>
-                        <form id='app-form' ref={gamesFormRef} onSubmit={handleSubmit}>
-                            <input type="hidden" name='appid' value={modalCurrentApp.appid} />
-                            <input type="hidden" name='name' value={modalCurrentApp.name} />
-                            <input type="hidden" name='playtime_forever' value={modalCurrentApp.playtime_forever} />
-                            <input type="hidden" name='steamid' value={localStorage.getItem('steamid')} />
-                            <button type='submit' className={`modal-footer-btn  ${modalCurrentApp.backlogged ? 'backlogged' : 'add'}`}>{buttonText}{modalCurrentApp.backlogged ? <BiCheckCircle className='checked' /> : ''}</button>
-                        </form>
-                    </span>
-                </>
-            );
-        }
-
         const fetchAchievements = async () => {
             if (modalCurrentApp) {
                 try {
@@ -162,43 +142,67 @@ function Overview() {
         const initiateModal = async () => {
             if (modalCurrentApp) {
                 setModalAppID(modalCurrentApp.appid);
-                setModalTitle(modalCurrentApp.name);
+                setModalTitle(<>
+                    <span className="modal-top">
+                        <pre className="modal-appid">AppID: {modalCurrentApp.appid}</pre>
+                        <div className="modal-title">{modalCurrentApp.name}</div>
+                        <button onClick={closeModal} className='modal-close-btn'><RxCross2></RxCross2></button>
+                    </span>
+                </>);
                 setModalBody(<>
-                    <table className='gd-table-wrapper'>
-                        <thead>
-                            <tr>
-                                <td>App ID</td>
-                                <td>Title</td>
-                                <td>Total Playtime in hours</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{modalCurrentApp.appid}</td>
-                                <td>{modalCurrentApp.name}</td>
-                                <td>{Math.round(modalCurrentApp.playtime_forever / 60)}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <AchievementsProgress progress={achievementProgress} achievements={achievements} achieved={achieved} visible={achievementsVisible} key={modalCurrentApp} ref={progressBarRef} play={achievementTransition} />
-                    <div className="hero-poster-wrapper">
-                        <HeroPoster app={modalCurrentApp} key={modalCurrentApp.appid} className="hero-poster" />
-                    </div>
+                    <div className="modal-body">
+                        <table className='gd-table-wrapper'>
+                            <thead className='gd-head'>
+                                <tr>
+                                    <td>Total Playtime in hours</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{Math.round(modalCurrentApp.playtime_forever / 60)}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <AchievementsProgress progress={achievementProgress} achievements={achievements} achieved={achieved} visible={achievementsVisible} key={modalCurrentApp} ref={progressBarRef} play={achievementTransition} />
+                        <div className="hero-poster-wrapper">
+                            <HeroPoster app={modalCurrentApp} key={modalCurrentApp.appid} className="hero-poster" />
+                        </div>
 
-                    <div className="library-hero-wrapper" >
-                        <ImageWithFallback root={modalWrapperRef.current} key={modalCurrentApp.appid}
-                            src={`https://steamcdn-a.akamaihd.net/steam/apps/${modalCurrentApp.appid}/library_hero.jpg`}
-                            fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${modalCurrentApp.appid}/header.jpg`}
-                            className='library-hero'
-                            alt="library_hero.jpg"
-                        />
+                        <div className="library-hero-wrapper" >
+                            <ImageWithFallback root={modalWrapperRef.current} key={modalCurrentApp.appid}
+                                src={`https://steamcdn-a.akamaihd.net/steam/apps/${modalCurrentApp.appid}/library_hero.jpg`}
+                                fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${modalCurrentApp.appid}/header.jpg`}
+                                className='library-hero'
+                                alt="library_hero.jpg"
+                            />
+                        </div>
                     </div>
                 </>)
+
+                let buttonText = `Add ${modalCurrentApp.name} to the backlog`;
+                if (modalCurrentApp.backlogged)
+                    buttonText = `${modalCurrentApp.name} is added to the backlog`
+
+                setModalFooter(
+                    <>
+                        <div className="modal-footer">
+                            <span>
+                                <form id='app-form' ref={gamesFormRef} onSubmit={handleSubmit}>
+                                    <input type="hidden" name='appid' value={modalCurrentApp.appid} />
+                                    <input type="hidden" name='name' value={modalCurrentApp.name} />
+                                    <input type="hidden" name='playtime_forever' value={modalCurrentApp.playtime_forever} />
+                                    <input type="hidden" name='steamid' value={localStorage.getItem('steamid')} />
+                                    <button type='submit' className={`modal-footer-btn  ${modalCurrentApp.backlogged ? 'backlogged' : 'add'}`}>{buttonText}{modalCurrentApp.backlogged ? <BiCheckCircle className='checked' /> : ''}</button>
+                                </form>
+                            </span>
+                        </div>
+                    </>
+                );
             }
         }
 
         initiateModal(modalCurrentApp);
-    }, [ modalCurrentApp, achievementProgress, achievements, achieved, achievementTransition ])
+    }, [ modalCurrentApp, achievementProgress, achievements, achieved, achievementTransition, modalCurrentApp?.backlogged ])
 
     /* Save card scale value to localStorage on change */
     useEffect(() => {
@@ -388,6 +392,7 @@ function Overview() {
                 footer={modalFooter}
                 appid={'AppID:' + modalAppID}
                 onClose={(() => { closeModal() })}
+                backdrop="true"
             />
         </>
     );

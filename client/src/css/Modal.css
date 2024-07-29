@@ -211,6 +211,10 @@
     padding: 15px;
 }
 
+.gd-table-wrapper thead tr td{
+    border-bottom: 1px solid var(--secondary-tertiary-color);
+}
+
 .open {
     scale: 1;
     opacity: 1;
@@ -227,6 +231,9 @@
 
 .hidden {
     opacity: 0;
+}
+.confirm{
+    width: 150px;
 }
 
 .modal-wrapper.close>.modal-footer .modal-footer-btn {

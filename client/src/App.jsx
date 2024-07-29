@@ -25,7 +25,7 @@ function App() {
 
   useIdleTimer({
     disabled: !authenticated,
-    timeout: 1000 * 60 * 15,
+    timeout: 1000 * 60 * 5,
     onIdle: (() => {
       setModalOpen(true);
       timer.delay(0.1, () => {
@@ -41,9 +41,10 @@ function App() {
 
 
   const modal = ({
-    title: <p>Idle Timeout</p>,
+    title:
+      <p>Idle Timeout</p>,
     body: <p>Logged out due to inactivity</p>,
-    footer: <button className="modal-footer-btn add" onClick={closeModal}>OK</button>
+    footer: <button className="modal-footer-btn add confirm" onClick={closeModal}>OK</button>
   })
 
   function closeModal() {
@@ -55,7 +56,7 @@ function App() {
 
   return (
     <>
-      <Modal className={`modal-wrapper ${modalVisible ? 'open' : 'close'}`} title={modal.title} isOpen={modalOpen} body={modal.body} onClose={closeModal} footer={modal.footer} appid={null} ></Modal>
+      <Modal className={`modal-wrapper ${modalVisible ? 'open' : 'close'}`} title={modal.title} isOpen={modalOpen} body={modal.body} onClose={closeModal} footer={modal.footer} backdrop="false" ></Modal>
       <Navbar />
       <Routes>
         <Route path='/overview' key={'/overview'} element={

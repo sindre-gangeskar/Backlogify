@@ -8,7 +8,6 @@ import Search from '../partials/Search';
 import Loading from './Loading';
 import Modal from '../partials/Modal';
 import CardWrapper from '../partials/CardWrapper'
-import Navbar from '../partials/Navbar';
 
 /* Classes */
 import Timer from '../js/Timer';
@@ -17,6 +16,8 @@ import Timer from '../js/Timer';
 /* CSS */
 import '../css/Overview.css';
 import '../css/index.css';
+
+import { RxCross2 } from 'react-icons/rx';
 
 function Backlog() {
     const timer = new Timer();
@@ -83,7 +84,7 @@ function Backlog() {
     useEffect(() => {
         document.title = 'Backlog';
     }, [])
-    
+
     /* Save card scale value to localStorage on change */
     useEffect(() => {
         localStorage.setItem('cardScale', +gameCardScale);
@@ -127,7 +128,7 @@ function Backlog() {
 
             setModalFooter(
                 <>
-                    <span>
+                    <span className='modal-footer'>
                         <form id='app-form' ref={gamesFormRef}>
                             <input type="hidden" name='appid' value={modalCurrentApp.appid} />
                             <input type="hidden" name='name' value={modalCurrentApp.name} />
@@ -179,34 +180,41 @@ function Backlog() {
     }
     function setModal(app) {
         setModalCurrentApp(app);
-        setModalTitle(<div className='title'>{app.name}</div>);
+        setModalTitle(
+            <span className="modal-top">
+                <pre className="modal-appid">AppID: {app.appid}</pre>
+                <div className="modal-title">{app.name}</div>
+                <button onClick={closeModal} className='modal-close-btn'><RxCross2></RxCross2></button>
+            </span>)
         setModalBody(<>
-            <table className='gd-table-wrapper'>
-                <thead>
-                    <tr>
-                        <td>App ID</td>
-                        <td>Title</td>
-                        <td>Total Playtime in hours</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{app.appid}</td>
-                        <td>{app.name}</td>
-                        <td>{Math.round(app.playtime_forever / 60)}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div className="hero-poster-wrapper">
-                <HeroPoster app={app} key={app.appid} className="hero-poster-img" />
-            </div>
-            <div className="library-hero-wrapper" >
-                <ImageWithFallback root={modalWrapperRef.current} key={app.appid}
-                    src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_hero.jpg`}
-                    fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/header.jpg`}
-                    className='library-hero'
-                    alt="library_hero.jpg"
-                />
+            <div className="modal-body">
+                <table className='gd-table-wrapper'>
+                    <thead>
+                        <tr>
+                            <td>App ID</td>
+                            <td>Title</td>
+                            <td>Total Playtime in hours</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{app.appid}</td>
+                            <td>{app.name}</td>
+                            <td>{Math.round(app.playtime_forever / 60)}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div className="hero-poster-wrapper">
+                    <HeroPoster app={app} key={app.appid} className="hero-poster-img" />
+                </div>
+                <div className="library-hero-wrapper" >
+                    <ImageWithFallback root={modalWrapperRef.current} key={app.appid}
+                        src={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/library_hero.jpg`}
+                        fallbackSrc={`https://steamcdn-a.akamaihd.net/steam/apps/${app.appid}/header.jpg`}
+                        className='library-hero'
+                        alt="library_hero.jpg"
+                    />
+                </div>
             </div>
         </>)
 
@@ -215,7 +223,7 @@ function Backlog() {
     }
     function closeModal() {
         setModalVisible(false);
-        timer.delay(0.5, () => { setModalOpen(false) })
+        timer.delay(0.2, () => { setModalOpen(false) })
     }
 
     if (error) {
@@ -259,6 +267,7 @@ function Backlog() {
                 body={modalBody}
                 footer={modalFooter}
                 onClose={(() => { closeModal() })}
+                backdrop="true"
             />
         </>
     );

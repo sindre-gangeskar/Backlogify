@@ -5,9 +5,8 @@ function Background() {
     const [ background, setBackground ] = useGlobalState(state => [ state.background, state.setBackground ]);
     const [ gamesData ] = useGlobalState(state => [ state.games ]);
     useEffect(() => {
-        if (!gamesData) return;
-
         const getGames = new Promise((resolve, reject) => {
+            if (!gamesData) return;
             if (gamesData) {
                 resolve(gamesData);
             }
@@ -36,7 +35,7 @@ function Background() {
 
         }
         getGameBackgrounds();
-    }, [ setBackground ])
+    }, [ setBackground, gamesData ])
 
 
     return <img src={background} alt="library_hero.jpg" className='background' onError={() => { setBackground('/images/library_hero1.jpg') }} height={100} />;
