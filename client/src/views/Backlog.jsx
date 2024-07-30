@@ -11,7 +11,7 @@ import CardWrapper from '../partials/CardWrapper'
 
 /* Classes */
 import Timer from '../js/Timer';
-
+import Utils from '../js/utils';
 
 /* CSS */
 import '../css/Overview.css';
@@ -21,6 +21,7 @@ import { RxCross2 } from 'react-icons/rx';
 
 function Backlog() {
     const timer = new Timer();
+    const utils = new Utils();
     const location = useLocation();
     const steamid = location.state?.steamid || localStorage.getItem('steamid');
 
@@ -69,16 +70,6 @@ function Backlog() {
         else throw new Error('Could not remove from backlog');
 
         setRefreshing(false);
-    }
-
-    const increaseScale = () => {
-        if (gameCardScale >= 3) return;
-        setGameCardScale(gameCardScale + 1);
-    }
-
-    const decreaseScale = () => {
-        if (gameCardScale <= 0) return;
-        setGameCardScale(gameCardScale - 1);
     }
 
     useEffect(() => {
@@ -250,7 +241,7 @@ function Backlog() {
     return (
         <>
             <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />
-            <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} increaseScale={increaseScale} decreaseScale={decreaseScale} scaleValue={gameCardScale} />
+            <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} increaseScale={() => { utils.increaseScale(setGameCardScale, gameCardScale) }} decreaseScale={() => { utils.decreaseScale(setGameCardScale, gameCardScale) }} scaleValue={gameCardScale} />
             <div className='games-wrapper' ref={gamesWrapperRef}>
                 {filtered.length > 0 ? (
                     filtered.map((app) => (

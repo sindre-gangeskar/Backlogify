@@ -19,10 +19,11 @@ import Timer from '../js/Timer';
 /* CSS */
 import '../css/Overview.css';
 import '../css/index.css';
-
+import Utils from '../js/utils';
 function Overview() {
     const timer = new Timer();
     const steamid = localStorage.getItem('steamid');
+    const utils = new Utils();
 
     const [ games, setGames ] = useGlobalState(state => [ state.games, state.setGames ]);
     const [ loading, setLoading ] = useState(true);
@@ -127,7 +128,6 @@ function Overview() {
         fetchAchievements();
 
     }, [ modalCurrentApp ])
-
 
     /* Set achievement progress on achievements change */
     useEffect(() => {
@@ -272,14 +272,6 @@ function Overview() {
             setModalOpen(false);
         });
     }
-    function increaseScale() {
-        if (gameCardScale >= 3) return;
-        setGameCardScale(gameCardScale + 1);
-    }
-    function decreaseScale() {
-        if (gameCardScale <= 0) return;
-        setGameCardScale(gameCardScale - 1);
-    }
     function paginate(itemsPerPage, currentPage, array) {
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = currentPage * itemsPerPage;
@@ -289,53 +281,6 @@ function Overview() {
         return paginatedItems.map(app => (
             <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
         ))
-    }
-    function nextPage() {
-        if (page >= totalPages) return;
-        setPage(page + 1);
-        scrollToTop();
-    }
-    function previousPage() {
-        if (page <= 1) return;
-        setPage(page - 1);
-        scrollToTop();
-
-    }
-    function goToLastPage() {
-        setPage(totalPages);
-        scrollToTop();
-
-    }
-    function goToFirstPage() {
-        setPage(1);
-        scrollToTop();
-
-    }
-    function set25PerPage() {
-        setGamesPerPage(25);
-        scrollToTop();
-
-    }
-    function set50PerPage() {
-        setGamesPerPage(50);
-        scrollToTop();
-
-    }
-    function set100PerPage() {
-        setGamesPerPage(100);
-        scrollToTop();
-    }
-    function setAllInOnePage() {
-        setPage(1);
-        setGamesPerPage(filtered.length);
-        scrollToTop();
-
-    }
-    function scrollToTop() {
-        if (gamesWrapperRef.current) {
-            gamesWrapperRef.current.scrollTo('', 0);
-        } else return;
-
     }
 
     if (error) {
@@ -355,32 +300,32 @@ function Overview() {
                 onSubmit={handleFilter}
                 setAppIDVisibility={setAppIDVisibility}
                 setGameTitleVisibility={setGameTitleVisibility}
-                increaseScale={increaseScale}
-                decreaseScale={decreaseScale}
+                increaseScale={(() => { utils.increaseScale(setGameCardScale, gameCardScale) })}
+                decreaseScale={(() => { utils.decreaseScale(setGameCardScale, gameCardScale) })}
                 scaleValue={gameCardScale}
-                set25PerPage={set25PerPage}
-                set50PerPage={set50PerPage}
-                set100PerPage={set100PerPage}
-                seeAllGames={setAllInOnePage} />
+                set25PerPage={() => { setGamesPerPage(25); utils.scrollToTop(gamesWrapperRef) }}
+                set50PerPage={() => { setGamesPerPage(50); utils.scrollToTop(gamesWrapperRef) }}
+                set100PerPage={() => { setGamesPerPage(100); utils.scrollToTop(gamesWrapperRef) }}
+                seeAllGames={() => { setGamesPerPage(filtered.length); utils.scrollToTop(gamesWrapperRef); utils.goToFirstPage(setPage, gamesWrapperRef) }} />
 
             <GamesWrapper ref={gamesWrapperRef} content={paginate(gamesPerPage, page, filtered)} />
             <div className="panel">
                 {page !== 1 ?
-                    <button className='pagination-first-button' onClick={goToFirstPage}>1</button>
+                    <button className='pagination-first-button' onClick={() => { utils.goToFirstPage(setPage, gamesWrapperRef) }}>1</button>
                     : null}
 
                 <span className="pagination-controls">
                     {page !== 1 ?
-                        <button className='pagination-button' onClick={previousPage}><FaCircleArrowLeft /></button>
+                        <button className='pagination-button' onClick={() => { utils.previousPage(page, setPage, gamesWrapperRef) }}><FaCircleArrowLeft /></button>
                         : <button className='pagination-button disabled hidden'><FaCircleArrowLeft /></button>}
                     <p>{page}</p>
                     {page !== totalPages ?
-                        <button className='pagination-button' onClick={nextPage}><FaCircleArrowRight /></button>
+                        <button className='pagination-button' onClick={() => { utils.nextPage(page, totalPages, setPage, gamesWrapperRef) }}><FaCircleArrowRight /></button>
                         : <button className='pagination-button disabled hidden'><FaCircleArrowRight /></button>}
                 </span>
 
                 {page !== totalPages ?
-                    <button className='pagination-last-button' onClick={goToLastPage}>{totalPages}</button>
+                    <button className='pagination-last-button' onClick={() => { utils.goToLastPage(setPage, totalPages, gamesWrapperRef) }}>{totalPages}</button>
                     : null}
             </div>
             <Background />

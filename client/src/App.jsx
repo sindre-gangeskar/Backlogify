@@ -8,7 +8,7 @@ import Home from './views/Home';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useGlobalState from './js/globalStateStore';
-import Utils from './js/utils';
+import Auth from './js/auth';
 import Timer from './js/Timer';
 import { useIdleTimer } from 'react-idle-timer';
 import Modal from './partials/Modal';
@@ -19,7 +19,7 @@ function App() {
   const [ modalVisible, setModalVisible ] = useState(false);
   const [ modalOpen, setModalOpen ] = useState(false);
 
-  const utils = new Utils();
+  const auth = new Auth();
   const timer = new Timer();
   const navigate = useNavigate();
 
@@ -31,12 +31,12 @@ function App() {
       timer.delay(0.1, () => {
         setModalVisible(true);
       })
-      utils.inactiveLogout(setAuthenticated, navigate);
+      auth.inactiveLogout(setAuthenticated, navigate);
     }),
   })
 
   useEffect(() => {
-    utils.checkSession(navigate, setAuthenticated);
+    auth.checkSession(navigate, setAuthenticated);
   }, [])
 
 

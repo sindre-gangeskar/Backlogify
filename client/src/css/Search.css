@@ -101,7 +101,7 @@
 }
 
 .settings-menu {
-display: none;
+    display: none;
 }
 
 .settings-menu.shown {
@@ -145,14 +145,38 @@ display: none;
 }
 
 .list-item.zoom-btn-group {
-    display: flex;
-    gap: 25px;
-    justify-content: center;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-evenly;
 }
 
 .list-item.zoom-btn-group>button:active {
     outline: none;
     box-shadow: none;
+}
+
+.zoom-in,
+.zoom-out {
+    align-items: center;
+    align-self: baseline;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.zoom-in-icon,
+.zoom-out-icon {
+    width: 25px;
+    height: 25px;
+    align-self: center;
+    text-align: center;
+    margin: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.zoom-in-icon{
+    margin-right: auto !important;
 }
 
 .shown {
@@ -164,6 +188,11 @@ display: none;
     color: var(--secondary-tertiary-color);
 }
 
+.scale-text {
+    width: 25px;
+    height: 25px;
+    align-self: center;
+}
 
 button:hover {
     color: var(--secondary-tertiary-color);

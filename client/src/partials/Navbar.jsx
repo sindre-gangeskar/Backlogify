@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import useGlobalState from '../js/globalStateStore';
-import Utils from '../js/utils';
+import Auth from '../js/auth';
 import '../css/Navbar.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaSteam } from "react-icons/fa";
 
 function Navbar() {
-    const utils = new Utils();
+    const auth = new Auth();
     const navigate = useNavigate();
     const routes = [ { path: '/', name: 'home' }, { path: '/overview', name: 'overview' }, { path: '/backlog', name: 'backlog' } ]
     const [ authenticated, setAuthenticated ] = useGlobalState(state => [ state.authenticated, state.setAuthenticated ]);
@@ -26,7 +26,7 @@ function Navbar() {
                 <img className="nav-avatar" src={localStorage.getItem('avatar')} alt="avatar" />
                 <ul className='profile-dropdown'>
                     <li className='dropdown-item'>
-                        <button className='logout-btn' onClick={() => { utils.handleLogout(setAuthenticated, navigate) }}>Log out</button>
+                        <button className='logout-btn' onClick={() => { auth.handleLogout(setAuthenticated, navigate) }}>Log out</button>
                     </li>
                 </ul>
             </div>

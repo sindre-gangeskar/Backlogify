@@ -1,99 +1,36 @@
 class Utils {
-    scrollToTop(elementRef) {
-        if (elementRef.current)
-            elementRef.current.scrollTo('', 0);
-        else return;
+
+    increaseScale(setGameCardScale, gameCardScale) {
+        if (gameCardScale >= 3) return;
+        setGameCardScale(gameCardScale + 1);
     }
-
-    async checkSteamAuthenticated(authenticationState, navHook) {
-        try {
-            const response = await fetch('http://localhost:3000/auth', {
-                method: 'GET',
-                credentials: 'include'
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                if (data.data.authenticated) {
-                    authenticationState(true);
-                    localStorage.setItem('steamid', data.data.user.steamid64)
-                    localStorage.setItem('username', data.data.user.personaname)
-                    localStorage.setItem('avatar', data.data.user.avatarfull)
-
-                    if (!localStorage.getItem('redirected')) {
-                        localStorage.setItem('redirected', true);
-                        navHook('/overview');
-                    }
-                    window.dispatchEvent(new Event('storage'));
-                }
-                else {
-                    authenticationState(false);
-                    localStorage.clear();
-                }
-            }
-            else {
-                authenticationState(false);
-                localStorage.clear();
-            }
-        } catch (error) {
-            console.error('Error checking authentication status:', error);
-            authenticationState(false);
-            localStorage.clear();
-        }
-    };
-
-    async checkSession(navHook, authenticationState) {
-        const checkSession = async () => {
-            const response = await fetch('http://localhost:3000/auth', { method: 'GET', credentials: 'include' });
-            if (response.ok) {
-                const data = await response.json();
-                if (!data.data.authenticated) {
-                    authenticationState(false);
-                    localStorage.clear();
-                    window.dispatchEvent(new Event('storage'));
-                    navHook('/');
-                    clearInterval(sessionInterval)
-                }
-            }
-        }
-
-        const sessionInterval = setInterval(async () => {
-            await checkSession();
-        }, 1000 * 60  * 15)
-
+    decreaseScale(setGameCardScale, gameCardScale) {
+        if (gameCardScale <= 0) return;
+        setGameCardScale(gameCardScale - 1);
     }
-
-    handleLogin() {
-        location.href = 'http://localhost:3000/auth/login';
-    }
-
-    async handleLogout(authenticationState, navHook) {
-        if (confirm('Are you sure you want to log out?')) {
-            this.logout()
-            authenticationState(false);
-            navHook('/');
+    scrollToTop(ref) {
+        if (ref.current) {
+            ref.current.scrollTo('', 0);
         } else return;
     }
-
-    async inactiveLogout(authenticationState, navHook) {
-        this.logout();
-        authenticationState(false);
-        navHook('/');
+    goToFirstPage(setPage, scrollRef) {
+        setPage(1);
+        this.scrollToTop(scrollRef);
     }
+    goToLastPage(setPage, totalPages, scrollRef) {
+        setPage(totalPages);
+        this.scrollToTop(scrollRef);
 
-    async logout() {
-        const response = await fetch('http://localhost:3000/auth/logout', {
-            method: 'GET',
-            credentials: 'include'
-        });
-        if (response.ok) {
-            const data = await response.json();
-            console.log(data.data.message);
-            localStorage.clear();
-            window.dispatchEvent(new Event('storage'));
-        } else {
-            console.log('Failed to log out');
-        }
+    }
+    nextPage(page, totalPages, setPage, scrollRef) {
+        if (page >= totalPages) return;
+        setPage(page + 1);
+        this.scrollToTop(scrollRef);
+    }
+    previousPage(page, setPage, scrollRef) {
+        if (page <= 1) return;
+        setPage(page - 1);
+        this.scrollToTop(scrollRef);
     }
 }
 

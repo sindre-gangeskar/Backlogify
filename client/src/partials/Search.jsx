@@ -5,6 +5,7 @@ import { debounce } from 'lodash';
 import { RxMagnifyingGlass, RxReset } from "react-icons/rx";
 import { HiOutlineCog8Tooth, HiCog8Tooth } from "react-icons/hi2";
 import { RxZoomIn, RxZoomOut } from 'react-icons/rx';
+import { FaCirclePlus, FaCircleMinus } from "react-icons/fa6";
 
 function Search({ onSubmit, setAppIDVisibility, setGameTitleVisibility, increaseScale, decreaseScale, scaleValue, set25PerPage, set50PerPage, set100PerPage, seeAllGames }) {
     const [ settingsShown, setSettingsShown ] = useState(false);
@@ -59,9 +60,9 @@ function Search({ onSubmit, setAppIDVisibility, setGameTitleVisibility, increase
                         <hr />
 
                         <li className='list-item zoom-btn-group'>
-                            <button className='zoom-in' onClick={increaseScale}><RxZoomIn></RxZoomIn></button>
-                            <pre>{textSizesArr[ scaleValue ]}</pre>
-                            <button className='zoom-out' onClick={decreaseScale}><RxZoomOut></RxZoomOut></button>
+                            <button className='zoom-in' onClick={increaseScale}><FaCirclePlus className='zoom-in-icon'></FaCirclePlus></button>
+                            <p className='scale-text'>{textSizesArr[ scaleValue ]}</p>
+                            <button className='zoom-out' onClick={decreaseScale}><FaCircleMinus className='zoom-out-icon'></FaCircleMinus></button>
                         </li>
                         <hr />
                         <p>Games per page</p>

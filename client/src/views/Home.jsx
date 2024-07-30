@@ -3,8 +3,10 @@ import { FaSteam } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Utils from '../js/utils';
+import Auth from '../js/auth';
 import useGlobalState from '../js/globalStateStore';
 const utils = new Utils();
+const auth = new Auth();
 
 function Home() {
     const [ authenticated, setAuthenticated ] = useGlobalState(state => [ state.authenticated, state.setAuthenticated ]);
@@ -12,13 +14,13 @@ function Home() {
 
     /* Check Session State */
     useEffect(() => {
-        utils.checkSteamAuthenticated(setAuthenticated, navigate);
+        auth.checkSteamAuthenticated(setAuthenticated, navigate);
         document.title = 'Home'
     }, []);
 
     const loginContent = (
         <>
-            <button onClick={(async () => { utils.handleLogin(setAuthenticated) })}>Click here to login<FaSteam size={50} className='steam-logo' /></button>
+            <button onClick={(async () => { auth.handleLogin(setAuthenticated) })}>Click here to login<FaSteam size={50} className='steam-logo' /></button>
             <p>No username or password is stored when using this application</p>
         </>
     )
@@ -29,7 +31,7 @@ function Home() {
                 <div className="avatar-wrapper">
                     <img src={localStorage.getItem('avatar')} alt="avatar" />
                 </div>
-                <button onClick={(() => { utils.handleLogout(setAuthenticated, navigate) })}>Log out<FaSteam size={50} className='steam-logo' /></button>
+                <button onClick={(() => { auth.handleLogout(setAuthenticated, navigate) })}>Log out<FaSteam size={50} className='steam-logo' /></button>
                 <div className="steam-background">
                     <FaSteam className='steam-background' size={80+'vh'}></FaSteam>
                 </div>
