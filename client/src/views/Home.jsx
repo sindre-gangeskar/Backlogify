@@ -10,6 +10,7 @@ const auth = new Auth();
 
 function Home() {
     const [ authenticated, setAuthenticated ] = useGlobalState(state => [ state.authenticated, state.setAuthenticated ]);
+    const [ steamid, setSteamid ] = useGlobalState(state => [ state.steamid, state.setSteamid ]);
     const navigate = useNavigate();
 
     /* Check Session State */

@@ -6,7 +6,7 @@ const useGlobalState = create(
             authenticated: false,
             setAuthenticated: value => set({ authenticated: value }),
             setGames: value => set({ games: value }),
-            setBackground: value => set({ background: value })
+            setBackground: value => set({ background: value }),
         }),
         {
             name: 'global-storage',

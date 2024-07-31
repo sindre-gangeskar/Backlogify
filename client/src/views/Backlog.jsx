@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, memo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 /* Components */
 import ImageWithFallback from '../partials/ImageWithFallback';
@@ -22,8 +22,8 @@ import { RxCross2 } from 'react-icons/rx';
 function Backlog() {
     const timer = new Timer();
     const utils = new Utils();
-    const location = useLocation();
-    const steamid = location.state?.steamid || localStorage.getItem('steamid');
+    const navigate = useNavigate();
+    const steamid = localStorage.getItem('steamid');
 
     const [ games, setGames ] = useState(null);
     const [ loading, setLoading ] = useState(true);
@@ -95,11 +95,11 @@ function Backlog() {
                         setGames(games);
                     } else {
                         setGames(null);
-                        setError(`No entries found in the backlog`);
+                        setError(`No backlog has been created for this account.\nTry adding a game to the backlog first`);
                     }
                 }
             } catch (error) {
-                setError(`No entries found in the backlog`);
+                setError(`No backlog has been created for this account.\nTry adding a game to the backlog first`);
             }
         };
 
@@ -151,11 +151,14 @@ function Backlog() {
                         setGames(games);
                     } else {
                         setGames(null);
-                        setError(`No entries found in the backlog`);
+                        setError(
+                            <h2>
+                                No backlog has been created for this account. Try adding a game to the backlog first in <a href="" onClick={() => { navigate('/overview') }}>Overview</a>
+                            </h2>);
                     }
                 }
             } catch (error) {
-                setError(`No entries found in the backlog`);
+                setError(<h2>{error}</h2>);
             } finally {
                 timer.delay(0.5, (() => { setLoadingVisible(false) }));
                 setLoading(false);
@@ -247,7 +250,7 @@ function Backlog() {
                     filtered.map((app) => (
                         <CardWrapper key={app.appid} app={app} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} scale={gameCardScale} onClick={(() => { setModal(app); })} />
                     ))
-                ) : (<h1>No games in the backlog</h1>)}
+                ) : (<h2>No games in the backlog. You can add games to your backlog in <a onClick={() => { navigate('/overview') }}>Overview</a></h2>)}
             </div>
             <div className="panel"></div>
             <Background />
