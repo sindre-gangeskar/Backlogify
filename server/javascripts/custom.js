@@ -25,8 +25,12 @@ function parseJSON(filename, filepath) {
     }
 }
 function saveJSON(filename, savepath, data) {
-    console.log('Saved JSON file successfully');
-    fs.writeFileSync(path.resolve(__dirname, savepath + "\\" + filename + ".json"), JSON.stringify(data, null, 2));
+    try {
+        console.log('Saved JSON file successfully');
+        fs.writeFileSync(path.resolve(__dirname, savepath + "\\" + filename + ".json"), JSON.stringify(data, null, 2));
+    } catch (error) {
+        console.error('Failed to save json:', error);
+    }
 }
 function checkJsonExists(filename, filepath) {
     return fs.existsSync(path.resolve(__dirname, `${filepath}\\${filename}.json`));
@@ -42,7 +46,7 @@ function mapGamesJSON(arr = [], backlog = null) {
         name: app.name,
         playtime_forever: app.playtime_forever,
         img_icon_url: app.img_icon_url,
-        backlogged: backlog?.some(x => x.appid === +app.appid) ? true : false
+        backlogged: backlog.some(x => x.appid === +app.appid) ? true : false
     }))
 }
 

@@ -26,7 +26,7 @@ function Navbar() {
                 <img className="nav-avatar" src={localStorage.getItem('avatar')} alt="avatar" />
                 <ul className='profile-dropdown'>
                     <li className='dropdown-item'>
-                        <button className='logout-btn' onClick={() => { auth.handleLogout(setAuthenticated, navigate) }}>Log out</button>
+                        <button className='menu-btn' onClick={() => { auth.handleLogout(setAuthenticated, navigate) }}>Log out</button>
                     </li>
                 </ul>
             </div>

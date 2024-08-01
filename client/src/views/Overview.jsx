@@ -22,15 +22,16 @@ import '../css/index.css';
 import Utils from '../js/utils';
 function Overview() {
     const timer = new Timer();
-    const steamid = localStorage.getItem('steamid');
     const utils = new Utils();
+    const steamid = localStorage.getItem('steamid');
 
+    const [ order ] = useGlobalState(state => [ state.order ]);
     const [ games, setGames ] = useGlobalState(state => [ state.games, state.setGames ]);
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(null);
     const [ filter, setFilter ] = useState('');
-    const [ appIdVisibility, setAppIDVisibility ] = useState(false);
-    const [ gameTitleVisibility, setGameTitleVisibility ] = useState(false);
+    const [ showAppID, setShowAppID ] = useGlobalState(state => [ state.showAppID, state.setShowAppID ]);
+    const [ showGameTitle, setShowGameTitle ] = useGlobalState(state => [ state.showGameTitle, state.setShowGameTitle ]);
     const [ gameCardScale, setGameCardScale ] = useState(parseInt(localStorage.getItem('cardScale') || 1));
 
     const [ page, setPage ] = useState(1);
@@ -58,11 +59,13 @@ function Overview() {
     const progressBarRef = useRef(null);
 
     const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
+
     const totalPages = Math.ceil(filtered.length / gamesPerPage);
 
     useEffect(() => {
         document.title = 'Overview';
     }, [])
+
 
     /* Games */
     useEffect(() => {
@@ -277,9 +280,11 @@ function Overview() {
         const endIndex = currentPage * itemsPerPage;
         const paginatedItems = array.slice(startIndex, endIndex);
 
+        if (games)
+            utils.sortAlphabetically(order, games.data.appids)
 
         return paginatedItems.map(app => (
-            <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
+            <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={showAppID} showGameTitle={showGameTitle} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
         ))
     }
 
@@ -298,8 +303,8 @@ function Overview() {
             <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />
             <Search
                 onSubmit={handleFilter}
-                setAppIDVisibility={setAppIDVisibility}
-                setGameTitleVisibility={setGameTitleVisibility}
+                setAppIDVisibility={setShowAppID}
+                setGameTitleVisibility={setShowGameTitle}
                 increaseScale={(() => { utils.increaseScale(setGameCardScale, gameCardScale) })}
                 decreaseScale={(() => { utils.decreaseScale(setGameCardScale, gameCardScale) })}
                 scaleValue={gameCardScale}
@@ -308,7 +313,7 @@ function Overview() {
                 set100PerPage={() => { setGamesPerPage(100); utils.scrollToTop(gamesWrapperRef) }}
                 seeAllGames={() => { setGamesPerPage(filtered.length); utils.scrollToTop(gamesWrapperRef); utils.goToFirstPage(setPage, gamesWrapperRef) }} />
 
-            <GamesWrapper ref={gamesWrapperRef} content={paginate(gamesPerPage, page, filtered)} />
+            <GamesWrapper ref={gamesWrapperRef} content={paginate(gamesPerPage, page, filtered)} order={order} />
             <div className="panel">
                 {page !== 1 ?
                     <button className='pagination-first-button' onClick={() => { utils.goToFirstPage(setPage, gamesWrapperRef) }}>1</button>

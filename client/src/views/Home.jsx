@@ -2,15 +2,12 @@ import '../css/Home.css';
 import { FaSteam } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Utils from '../js/utils';
 import Auth from '../js/auth';
 import useGlobalState from '../js/globalStateStore';
-const utils = new Utils();
 const auth = new Auth();
 
 function Home() {
     const [ authenticated, setAuthenticated ] = useGlobalState(state => [ state.authenticated, state.setAuthenticated ]);
-    const [ steamid, setSteamid ] = useGlobalState(state => [ state.steamid, state.setSteamid ]);
     const navigate = useNavigate();
 
     /* Check Session State */

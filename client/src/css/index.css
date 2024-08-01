@@ -85,3 +85,18 @@ button:active {
 img {
   pointer-events: none;
 }
+
+.menu-btn {
+  background: linear-gradient(to right, var(--secondary-tertiary-color), var(--third-tertiary-color));
+  border-radius: 0.1rem;
+}
+
+.menu-btn:hover {
+  color: white;
+  border-color: var(--secondary-tertiary-color);
+}
+
+.menu-btn:active,
+.menu-btn:focus {
+  box-shadow: none;
+}

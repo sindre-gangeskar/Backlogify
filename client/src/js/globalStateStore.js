@@ -4,9 +4,15 @@ const useGlobalState = create(
     persist(
         set => ({
             authenticated: false,
+            order: 'asc',
+            showGameTitle: false,
+            showAppID: false,
             setAuthenticated: value => set({ authenticated: value }),
             setGames: value => set({ games: value }),
             setBackground: value => set({ background: value }),
+            setOrder: value => set({ order: value }),
+            setShowGameTitle: value => set({ showGameTitle: value }),
+            setShowAppID: value => set({ showAppID: value })
         }),
         {
             name: 'global-storage',

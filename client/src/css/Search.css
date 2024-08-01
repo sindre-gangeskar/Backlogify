@@ -194,6 +194,15 @@
     align-self: center;
 }
 
+.divider{
+    height: 1px;
+    width: 100%;
+    position: relative;
+    background-color: var(--secondary-tertiary-color);
+    margin: 15px 0;
+}
+
+
 button:hover {
     color: var(--secondary-tertiary-color);
 }
