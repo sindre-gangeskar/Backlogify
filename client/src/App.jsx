@@ -26,7 +26,7 @@ function App() {
 
   useIdleTimer({
     disabled: !authenticated,
-    timeout: 1000,
+    timeout: 1000 * 60 * 5,
     onIdle: (() => {
       setModalOpen(true);
       timer.delay(0.1, () => {
