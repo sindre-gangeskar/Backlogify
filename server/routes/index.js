@@ -2,7 +2,7 @@ require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 const jsend = require('jsend');
-const { getOwnedGames, parseJSON, saveJSON, mapGamesJSON, checkJsonExists } = require('../public/js/custom');
+const { getOwnedGames, parseJSON, saveJSON, mapGamesJSON, checkJsonExists } = require('../javascripts/custom');
 const path = require('path');
 const fs = require('fs');
 const backlogPath = path.resolve(__dirname, '../data/backlog/');
@@ -79,7 +79,7 @@ router.post('/backlog', async function (req, res, next) {
   const app = data.some(app => app.appid === +appid)
 
   if (app) return res.jsend.success({ data: app, message: 'Game already exists in backlog' });
-  
+
   await data.push({ name: name, appid: +appid, playtime_forever: +playtime_forever, backlogged: true });
   saveJSON(steamid, backlogPath, data);
   return res.jsend.success({ data: { name, appid }, message: 'Added game to backlog' });

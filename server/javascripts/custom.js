@@ -31,12 +31,13 @@ function saveJSON(filename, savepath, data) {
 function checkJsonExists(filename, filepath) {
     return fs.existsSync(path.resolve(__dirname, `${filepath}\\${filename}.json`));
 }
-function mapGamesJSON(dataArr, backlog = null) {
-    if (!Array.isArray(dataArr)) {
+function mapGamesJSON(arr = [], backlog = null) {
+    if (!arr) throw new Error('The "arr" parameter is required');
+    if (!Array.isArray(arr)) {
         console.error('Data passed is not of type array');
         return;
     }
-    return dataArr.map(app => ({
+    return arr.map(app => ({
         appid: app.appid,
         name: app.name,
         playtime_forever: app.playtime_forever,
