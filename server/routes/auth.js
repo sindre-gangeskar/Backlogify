@@ -23,14 +23,15 @@ router.get('/login/authenticated', async function (req, res, next) {
         req.session.regenerate((err) => {
             if (err) { console.log(err); return }
             console.log('User session has been generated')
+
+            req.session.user = { steamid64, personaname, avatarfull };
+
+            req.session.save(err => {
+                if (err) { console.log(err); return }
+                res.redirect(process.env.CLIENT_BASEURL);
+            })
         })
 
-        req.session.user = { steamid64, personaname, avatarfull };
-
-        req.session.save(err => {
-            if (err) { console.log(err); return }
-            res.redirect(process.env.CLIENT_BASEURL);
-        })
 
     } catch (error) {
         console.error('Error during authentication:', error);
