@@ -5,8 +5,9 @@ const axios = require('axios');
 const jsend = require('jsend');
 const steamSignIn = new SteamSignIn(process.env.REALM);
 
-router.use(jsend.middleware);
 
+axios.default.withCredentials = true;
+router.use(jsend.middleware);
 router.get('/login', function (req, res, next) {
     res.statusCode = 302;
     res.setHeader('Location', steamSignIn.getUrl(`${process.env.REALM}/auth/login/authenticated`));
@@ -17,7 +18,7 @@ router.get('/login/authenticated', async function (req, res, next) {
     try {
         const steam = await steamSignIn.verifyLogin(req.url);
         const steamid64 = steam.getSteamID64();
-        const response = await axios.get(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.KEY}&steamids=${steamid64}`, { withCredentials: true });
+        const response = await axios.get(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.KEY}&steamids=${steamid64}`);
         const { personaname, avatarfull } = response.data.response.players[ 0 ];
 
         req.session.regenerate((err) => {

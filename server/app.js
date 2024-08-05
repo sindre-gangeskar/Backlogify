@@ -15,7 +15,6 @@ const corsOptions = {
     allowedHeaders: [ 'Content-Type', 'Authorization' ]
 };
 
-console.log('CORS options:', corsOptions);
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 
@@ -33,18 +32,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 app.use(session({
     saveUninitialized: false,
     resave: false,
     secret: process.env.SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
+        secure: isProduction ? true : false,
+        sameSite: true
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,
         pruneInterval: 60 * 60 * 15,
         db: 'sessions.db',
-        dir: dbDirectory
+        dir: dbDirectory,
     })
 }));
 
