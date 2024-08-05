@@ -22,7 +22,8 @@ router.get('/login/authenticated', async function (req, res, next) {
 
         req.session.user = { steamid64, personaname, avatarfull };
         req.session.save(() => {
-            console.log('Session saved sucessfully!');
+            console.log('Session saved sucessfully!', req.session);
+            
         })
 
         res.redirect(process.env.CLIENT_BASEURL);
@@ -34,7 +35,7 @@ router.get('/login/authenticated', async function (req, res, next) {
 });
 
 router.get('/', async function (req, res, next) {
-    return res.jsend.success({ user: req.session?.user, authenticated: true });
+    return res.jsend.success({ user: req.session?.user, authenticated: req.session?.user ? true : false });
    /*  if (req.session && req.session.user) {
         return res.jsend.success({ user: req.session.user, authenticated: true });
     } else {
