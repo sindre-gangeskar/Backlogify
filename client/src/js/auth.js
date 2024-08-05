@@ -8,6 +8,9 @@ class Auth {
             const response = await fetch(`${import.meta.env.VITE_SERVER_BASEURL}/auth`, {
                 method: 'GET',
                 credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
 
             if (response.ok) {
@@ -42,7 +45,7 @@ class Auth {
     };
     async checkSession(navHook, authenticationState) {
         const checkSession = async () => {
-            const response = await fetch(`${baseURL}/auth`, { method: 'GET', credentials: 'include' });
+            const response = await fetch(`${baseURL}/auth`, { method: 'GET', credentials: 'include', headers: { 'Content-Type': 'application/json' } });
             if (response.ok) {
                 const data = await response.json();
                 if (!data.data.authenticated) {
@@ -75,7 +78,8 @@ class Auth {
     async logout() {
         const response = await fetch(`${baseURL}/auth/logout`, {
             method: 'GET',
-            credentials: 'include'
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' }
         });
         if (response.ok) {
             const data = await response.json();
@@ -89,7 +93,7 @@ class Auth {
     async requestDeleteAccountData(steamid, navHook) {
         if (confirm('Are you sure you want to delete your data?\nThis will clear out your backlog entirely')) {
             try {
-                const response = await fetch(`${baseURL}/backlog/` + steamid, { method: 'DELETE' });
+                const response = await fetch(`${baseURL}/backlog/` + steamid, { method: 'DELETE', headers: { 'Content-Type': 'application/json' } });
                 if (response.ok) {
                     this.logout();
                     navHook('/');

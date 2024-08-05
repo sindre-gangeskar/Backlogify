@@ -16,6 +16,7 @@ const corsOptions = {
     allowedHeaders: [ 'Content-Type', 'Authorization' ]
 };
 
+console.log('CORS options:', corsOptions);
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 
