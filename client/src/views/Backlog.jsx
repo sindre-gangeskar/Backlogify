@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import useGlobalState from '../js/globalStateStore';
+import { FaCircleArrowLeft, FaCircleArrowRight } from 'react-icons/fa6'
 /* Components */
 import ImageWithFallback from '../partials/ImageWithFallback';
 import Background from '../partials/Background';
@@ -8,7 +9,7 @@ import Search from '../partials/Search';
 import Loading from './Loading';
 import Modal from '../partials/Modal';
 import CardWrapper from '../partials/CardWrapper'
-
+import GamesWrapper from '../partials/GamesWrapper';
 /* Classes */
 import Timer from '../js/Timer';
 import Utils from '../js/utils';
@@ -29,9 +30,14 @@ function Backlog() {
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(null);
     const [ filter, setFilter ] = useState('');
-    const [ appIdVisibility, setAppIDVisibility ] = useState(false);
-    const [ gameTitleVisibility, setGameTitleVisibility ] = useState(false);
-
+    
+    const [ showAppID, setShowAppID ] = useGlobalState(state => [ state.showAppID, state.setShowAppID ]);
+    const [ showGameTitle, setShowGameTitle ] = useGlobalState(state => [ state.showGameTitle, state.setShowGameTitle ]);
+    const [ order, setOrder ] = useGlobalState(state => [ state.order, state.setOrder ]);
+    
+    const [ page, setPage ] = useState(1);
+    const [ gamesPerPage, setGamesPerPage ] = useState(100);
+    
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ modalTitle, setModalTitle ] = useState(null);
     const [ modalBody, setModalBody ] = useState(null);
@@ -51,6 +57,8 @@ function Backlog() {
     const [ loadingVisible, setLoadingVisible ] = useState(true);
 
     const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
+
+    const totalPages = Math.ceil(filtered.length / gamesPerPage);
 
     const removeFromBacklog = async (appid) => {
         setModalVisible(false);
@@ -172,7 +180,7 @@ function Backlog() {
     function handleFilter(searchValue) {
         setFilter(searchValue);
     }
-    function setModal(app) {
+    function initializeModal(app) {
         setModalCurrentApp(app);
         setModalTitle(
             <span className="modal-top">
@@ -220,6 +228,19 @@ function Backlog() {
         timer.delay(0.2, () => { setModalOpen(false) })
     }
 
+    function paginate(itemsPerPage, currentPage, array) {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = currentPage * itemsPerPage;
+        const paginatedItems = array.slice(startIndex, endIndex);
+
+        if (games)
+            utils.sortAlphabetically(order, games.data.appids)
+
+        return paginatedItems.map(app => (
+            <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={showAppID} showGameTitle={showGameTitle} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
+        ))
+    }
+
     if (error) {
         return (
             <>
@@ -244,15 +265,37 @@ function Backlog() {
     return (
         <>
             <Loading key={loading} className={`${loadingVisible ? 'visible' : ''}`} />
-            <Search onSubmit={handleFilter} setAppIDVisibility={setAppIDVisibility} setGameTitleVisibility={setGameTitleVisibility} increaseScale={() => { utils.increaseScale(setGameCardScale, gameCardScale) }} decreaseScale={() => { utils.decreaseScale(setGameCardScale, gameCardScale) }} scaleValue={gameCardScale} />
-            <div className='games-wrapper' ref={gamesWrapperRef}>
-                {filtered.length > 0 ? (
-                    filtered.map((app) => (
-                        <CardWrapper key={app.appid} app={app} showAppID={appIdVisibility} showGameTitle={gameTitleVisibility} scale={gameCardScale} onClick={(() => { setModal(app); })} />
-                    ))
-                ) : (<h2>No games in the backlog. You can add games to your backlog in <a onClick={() => { navigate('/overview') }}>Overview</a></h2>)}
+            <Search
+                onSubmit={handleFilter}
+                setAppIDVisibility={setShowAppID}
+                setGameTitleVisibility={setShowGameTitle}
+                increaseScale={(() => { utils.increaseScale(setGameCardScale, gameCardScale) })}
+                decreaseScale={(() => { utils.decreaseScale(setGameCardScale, gameCardScale) })}
+                scaleValue={gameCardScale}
+                set25PerPage={() => { setGamesPerPage(25); utils.scrollToTop(gamesWrapperRef) }}
+                set50PerPage={() => { setGamesPerPage(50); utils.scrollToTop(gamesWrapperRef) }}
+                set100PerPage={() => { setGamesPerPage(100); utils.scrollToTop(gamesWrapperRef) }}
+                seeAllGames={() => { setGamesPerPage(filtered.length); utils.scrollToTop(gamesWrapperRef); utils.goToFirstPage(setPage, gamesWrapperRef) }} />
+            <GamesWrapper ref={gamesWrapperRef} content={paginate(gamesPerPage, page, filtered)} order={order} />
+            <div className="panel">
+                {page !== 1 ?
+                    <button className='pagination-first-button' onClick={() => { utils.goToFirstPage(setPage, gamesWrapperRef) }}>1</button>
+                    : null}
+
+                <span className="pagination-controls">
+                    {page !== 1 ?
+                        <button className='pagination-button' onClick={() => { utils.previousPage(page, setPage, gamesWrapperRef) }}><FaCircleArrowLeft /></button>
+                        : <button className='pagination-button disabled hidden'><FaCircleArrowLeft /></button>}
+                    <p>{page}</p>
+                    {page !== totalPages ?
+                        <button className='pagination-button' onClick={() => { utils.nextPage(page, totalPages, setPage, gamesWrapperRef) }}><FaCircleArrowRight /></button>
+                        : <button className='pagination-button disabled hidden'><FaCircleArrowRight /></button>}
+                </span>
+
+                {page !== totalPages ?
+                    <button className='pagination-last-button' onClick={() => { utils.goToLastPage(setPage, totalPages, gamesWrapperRef) }}>{totalPages}</button>
+                    : null}
             </div>
-            <div className="panel"></div>
             <Background />
             <Modal
                 className={`modal-wrapper ${modalVisible ? 'open' : 'close'}`}
