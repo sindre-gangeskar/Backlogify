@@ -37,7 +37,9 @@ app.use(session({
     resave: false,
     secret: process.env.SECRET,
     cookie: {
-        maxAge: 1000 * 60 * 60 * 3
+        maxAge: 1000 * 60 * 60 * 3,
+        sameSite: 'none',
+        secure: true
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,

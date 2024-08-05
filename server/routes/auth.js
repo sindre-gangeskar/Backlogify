@@ -42,7 +42,7 @@ router.get('/', async function (req, res, next) {
 });
 
 router.get('/logout', function (req, res, next) {
-    res.clearCookie('connect.sid', { domain: 'http://localhost:5173', path: '/' });
+    res.clearCookie('connect.sid', { domain: process.env.CLIENT_BASEURL, path: '/' });
     req.session.destroy(err => {
         if (err) console.log('Could not delete session', err);
         res.clearCookie('connect.sid');
