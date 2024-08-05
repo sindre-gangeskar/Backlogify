@@ -39,7 +39,7 @@ app.use(session({
     secret: process.env.SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
-        secure: false,
+        secure: 'auto',
         sameSite: false
     },
     store: new SQLiteStore({
