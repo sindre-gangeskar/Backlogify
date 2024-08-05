@@ -21,6 +21,8 @@ import '../css/index.css';
 import { RxCross2 } from 'react-icons/rx';
 
 function Backlog() {
+    
+    const baseURL = import.meta.env.VITE_SERVER_BASEURL;
     const timer = new Timer();
     const utils = new Utils();
     const navigate = useNavigate();
@@ -65,7 +67,7 @@ function Backlog() {
         setRefreshing(true);
         timer.delay(0.1, () => { setModalOpen(false) })
 
-        const response = await fetch(`http://localhost:3000/backlog`, {
+        const response = await fetch(`${baseURL}/backlog`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ appid: +appid, steamid: steamid })
@@ -94,7 +96,7 @@ function Backlog() {
         setLoadingVisible(false);
         const getGames = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/backlog/${steamid}`);
+                const response = await fetch(`${baseURL}/backlog/${steamid}`);
                 if (response.ok) {
                     const games = await response.json();
                     setRefreshing(false);
@@ -152,7 +154,7 @@ function Backlog() {
             setLoadingVisible(true);
             setLoading(true);
             try {
-                const response = await fetch(`http://localhost:3000/backlog/${steamid}`);
+                const response = await fetch(`${baseURL}/backlog/${steamid}`);
                 if (response.ok && !finished) {
                     const games = await response.json();
                     if (games && games.data.appids) {

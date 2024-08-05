@@ -1,10 +1,11 @@
+const baseURL = import.meta.env.VITE_SERVER_BASEURL;
 class Auth {
     handleLogin() {
-        location.href = 'http://localhost:3000/auth/login';
+        location.href = `${baseURL}/auth/login`;
     }
     async checkSteamAuthenticated(authenticationState, navHook, authCallback) {
         try {
-            const response = await fetch('http://localhost:3000/auth', {
+            const response = await fetch(`${baseURL}/auth`, {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -42,7 +43,7 @@ class Auth {
     };
     async checkSession(navHook, authenticationState) {
         const checkSession = async () => {
-            const response = await fetch('http://localhost:3000/auth', { method: 'GET', credentials: 'include' });
+            const response = await fetch(`${baseURL}/auth`, { method: 'GET', credentials: 'include' });
             if (response.ok) {
                 const data = await response.json();
                 if (!data.data.authenticated) {
@@ -73,7 +74,7 @@ class Auth {
         navHook('/');
     }
     async logout() {
-        const response = await fetch('http://localhost:3000/auth/logout', {
+        const response = await fetch(`${baseURL}/auth/logout`, {
             method: 'GET',
             credentials: 'include'
         });
@@ -89,7 +90,7 @@ class Auth {
     async requestDeleteAccountData(steamid, navHook) {
         if (confirm('Are you sure you want to delete your data?\nThis will clear out your backlog entirely')) {
             try {
-                const response = await fetch('http://localhost:3000/backlog/' + steamid, { method: 'DELETE' });
+                const response = await fetch(`${baseURL}/backlog/` + steamid, { method: 'DELETE' });
                 if (response.ok) {
                     this.logout();
                     navHook('/');

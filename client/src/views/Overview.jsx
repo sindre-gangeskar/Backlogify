@@ -24,6 +24,7 @@ function Overview() {
     const timer = new Timer();
     const utils = new Utils();
     const steamid = localStorage.getItem('steamid');
+    const baseURL = import.meta.env.VITE_SERVER_BASEURL;
 
     const [ order ] = useGlobalState(state => [ state.order ]);
     const [ games, setGames ] = useGlobalState(state => [ state.games, state.setGames ]);
@@ -75,7 +76,7 @@ function Overview() {
             setLoading(true);
 
             try {
-                const response = await fetch(`http://localhost:3000/overview/${steamid}`, {
+                const response = await fetch(`${baseURL}/overview/${steamid}`, {
                     method: 'GET',
                     credentials: 'include'
                 });
@@ -108,7 +109,7 @@ function Overview() {
         const fetchAchievements = async () => {
             if (modalCurrentApp) {
                 try {
-                    const response = await fetch(`http://localhost:3000/achievements/${steamid}/${modalCurrentApp.appid}`, {
+                    const response = await fetch(`${baseURL}/achievements/${steamid}/${modalCurrentApp.appid}`, {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' }
                     });
@@ -226,7 +227,7 @@ function Overview() {
     /* Initialize the achievement bar transition  */
     useEffect(() => {
         if (achievementsVisible) {
-            timer.delay(1.0, () => {
+            timer.delay(0.2, () => {
                 setAchievementTransition(true);
             })
         }
@@ -245,7 +246,7 @@ function Overview() {
         const steamid = form.get('steamid');
 
         try {
-            const response = await fetch('http://localhost:3000/backlog', {
+            const response = await fetch(`${baseURL}/backlog`, {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST',
                 body: JSON.stringify({ appid, name, playtime_forever, steamid, backlogged: true })
