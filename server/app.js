@@ -12,14 +12,14 @@ const SQLiteStore = require('connect-sqlite3')(session);
 const corsOptions = {
     origin: process.env.CLIENT_BASEURL,
     credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: [ 'Content-Type', 'Authorization' ]
 };
 
 console.log('CORS options:', corsOptions);
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 
-const dbDirectory = path.join(__dirname, 'db');
+const dbDirectory = path.resolve(__dirname, './db');
 if (!fs.existsSync(dbDirectory)) {
     fs.mkdirSync(path.join(__dirname, 'db'));
 }
@@ -39,18 +39,27 @@ app.use(session({
     secret: process.env.SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
-        sameSite: 'none',
+/*         sameSite: 'none',
+        secure: true */
+        sameSite: 'lax',
         secure: true
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,
         pruneInterval: 60 * 60 * 15,
-        dir: path.join(__dirname, 'db'),
-        db: 'sessions.db'
+        db: 'sessions.db',
+        dir: dbDirectory
     })
 }));
 
+
+
 app.use('/', indexRouter);
+app.use((req, res, next) => {
+    console.log('Session data on request:', req.session);
+    next();
+})
 app.use('/auth', authRouter);
+
 
 module.exports = app;
