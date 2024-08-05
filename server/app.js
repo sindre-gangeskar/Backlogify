@@ -39,8 +39,9 @@ app.use(session({
     secret: process.env.SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
-        secure: 'auto',
-        sameSite: false
+        secure: true,
+        sameSite: false,
+        httpOnly: true
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,
@@ -49,8 +50,6 @@ app.use(session({
         dir: dbDirectory
     })
 }));
-
-
 
 app.use('/', indexRouter);
 app.use((req, res, next) => {
