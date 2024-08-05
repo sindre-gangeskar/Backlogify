@@ -47,7 +47,7 @@ app.use(session({
         ttl: 60 * 60 * 3,
         pruneInterval: 60 * 60 * 15,
         db: 'sessions.db',
-        dir: isProduction ? '/db' : dbDirectory,
+        dir: dbDirectory,
     })
 }));
 
