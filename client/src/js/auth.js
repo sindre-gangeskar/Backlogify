@@ -9,7 +9,8 @@ class Auth {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': import.meta.env.VITE_SERVER_BASEURL
                 }
             });
 
