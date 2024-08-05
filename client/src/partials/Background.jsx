@@ -38,7 +38,7 @@ function Background() {
     }, [ setBackground, gamesData ])
 
 
-    return <img src={background} alt="library_hero.jpg" className='background' onError={() => { setBackground('/images/library_hero1.jpg') }} height={100} />;
+    return <img src={background} alt="library_hero.jpg" className='background' onError={() => { setBackground('https://steamcdn-a.akamaihd.net/steam/apps/420/library_hero.jpg') }} height={100} />;
 }
 
 export default Background;
