@@ -17,6 +17,7 @@
     "jsend": "^1.1.0",
     "morgan": "~1.9.1",
     "node-fetch": "^2.7.0",
+    "server": "file:",
     "steam-signin": "^1.0.3"
   }
 }

@@ -2,6 +2,7 @@ require('dotenv').config();
 var express = require('express');
 var cors = require('cors');
 var path = require('path');
+var fs = require('fs');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
@@ -36,11 +37,9 @@ app.use(session({
         ttl: 60 * 60 * 3,
         pruneInterval: 60 * 60 * 15,
         dir: path.join(__dirname, 'db'),
-        db: 'sessions.db',
+        db: 'sessions.db'
     })
 }));
-
-
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
