@@ -17,6 +17,11 @@ const corsOptions = {
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 
+const dbDirectory = path.join(__dirname, 'db');
+if (!fs.existsSync(dbDirectory)) {
+    fs.mkdirSync(path.join(__dirname, 'db'));
+}
+
 var app = express();
 
 app.use(cors(corsOptions));
