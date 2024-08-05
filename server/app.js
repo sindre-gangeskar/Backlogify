@@ -11,7 +11,9 @@ const SQLiteStore = require('connect-sqlite3')(session);
 
 const corsOptions = {
     origin: process.env.CLIENT_BASEURL,
-    credentials: true
+    credentials: true,
+    methods: [ 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS' ],
+    allowedHeaders: [ 'Content-Type', 'Authorization' ]
 };
 
 var indexRouter = require('./routes/index');

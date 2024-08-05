@@ -1,20 +1,19 @@
 const baseURL = import.meta.env.VITE_SERVER_BASEURL;
 class Auth {
     handleLogin() {
-        location.href = `${baseURL}/auth/login`;
+        location.href = `${import.meta.env.VITE_SERVER_BASEURL}/auth/login`;
     }
-    async checkSteamAuthenticated(authenticationState, navHook, authCallback) {
+    async checkSteamAuthenticated(authenticationState, navHook) {
         try {
-            const response = await fetch(`${baseURL}/auth`, {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_BASEURL}/auth`, {
                 method: 'GET',
-                credentials: 'include'
+                credentials: 'include',
             });
 
             if (response.ok) {
                 const data = await response.json();
                 if (data.data.authenticated) {
                     authenticationState(true);
-                    authCallback();
 
                     localStorage.setItem('steamid', data.data.user.steamid64)
                     localStorage.setItem('username', data.data.user.personaname)
