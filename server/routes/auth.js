@@ -25,7 +25,7 @@ router.get('/login/authenticated', async function (req, res, next) {
             console.log('Session saved sucessfully!');
         })
 
-        res.redirect('http://localhost:5173');
+        res.redirect(process.env.CLIENT_BASEURL);
 
     } catch (error) {
         console.error('Error during authentication:', error);
