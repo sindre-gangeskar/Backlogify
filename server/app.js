@@ -15,7 +15,6 @@ const corsOptions = {
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
-const exp = require('constants');
 
 var app = express();
 
@@ -36,7 +35,7 @@ app.use(session({
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,
         pruneInterval: 60 * 60 * 15,
-        dir: './db',
+        dir: path.join(__dirname, 'db'),
         db: 'sessions.db',
     })
 }));
