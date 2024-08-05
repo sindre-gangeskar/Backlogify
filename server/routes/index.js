@@ -2,7 +2,7 @@ require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 const jsend = require('jsend');
-const { getOwnedGames, parseJSON, saveJSON, mapGamesJSON, checkJsonExists } = require('../javascripts/custom');
+const { getOwnedGames, parseJSON, saveJSON, mapGamesJSON, checkJsonExists, deleteJSON } = require('../javascripts/custom');
 const path = require('path');
 const fs = require('fs');
 const backlogPath = path.resolve(__dirname, '../data/backlog/');
@@ -101,5 +101,18 @@ router.delete('/backlog', async function (req, res, next) {
   } catch (error) {
     return res.jsend.fail({ data: { error: error, message: error.statusText } });
   }
+})
+
+router.delete('/backlog/:steamid', async function (req, res, next) {
+  const { steamid } = req.params;
+  const exists = checkJsonExists(steamid, '../data/backlog');
+  
+  if (exists) {
+    deleteJSON(steamid, '../data/backlog' + '/' + steamid + '.json');
+    console.log(`Successfully deleted backlog for user: ${steamid}`);
+  }
+  else console.log(`No backlog exists for steam user: ${steamid}. Forcing a log-out`)
+
+  return res.end();
 })
 module.exports = router;

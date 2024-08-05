@@ -32,6 +32,13 @@ function saveJSON(filename, savepath, data) {
         console.error('Failed to save json:', error);
     }
 }
+
+function deleteJSON(steamid, pathToFile) {
+    if (pathToFile)
+        fs.unlinkSync(path.resolve(__dirname, pathToFile));
+    else console.log(`No backlog exists for: ${steamid}. Forcing a logout`);
+}
+
 function checkJsonExists(filename, filepath) {
     return fs.existsSync(path.resolve(__dirname, `${filepath}\\${filename}.json`));
 }
@@ -46,8 +53,8 @@ function mapGamesJSON(arr = [], backlog = null) {
         name: app.name,
         playtime_forever: app.playtime_forever,
         img_icon_url: app.img_icon_url,
-        backlogged: backlog.some(x => x.appid === +app.appid) ? true : false
+        backlogged: backlog?.some(x => x.appid === +app.appid) ? true : false
     }))
 }
 
-module.exports = { getOwnedGames, parseJSON, saveJSON, mapGamesJSON, checkJsonExists };
+module.exports = { getOwnedGames, parseJSON, saveJSON, mapGamesJSON, checkJsonExists, deleteJSON };

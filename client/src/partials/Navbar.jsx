@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useGlobalState from '../js/globalStateStore';
 import Auth from '../js/auth';
 import '../css/Navbar.css';
@@ -10,7 +10,7 @@ function Navbar() {
     const navigate = useNavigate();
     const routes = [ { path: '/', name: 'home' }, { path: '/overview', name: 'overview' }, { path: '/backlog', name: 'backlog' } ]
     const [ authenticated, setAuthenticated ] = useGlobalState(state => [ state.authenticated, state.setAuthenticated ]);
-
+    const steamid = localStorage.getItem('steamid');
     const setAuthNavbar = () => (
         <>
             <ul className='navbar-group'>
@@ -26,7 +26,10 @@ function Navbar() {
                 <img className="nav-avatar" src={localStorage.getItem('avatar')} alt="avatar" />
                 <ul className='profile-dropdown'>
                     <li className='dropdown-item'>
-                        <button className='menu-btn' onClick={() => { auth.handleLogout(setAuthenticated, navigate) }}>Log out</button>
+                        <button className='btn positive' onClick={() => { auth.handleLogout(setAuthenticated, navigate) }}>Log out</button>
+                    </li>
+                    <li className='dropdown-item'>
+                        <button className='btn negative' onClick={() => { auth.requestDeleteAccountData(steamid, navigate) }}>Delete my data</button>
                     </li>
                 </ul>
             </div>

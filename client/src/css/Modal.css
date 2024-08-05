@@ -260,7 +260,7 @@
     height: 20px;
     background: linear-gradient(to right, var(--secondary-tertiary-color), var(--third-tertiary-color));
     border-radius: var(--progress-radius);
-    transition: 2s ease;
+    transition: 1.2s cubic-bezier(0.215, 0.610, 0.355, 1) 1s;
 }
 
 .achievements-text {

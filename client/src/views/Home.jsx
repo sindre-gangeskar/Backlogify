@@ -1,7 +1,7 @@
 import '../css/Home.css';
 import { FaSteam } from "react-icons/fa";
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useBlocker, useNavigate } from 'react-router-dom';
 import Auth from '../js/auth';
 import useGlobalState from '../js/globalStateStore';
 const auth = new Auth();
@@ -12,7 +12,9 @@ function Home() {
 
     /* Check Session State */
     useEffect(() => {
-        auth.checkSteamAuthenticated(setAuthenticated, navigate);
+        auth.checkSteamAuthenticated(setAuthenticated, navigate, () => {
+
+        });
         document.title = 'Home'
     }, []);
 
@@ -31,7 +33,7 @@ function Home() {
                 </div>
                 <button onClick={(() => { auth.handleLogout(setAuthenticated, navigate) })}>Log out<FaSteam size={50} className='steam-logo' /></button>
                 <div className="steam-background">
-                    <FaSteam className='steam-background' size={80+'vh'}></FaSteam>
+                    <FaSteam className='steam-background' size={80 + 'vh'}></FaSteam>
                 </div>
             </div>
         </>

@@ -86,17 +86,23 @@ img {
   pointer-events: none;
 }
 
-.menu-btn {
-  background: linear-gradient(to right, var(--secondary-tertiary-color), var(--third-tertiary-color));
+.btn {
   border-radius: 0.1rem;
 }
 
-.menu-btn:hover {
+.btn.negative {
+  background: linear-gradient(45deg, var(--danger), var(--danger-dark)) !important;
+}
+.btn.positive{
+  background: linear-gradient(45deg, var(--secondary-tertiary-color), var(--third-tertiary-color)) !important;
+}
+
+.btn:hover {
   color: white;
   border-color: var(--secondary-tertiary-color);
 }
 
-.menu-btn:active,
-.menu-btn:focus {
+.btn:active,
+.btn:focus {
   box-shadow: none;
 }

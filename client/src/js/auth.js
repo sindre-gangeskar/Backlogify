@@ -2,7 +2,7 @@ class Auth {
     handleLogin() {
         location.href = 'http://localhost:3000/auth/login';
     }
-    async checkSteamAuthenticated(authenticationState, navHook) {
+    async checkSteamAuthenticated(authenticationState, navHook, authCallback) {
         try {
             const response = await fetch('http://localhost:3000/auth', {
                 method: 'GET',
@@ -13,6 +13,8 @@ class Auth {
                 const data = await response.json();
                 if (data.data.authenticated) {
                     authenticationState(true);
+                    authCallback();
+
                     localStorage.setItem('steamid', data.data.user.steamid64)
                     localStorage.setItem('username', data.data.user.personaname)
                     localStorage.setItem('avatar', data.data.user.avatarfull)
@@ -84,6 +86,25 @@ class Auth {
             console.log('Failed to log out');
         }
     }
+    async requestDeleteAccountData(steamid, navHook) {
+        if (confirm('Are you sure you want to delete your data?\nThis will clear out your backlog entirely')) {
+            try {
+                const response = await fetch('http://localhost:3000/backlog/' + steamid, { method: 'DELETE' });
+                if (response.ok) {
+                    this.logout();
+                    navHook('/');
+                } else {
+                    console.log('Failed to fetch response');
+                    return;
+                }
+            } catch (error) {
+                console.error('An error has occurred:', error);
+            }
+        } else {
+            return console.log('User canceled the deletion');
+        }
+    }
+
 }
 
 export default Auth;

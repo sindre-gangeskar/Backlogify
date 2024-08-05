@@ -160,9 +160,9 @@ function Backlog() {
                     } else {
                         setGames(null);
                         setError(
-                            <h2>
-                                No backlog has been created for this account. Try adding a game to the backlog first in <a href="" onClick={() => { navigate('/overview') }}>Overview</a>
-                            </h2>);
+                            <p>
+                                No backlog has been created for this account. Try adding a game to the backlog first in <a onClick={() => { navigate('/overview') }}>Overview</a>
+                            </p>);
                     }
                 }
             } catch (error) {
@@ -227,7 +227,6 @@ function Backlog() {
         setModalVisible(false);
         timer.delay(0.2, () => { setModalOpen(false) })
     }
-
     function paginate(itemsPerPage, currentPage, array) {
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = currentPage * itemsPerPage;
@@ -237,10 +236,9 @@ function Backlog() {
             utils.sortAlphabetically(order, games.data.appids)
 
         return paginatedItems.map(app => (
-            <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={showAppID} showGameTitle={showGameTitle} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
+            <CardWrapper key={app.appid} app={app} showAppID={showAppID} showGameTitle={showGameTitle} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
         ))
     }
-
     if (error) {
         return (
             <>
@@ -251,7 +249,6 @@ function Backlog() {
             </>
         );
     }
-
     const HeroPoster = memo(({ app }) => {
         return (
             <ImageWithFallback root={modalWrapperRef.current}

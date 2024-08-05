@@ -79,16 +79,16 @@ function Search({ onSubmit, setAppIDVisibility, setGameTitleVisibility, increase
                         <div className="divider"></div>
                         <p>Games per page</p>
                         <li className='list-item'>
-                            <button className='menu-btn' onClick={set25PerPage}>25</button>
-                            <button className='menu-btn' onClick={set50PerPage}>50</button>
-                            <button className='menu-btn' onClick={set100PerPage}>100</button>
-                            <button className='menu-btn' onClick={seeAllGames}>All</button>
+                            <button className='btn positive' onClick={set25PerPage}>25</button>
+                            <button className='btn positive' onClick={set50PerPage}>50</button>
+                            <button className='btn positive' onClick={set100PerPage}>100</button>
+                            <button className='btn positive' onClick={seeAllGames}>All</button>
                         </li>
                         <div className="divider"></div>
                         <p>Order by title</p>
                         <li className='list-item'>
-                            <button className='menu-btn' onClick={orderAscending}>A-Z</button>
-                            <button className='menu-btn' onClick={orderDescending}>Z-A</button>
+                            <button className='btn positive' onClick={orderAscending}>A-Z</button>
+                            <button className='btn positive' onClick={orderDescending}>Z-A</button>
                         </li>
                     </ul>
                 </div>
