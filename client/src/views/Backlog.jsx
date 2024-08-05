@@ -33,7 +33,7 @@ function Backlog() {
     
     const [ showAppID, setShowAppID ] = useGlobalState(state => [ state.showAppID, state.setShowAppID ]);
     const [ showGameTitle, setShowGameTitle ] = useGlobalState(state => [ state.showGameTitle, state.setShowGameTitle ]);
-    const [ order, setOrder ] = useGlobalState(state => [ state.order, state.setOrder ]);
+    const [ order ] = useGlobalState(state => [ state.order ]);
     
     const [ page, setPage ] = useState(1);
     const [ gamesPerPage, setGamesPerPage ] = useState(100);
