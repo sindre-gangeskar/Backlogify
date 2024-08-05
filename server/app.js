@@ -40,6 +40,7 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 3,
 /*         sameSite: 'none',
         secure: true */
+        httpOnly: false
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,
