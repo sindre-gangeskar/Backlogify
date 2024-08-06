@@ -14,6 +14,9 @@ const allowedOrigins = [
     `http://${process.env.CLIENT_BASEURL}`,
     `https://${process.env.CLIENT_BASEURL}`,
     process.env.CLIENT_BASEURL,
+    process.env.CUSTOM_CLIENT_URL,
+    `http://${process.env.CUSTOM_CLIENT_URL}`,
+    `https://${process.env.CUSTOM_CLIENT_URL}`,
 ]
 
 const corsOptions = {
@@ -22,7 +25,6 @@ const corsOptions = {
         if (allowedOrigins.includes(origin)) return cb(null, true)
         else cb(new Error('Not allowed by CORS'))
     },
-/*     origin: process.env.CLIENT_BASEURL, */
     credentials: true,
 };
 
@@ -40,7 +42,7 @@ if (!fs.existsSync(backlogPath))
 
 var app = express();
 
-/* app.set('trust proxy', true); */
+app.set('trust proxy', true);
 app.use(cors(corsOptions));
 
 app.options('*', cors(corsOptions));
@@ -57,8 +59,8 @@ app.use(session({
     secret: process.env.SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
-/*         secure: true,
-        sameSite: 'none' */
+        secure: true,
+        sameSite: 'none'
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,
