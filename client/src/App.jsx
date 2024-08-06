@@ -38,8 +38,6 @@ function App() {
 
   useEffect(() => {
     auth.checkSession(navigate, setAuthenticated);
-    const checkCurrentSession = async () => {
-    }
     checkCurrentSession();
   }, [ useGlobalState ])
 
