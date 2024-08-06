@@ -25,7 +25,10 @@ router.get('/login/authenticated', async function (req, res, next) {
 
             req.session.save(err => {
                 if (err) { console.log(err); return }
-                res.redirect(`https://${process.env.CLIENT_BASEURL}`);
+                if (req.headers.referer.includes(process.env.CLIENT_BASEURL))
+                    res.redirect(`https://${process.env.CLIENT_BASEURL}`);
+                if (req.headers.referer.includes(process.env.CUSTOM_CLIENT_URL))
+                    res.redirect(`https://${process.env.CUSTOM_CLIENT_URL}`);
             })
         })
     } catch (error) {
