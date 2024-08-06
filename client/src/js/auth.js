@@ -1,5 +1,3 @@
-import { locals } from "../../../server/app";
-
 const baseURL = import.meta.env.VITE_SERVER_BASEURL;
 class Auth {
     handleLogin() {
