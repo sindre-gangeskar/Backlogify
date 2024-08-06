@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     auth.checkSession(navigate, setAuthenticated);
-  }, [])
+  }, [authenticated])
 
   const modal = ({
     title:
