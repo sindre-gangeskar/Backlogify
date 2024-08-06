@@ -29,7 +29,6 @@ router.get('/login/authenticated', async function (req, res, next) {
         req.session.user = { steamid64, personaname, avatarfull };
         req.session.save(err => {
             if (err) { console.log(err); return }
-            console.log('Session has been saved', req.session.user);
             res.redirect(process.env.CLIENT_BASEURL);
         })
     } catch (error) {
