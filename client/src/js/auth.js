@@ -69,7 +69,7 @@ class Auth {
         } else return;
     }
     async inactiveLogout(authenticationState, navHook) {
-        this.logout();
+        await this.logout();
         authenticationState(false);
         navHook('/');
     }
@@ -96,8 +96,8 @@ class Auth {
                         headers: { 'Content-Type': 'application/json' }
                     });
                 if (response.ok) {
+                    await this.logout();
                     navHook('/');
-                    this.logout();
                 } else {
                     console.log('Failed to fetch response');
                     return;
