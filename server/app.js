@@ -13,10 +13,8 @@ const SQLiteStore = require('connect-sqlite3')(session);
 const allowedOrigins = [
     `http://${process.env.CLIENT_BASEURL}`,
     `https://${process.env.CLIENT_BASEURL}`,
-    process.env.CLIENT_BASEURL,
-    process.env.CUSTOM_CLIENT_URL,
     `http://${process.env.CUSTOM_CLIENT_URL}`,
-    `https://${process.env.CUSTOM_CLIENT_URL}`,
+    `https://${process.env.CUSTOM_CLIENT_URL}`
 ]
 
 const corsOptions = {
