@@ -36,11 +36,6 @@ router.get('/login/authenticated', async function (req, res, next) {
 
 router.get('/', async function (req, res, next) {
     return res.jsend.success({ user: req.session?.user, authenticated: req.session?.user ? true : false });
-   /*  if (req.session && req.session.user) {
-        return res.jsend.success({ user: req.session.user, authenticated: true });
-    } else {
-        return res.jsend.success({ user: null, authenticated: false });
-    } */
 });
 
 router.get('/logout', function (req, res, next) {
