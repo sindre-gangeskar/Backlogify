@@ -21,13 +21,12 @@ router.get('/login/authenticated', async function (req, res, next) {
         const response = await axios.get(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.KEY}&steamids=${steamid64}`);
         const { personaname, avatarfull } = response.data.response.players[ 0 ];
 
-        req.session.regenerate((err) => {
+/*         req.session.regenerate((err) => {
             if (err) { console.log(err); return }
             console.log('User session has been generated')
 
-        })
+        }) */
         req.session.user = { steamid64, personaname, avatarfull };
-
         req.session.save(err => {
             if (err) { console.log(err); return }
             console.log('Session has been saved', req.session.user);
