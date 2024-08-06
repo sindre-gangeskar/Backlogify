@@ -17,14 +17,14 @@ const corsOptions = {
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 
-const dbDirectory = path.resolve(__dirname, './db');
+const dbDirectory = path.join(__dirname, 'db');
 if (!fs.existsSync(dbDirectory)) {
     fs.mkdirSync(path.join(__dirname, 'db'), {recursive: true});
 }
 
-const backlogPath = path.join(__dirname, 'data/backlog');
+const backlogPath = path.join(__dirname, 'data', 'backlog');
 if (!fs.existsSync(backlogPath))
-    fs.mkdirSync(path.join(__dirname, 'data/backlog'), {recursive: true})
+    fs.mkdirSync(path.join(__dirname, 'data', 'backlog'), {recursive: true})
 
 var app = express();
 
@@ -34,7 +34,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 app.use(session({
     saveUninitialized: false,
@@ -50,11 +49,6 @@ app.use(session({
         dir: dbDirectory,
     })
 }));
-
-app.use((req, res, next) => {
-    console.log('Session data on request:', req.session);
-    next();
-})
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);

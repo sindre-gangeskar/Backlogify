@@ -69,8 +69,8 @@ function Backlog() {
 
         const response = await fetch(`${baseURL}/backlog`, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ appid: +appid, steamid: steamid })
         })
 

@@ -5,18 +5,18 @@ const jsend = require('jsend');
 const { getOwnedGames, parseJSON, saveJSON, mapGamesJSON, checkJsonExists, deleteJSON } = require('../javascripts/custom');
 const path = require('path');
 const fs = require('fs');
-const backlogPath = path.resolve(__dirname, '../data/backlog/');
+const backlogDirPath = path.join(__dirname, '..', 'data', 'backlog');
 
 router.use(jsend.middleware);
 router.get(`/overview/:steamid`, async function (req, res, next) {
-  if (!backlogPath)
+  if (!backlogDirPath)
     fs.mkdirSync(path.resolve(__dirname, '../data/backlog'));
 
   const id = req.params.steamid;
 
   try {
-    const backlogExists = checkJsonExists(id, backlogPath);
-    const backlogJson = backlogExists ? parseJSON(id, backlogPath) : null;
+    const backlogExists = checkJsonExists(id, backlogDirPath);
+    const backlogJson = backlogExists ? parseJSON(id, backlogDirPath) : null;
 
     const data = await getOwnedGames(id);
     if (data.response.games && data.response.games.length > 0) {
@@ -34,10 +34,10 @@ router.get(`/overview/:steamid`, async function (req, res, next) {
 router.get('/backlog/:steamid', async function (req, res, next) {
   const id = req.params.steamid;
   try {
-    const exists = checkJsonExists(id, backlogPath);
+    const exists = checkJsonExists(id, backlogDirPath);
 
     if (exists) {
-      const data = parseJSON(id, backlogPath);
+      const data = parseJSON(id, backlogDirPath);
       return res.jsend.success({ appids: data });
     }
     else {
@@ -73,30 +73,27 @@ router.post('/backlog', async function (req, res, next) {
   const { name, appid, playtime_forever, steamid } = req.body;
   let data = [];
 
-  const exists = checkJsonExists(steamid, backlogPath);
-  if (exists) data = parseJSON(steamid, backlogPath);
+  const exists = checkJsonExists(steamid, backlogDirPath);
+  if (exists) data = parseJSON(steamid, backlogDirPath);
 
   const app = data.some(app => app.appid === +appid)
 
   if (app) return res.jsend.success({ data: app, message: 'Game already exists in backlog' });
 
   await data.push({ name: name, appid: +appid, playtime_forever: +playtime_forever, backlogged: true });
-  saveJSON(steamid, backlogPath, data);
+  saveJSON(steamid, backlogDirPath, data);
   return res.jsend.success({ data: { name, appid }, message: 'Added game to backlog' });
 })
 
 router.delete('/backlog', async function (req, res, next) {
   const { appid, steamid } = req.body;
   try {
-    const backlogFilePath = path.join(__dirname, '..', 'data', 'backlog', `${steamid}.json`);
-    const backlogDirPath = path.join(__dirname, '..', 'data', 'backlog');
-    console.log(backlogFilePath);
-    const exists = fs.existsSync(backlogFilePath);
-
+    const exists = checkJsonExists(steamid, backlogDirPath)
     if (exists) {
       const data = parseJSON(steamid, backlogDirPath);
       const dataToKeep = data.filter(x => +x.appid !== +appid);
       saveJSON(steamid, backlogDirPath, dataToKeep);
+      console.log(fs.readdirSync(path.join(__dirname, '..', 'data', 'backlog')));
       return res.jsend.success({ data: { appid }, message: 'Successfully removed game from backlog' });
     }
 
