@@ -9,10 +9,20 @@ var logger = require('morgan');
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 
+const allowedOrigins = [ 'https://backlogify-client.up.railway.app' ];
+
 const corsOptions = {
-    origin: process.env.CLIENT_BASEURL,
-    credentials: true,
+    origin: (origin, callback) => {
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true, // Enable the Access-Control-Allow-Credentials header
 };
+
+app.use(cors(corsOptions));
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
