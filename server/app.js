@@ -25,7 +25,7 @@ if (!fs.existsSync(dbDirectory)) {
 
 var app = express();
 
-app.set('trust proxy', 'all');
+app.set('trust proxy', true);
 
 app.use((req, res, next) => {
     if (req.secure) {
