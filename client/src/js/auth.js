@@ -63,9 +63,9 @@ class Auth {
     }
     async handleLogout(authenticationState, navHook) {
         if (confirm('Are you sure you want to log out?')) {
-            this.logout()
-            authenticationState(false);
+            this.logout();
             navHook('/');
+            authenticationState(false);
         } else return;
     }
     async inactiveLogout(authenticationState, navHook) {
@@ -80,8 +80,6 @@ class Auth {
             headers: { 'Content-Type': 'application/json' }
         });
         if (response.ok) {
-            const data = await response.json();
-            console.log(data.data.message);
             localStorage.clear();
             window.dispatchEvent(new Event('storage'));
         } else {
@@ -91,7 +89,7 @@ class Auth {
     async requestDeleteAccountData(steamid, navHook) {
         if (confirm('Are you sure you want to delete your data?\nThis will clear out your backlog entirely')) {
             try {
-                const response = await fetch(`${baseURL}/backlog/` + steamid, { method: 'DELETE', headers: { 'Content-Type': 'application/json' } });
+                const response = await fetch(`${baseURL}/backlog/` + steamid, { method: 'DELETE', headers: { 'Content-Type': 'application/json' },  credentials: 'include' });
                 if (response.ok) {
                     this.logout();
                     navHook('/');
