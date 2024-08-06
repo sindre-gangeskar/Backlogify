@@ -35,7 +35,9 @@ function saveJSON(filename, savepath, data) {
 
 function deleteJSON(steamid, pathToFile) {
     if (pathToFile)
-        fs.unlinkSync(path.resolve(__dirname, pathToFile));
+        fs.unlink(`${pathToFile}/${steamid}.json`, () => {
+            console.log('Successfully deleted account data for Steam ID: ', steamid)
+        });
     else console.log(`No backlog exists for: ${steamid}. Forcing a logout`);
 }
 

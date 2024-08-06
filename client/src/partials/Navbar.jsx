@@ -3,11 +3,13 @@ import useGlobalState from '../js/globalStateStore';
 import Auth from '../js/auth';
 import '../css/Navbar.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
 import { FaSteam } from "react-icons/fa";
 
 function Navbar() {
     const auth = new Auth();
     const navigate = useNavigate();
+    const deleteDataRef = useRef(null);
     const routes = [ { path: '/', name: 'home' }, { path: '/overview', name: 'overview' }, { path: '/backlog', name: 'backlog' } ]
     const [ authenticated, setAuthenticated ] = useGlobalState(state => [ state.authenticated, state.setAuthenticated ]);
     const steamid = localStorage.getItem('steamid');
@@ -29,7 +31,10 @@ function Navbar() {
                         <button className='btn positive' onClick={() => { auth.handleLogout(setAuthenticated, navigate) }}>Log out</button>
                     </li>
                     <li className='dropdown-item'>
-                        <button className='btn negative' onClick={() => { auth.requestDeleteAccountData(steamid, navigate) }}>Delete my data</button>
+                        <form className="delete-data-form" ref={deleteDataRef} onSubmit={(e => {auth.requestDeleteAccountData(e, deleteDataRef, navigate)})}>
+                            <input type="hidden" name="steamid" value={steamid} />
+                            <button className='btn negative'>Delete my data</button>
+                        </form>
                     </li>
                 </ul>
             </div>

@@ -86,14 +86,19 @@ class Auth {
             console.log('Failed to log out');
         }
     }
-    async requestDeleteAccountData(steamid, navHook) {
+    async requestDeleteAccountData(event, ref, navHook) {
+        event.preventDefault();
+        const form = new FormData(ref.current);
+        const steamid = form.get('steamid');
+
         if (confirm('Are you sure you want to delete your data?\nThis will clear out your backlog entirely')) {
             try {
-                const response = await fetch(`${baseURL}/backlog/${steamid}`,
+                const response = await fetch(`${baseURL}/backlog/account`,
                     {
                         method: 'DELETE',
                         credentials: 'include',
-                        headers: { 'Content-Type': 'application/json' }
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ steamid })
                     });
                 if (response.ok) {
                     await this.logout();

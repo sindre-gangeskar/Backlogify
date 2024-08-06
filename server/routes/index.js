@@ -103,12 +103,12 @@ router.delete('/backlog', async function (req, res, next) {
   }
 })
 
-router.delete('/backlog/:steamid', async function (req, res, next) {
+router.delete('/backlog/account', async function (req, res, next) {
   const { steamid } = req.body;
-  const exists = checkJsonExists(steamid, '../data/backlog');
-
+  const exists = checkJsonExists(steamid, backlogDirPath);
+  console.log('DELETE REQUEST INBOUND', steamid)
   if (exists) {
-    deleteJSON(steamid, path.join(__dirname, `../data/backlog/${steamid}.json`));
+    deleteJSON(steamid, backlogDirPath);
     console.log(`Successfully deleted backlog for user: ${steamid}`);
   }
   else console.log(`No backlog exists for steam user: ${steamid}. Forcing a log-out`)
