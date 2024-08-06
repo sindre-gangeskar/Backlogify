@@ -38,7 +38,6 @@ function App() {
 
   useEffect(() => {
     auth.checkSession(navigate, setAuthenticated);
-    checkCurrentSession();
   }, [ useGlobalState ])
 
   const modal = ({
