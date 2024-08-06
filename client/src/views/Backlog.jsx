@@ -81,6 +81,8 @@ function Backlog() {
             setRefreshing(false);
         }
         else throw new Error('Could not remove from backlog');
+
+        setRefreshing(false);
     }
 
     useEffect(() => {
@@ -115,7 +117,7 @@ function Backlog() {
         };
 
         getGames();
-    }, [ refreshing ]);
+    }, [ refreshing, remove ]);
 
     /* Modal */
     useEffect(() => {
