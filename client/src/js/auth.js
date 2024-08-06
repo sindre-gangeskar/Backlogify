@@ -49,9 +49,9 @@ class Auth {
                 if (!data.data.authenticated) {
                     authenticationState(false);
                     localStorage.clear();
-                    window.dispatchEvent(new Event('storage'));
                     navHook('/');
                     clearInterval(sessionInterval)
+                    window.dispatchEvent(new Event('storage'));
                 }
             }
         }
@@ -81,9 +81,7 @@ class Auth {
         });
         if (response.ok) {
             localStorage.clear();
-            setTimeout(() => {
-                window.dispatchEvent(new Event('storage'));
-            }, 100)
+            window.dispatchEvent(new Event('storage'));
         } else {
             console.log('Failed to log out');
         }
