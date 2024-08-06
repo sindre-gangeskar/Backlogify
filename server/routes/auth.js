@@ -25,7 +25,7 @@ router.get('/login/authenticated', async function (req, res, next) {
 
             req.session.save(err => {
                 if (err) { console.log(err); return }
-                res.redirect(process.env.CLIENT_BASEURL);
+                res.redirect(`http://${process.env.CLIENT_BASEURL}`);
             })
         })
     } catch (error) {
@@ -34,6 +34,7 @@ router.get('/login/authenticated', async function (req, res, next) {
     }
 });
 router.get('/', async function (req, res, next) {
+    console.log(req.protocol);
     return res.jsend.success({ user: req.session?.user || null, authenticated: req.session?.user ? true : false });
 });
 router.get('/logout', function (req, res, next) {
