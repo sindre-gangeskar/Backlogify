@@ -19,12 +19,12 @@ var authRouter = require('./routes/auth');
 
 const dbDirectory = path.join(__dirname, 'db');
 if (!fs.existsSync(dbDirectory)) {
-    fs.mkdirSync(path.join(__dirname, 'db'), {recursive: true});
+    fs.mkdirSync(path.join(__dirname, 'db'), { recursive: true });
 }
 
 const backlogPath = path.join(__dirname, 'data', 'backlog');
 if (!fs.existsSync(backlogPath))
-    fs.mkdirSync(path.join(__dirname, 'data', 'backlog'), {recursive: true})
+    fs.mkdirSync(path.join(__dirname, 'data', 'backlog'), { recursive: true })
 
 var app = express();
 
