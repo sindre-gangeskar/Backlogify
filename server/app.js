@@ -17,12 +17,12 @@ const allowedOrigins = [
 ]
 
 const corsOptions = {
-/*     origin: function (origin, cb) {
+    origin: function (origin, cb) {
         if (!origin) return cb(null, true);
         if (allowedOrigins.includes(origin)) return cb(null, true)
         else cb(new Error('Not allowed by CORS'))
-    }, */
-    origin: process.env.CLIENT_BASEURL,
+    },
+/*     origin: process.env.CLIENT_BASEURL, */
     credentials: true,
 };
 
