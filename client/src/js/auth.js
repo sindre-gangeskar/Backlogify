@@ -19,6 +19,7 @@ class Auth {
                     localStorage.setItem('steamid', data.data.user.steamid64)
                     localStorage.setItem('username', data.data.user.personaname)
                     localStorage.setItem('avatar', data.data.user.avatarfull)
+                  
                     if (!localStorage.getItem('redirected')) {
                         localStorage.setItem('redirected', true);
                         navHook('/overview');
