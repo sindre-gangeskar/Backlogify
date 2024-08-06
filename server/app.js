@@ -25,7 +25,6 @@ if (!fs.existsSync(dbDirectory)) {
 
 var app = express();
 
-app.set('trust proxy', true);
 app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
