@@ -99,7 +99,7 @@ class Auth {
                         credentials: 'include',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ steamid }),
-                        mode: 'same-origin'
+                        mode: 'cors'
                     });
                 if (response.ok) {
                     await this.logout();
