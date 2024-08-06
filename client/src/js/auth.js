@@ -47,11 +47,11 @@ class Auth {
             if (response.ok) {
                 const data = await response.json();
                 if (!data.data.authenticated) {
+                    clearInterval(sessionInterval)
                     authenticationState(false);
                     localStorage.clear();
-                    navHook('/');
-                    clearInterval(sessionInterval)
                     window.dispatchEvent(new Event('storage'));
+                    navHook('/');
                 }
             }
         }
