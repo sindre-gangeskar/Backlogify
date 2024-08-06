@@ -9,6 +9,7 @@ var logger = require('morgan');
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 
+
 const corsOptions = {
     origin: process.env.CLIENT_BASEURL,
     credentials: true,
@@ -28,6 +29,7 @@ if (!fs.existsSync(backlogPath))
 
 var app = express();
 
+app.set('trust proxy', 1);
 app.use(cors(corsOptions));
 
 app.options('*', cors(corsOptions));
@@ -44,6 +46,7 @@ app.use(session({
     secret: process.env.SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
+        secure: true,
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,
