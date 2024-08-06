@@ -9,9 +9,6 @@ class Auth {
             const response = await fetch(`${import.meta.env.VITE_SERVER_BASEURL}/auth`, {
                 method: 'GET',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
             });
 
             if (response.ok) {
@@ -22,7 +19,6 @@ class Auth {
                     localStorage.setItem('steamid', data.data.user.steamid64)
                     localStorage.setItem('username', data.data.user.personaname)
                     localStorage.setItem('avatar', data.data.user.avatarfull)
-                    console.log(data.data);
                     if (!localStorage.getItem('redirected')) {
                         localStorage.setItem('redirected', true);
                         navHook('/overview');

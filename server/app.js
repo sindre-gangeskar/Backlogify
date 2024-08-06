@@ -38,6 +38,7 @@ app.use(session({
     secret: process.env.SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
+        secure:true
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,
@@ -47,12 +48,13 @@ app.use(session({
     })
 }));
 
-app.use('/', indexRouter);
-app.use('/auth', authRouter);
-
 app.use((req, res, next) => {
     console.log('Session data on request:', req.session);
     next();
 })
+
+app.use('/', indexRouter);
+app.use('/auth', authRouter);
+
 
 module.exports = app;
