@@ -77,7 +77,7 @@ function Backlog() {
         /* Refresh Games after deletion */
         if (response.ok) {
             const data = await response.json();
-            console.log(data.message);
+            console.log(data.data.message);
             setRefreshing(false);
         }
         else throw new Error('Could not remove from backlog');
@@ -139,7 +139,7 @@ function Backlog() {
                             <button type='button' className={`modal-footer-btn ${remove === true ? 'removed' : 'remove'}`} onClick={(() => {
                                 if (confirm(`Are you sure you want to remove ${modalCurrentApp.name} from the backlog?`)) {
                                     setRemove(true);
-                                    timer.delay(1, (() => { removeFromBacklog(modalCurrentApp.appid).then(() => { setRemove(false) }) }))
+                                    timer.delay(1, (async () => { await removeFromBacklog(modalCurrentApp.appid).then(() => { setRemove(false) }) }))
                                 }
                             })}>{modalButtonText}</button>
                         </form>
