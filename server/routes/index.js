@@ -88,7 +88,7 @@ router.post('/backlog', async function (req, res, next) {
 router.delete('/backlog', async function (req, res, next) {
   const { appid, steamid } = req.body;
   try {
-    const backlogFilePath = path.join(__dirname, '../', 'data', 'backlog', `${steamid}.json`);
+    const backlogFilePath = path.join(__dirname, '..', 'data', 'backlog', `${steamid}.json`);
     const backlogDirPath = path.join(__dirname, '..', 'data', 'backlog');
     console.log(backlogFilePath);
     const exists = fs.existsSync(backlogFilePath);
