@@ -26,14 +26,6 @@ if (!fs.existsSync(dbDirectory)) {
 var app = express();
 
 app.set('trust proxy', true);
-
-app.use((req, res, next) => {
-    if (req.secure) {
-        return next();
-    }
-    res.redirect(`https://${req.headers.host}${req.url}`);
-});
-
 app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
@@ -47,6 +39,7 @@ app.use(session({
     secret: process.env.SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
+        sameSite: 'strict',
         secure: true
     },
     store: new SQLiteStore({
