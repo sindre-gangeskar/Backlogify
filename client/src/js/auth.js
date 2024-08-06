@@ -64,8 +64,8 @@ class Auth {
     async handleLogout(authenticationState, navHook) {
         if (confirm('Are you sure you want to log out?')) {
             this.logout();
-            navHook('/');
             authenticationState(false);
+            navHook('/');
         } else return;
     }
     async inactiveLogout(authenticationState, navHook) {
