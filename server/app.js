@@ -47,6 +47,7 @@ app.use(session({
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
         secure: true,
+        sameSite: 'none'
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,
