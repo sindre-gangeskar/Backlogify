@@ -31,7 +31,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const isProduction = process.env.NODE_ENV === 'production'
 
 app.use(session({
     saveUninitialized: false,
@@ -39,7 +38,7 @@ app.use(session({
     secret: process.env.SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
-        secure: isProduction ? true : false,
+        secure: true,
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,
