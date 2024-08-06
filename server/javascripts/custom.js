@@ -18,7 +18,7 @@ async function getOwnedGames(id) {
 }
 function parseJSON(filename, filepath) {
     try {
-        const data = JSON.parse(fs.readFileSync(path.resolve(__dirname, `${filepath}\\${filename}.json`), 'utf-8'));
+        const data = JSON.parse(fs.readFileSync(`${filepath}/${filename}.json`), 'utf-8');
         return data;
     } catch (error) {
         console.error('Failed to parse json', error);
@@ -27,7 +27,7 @@ function parseJSON(filename, filepath) {
 function saveJSON(filename, savepath, data) {
     try {
         console.log('Saved JSON file successfully');
-        fs.writeFileSync(path.resolve(__dirname, savepath + "\\" + filename + ".json"), JSON.stringify(data, null, 2));
+        fs.writeFileSync(`${savepath}/${filename}.json`, JSON.stringify(data, null, 2));
     } catch (error) {
         console.error('Failed to save json:', error);
     }
@@ -41,7 +41,7 @@ async function deleteJSON(steamid, pathToFileDir) {
 }
 
 function checkJsonExists(filename, filepath) {
-    return fs.existsSync(path.resolve(__dirname, `${filepath}\\${filename}.json`));
+    return fs.existsSync(`${filepath}/${filename}.json`)
 }
 function mapGamesJSON(arr = [], backlog = null) {
     if (!arr) throw new Error('The "arr" parameter is required');

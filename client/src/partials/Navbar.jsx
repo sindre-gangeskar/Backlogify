@@ -32,7 +32,7 @@ function Navbar() {
                     </li>
                     <li className='dropdown-item'>
                         <form className="delete-data-form" ref={deleteDataRef} onSubmit={(e => {auth.requestDeleteAccountData(e, deleteDataRef, navigate)})}>
-                            <input type="hidden" name="steamid" value={steamid} />
+                            <input type="hidden" name="steamid" value={steamid || ''} />
                             <button className='btn negative'>Delete my data</button>
                         </form>
                     </li>
