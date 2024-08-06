@@ -3,14 +3,12 @@ class Auth {
     handleLogin() {
         location.href = `${import.meta.env.VITE_SERVER_BASEURL}/auth/login`;
     }
+
     async checkSteamAuthenticated(authenticationState, navHook) {
         try {
             const response = await fetch(`${import.meta.env.VITE_SERVER_BASEURL}/auth`, {
                 method: 'GET',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
             });
 
             if (response.ok) {
@@ -21,11 +19,11 @@ class Auth {
                     localStorage.setItem('steamid', data.data.user.steamid64)
                     localStorage.setItem('username', data.data.user.personaname)
                     localStorage.setItem('avatar', data.data.user.avatarfull)
-
                     if (!localStorage.getItem('redirected')) {
                         localStorage.setItem('redirected', true);
                         navHook('/overview');
                     }
+
                     window.dispatchEvent(new Event('storage'));
                 }
                 else {
@@ -51,9 +49,9 @@ class Auth {
                 if (!data.data.authenticated) {
                     authenticationState(false);
                     localStorage.clear();
-                    window.dispatchEvent(new Event('storage'));
                     navHook('/');
                     clearInterval(sessionInterval)
+                    window.dispatchEvent(new Event('storage'));
                 }
             }
         }
@@ -65,13 +63,13 @@ class Auth {
     }
     async handleLogout(authenticationState, navHook) {
         if (confirm('Are you sure you want to log out?')) {
-            this.logout()
+            await this.logout();
             authenticationState(false);
             navHook('/');
         } else return;
     }
     async inactiveLogout(authenticationState, navHook) {
-        this.logout();
+        await this.logout();
         authenticationState(false);
         navHook('/');
     }
@@ -82,8 +80,6 @@ class Auth {
             headers: { 'Content-Type': 'application/json' }
         });
         if (response.ok) {
-            const data = await response.json();
-            console.log(data.data.message);
             localStorage.clear();
             window.dispatchEvent(new Event('storage'));
         } else {
@@ -93,9 +89,14 @@ class Auth {
     async requestDeleteAccountData(steamid, navHook) {
         if (confirm('Are you sure you want to delete your data?\nThis will clear out your backlog entirely')) {
             try {
-                const response = await fetch(`${baseURL}/backlog/` + steamid, { method: 'DELETE', headers: { 'Content-Type': 'application/json' } });
+                const response = await fetch(`${baseURL}/backlog/${steamid}`,
+                    {
+                        method: 'DELETE',
+                        credentials: 'include',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
                 if (response.ok) {
-                    this.logout();
+                    await this.logout();
                     navHook('/');
                 } else {
                     console.log('Failed to fetch response');

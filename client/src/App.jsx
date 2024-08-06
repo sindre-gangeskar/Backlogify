@@ -5,7 +5,7 @@ import Backlog from './views/Backlog'
 import Navbar from './partials/Navbar';
 import Footer from './partials/Footer';
 import Home from './views/Home';
-import { Routes, Route, useNavigate, useBlocker } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useGlobalState from './js/globalStateStore';
 import Auth from './js/auth';
@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     auth.checkSession(navigate, setAuthenticated);
-  }, [])
+  }, [useGlobalState])
 
   const modal = ({
     title:

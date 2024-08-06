@@ -14,14 +14,17 @@ const corsOptions = {
     credentials: true,
 };
 
-console.log('CORS options:', corsOptions);
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 
 const dbDirectory = path.join(__dirname, 'db');
 if (!fs.existsSync(dbDirectory)) {
-    fs.mkdirSync(path.join(__dirname, 'db'));
+    fs.mkdirSync(path.join(__dirname, 'db'), {recursive: true});
 }
+
+const backlogPath = path.join(__dirname, 'data', 'backlog');
+if (!fs.existsSync(backlogPath))
+    fs.mkdirSync(path.join(__dirname, 'data', 'backlog'), {recursive: true})
 
 var app = express();
 
@@ -42,12 +45,13 @@ app.use(session({
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,
         pruneInterval: 60 * 60 * 15,
-        dir: path.join(__dirname, 'db'),
-        db: 'sessions.db'
+        db: 'sessions.db',
+        dir: dbDirectory,
     })
 }));
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+
 
 module.exports = app;

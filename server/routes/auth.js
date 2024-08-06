@@ -6,13 +6,11 @@ const jsend = require('jsend');
 const steamSignIn = new SteamSignIn(process.env.REALM);
 
 router.use(jsend.middleware);
-
 router.get('/login', function (req, res, next) {
     res.statusCode = 302;
     res.setHeader('Location', steamSignIn.getUrl(`${process.env.REALM}/auth/login/authenticated`));
     res.end();
 });
-
 router.get('/login/authenticated', async function (req, res, next) {
     try {
         const steam = await steamSignIn.verifyLogin(req.url);
@@ -20,29 +18,25 @@ router.get('/login/authenticated', async function (req, res, next) {
         const response = await axios.get(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.KEY}&steamids=${steamid64}`);
         const { personaname, avatarfull } = response.data.response.players[ 0 ];
 
-        
-        req.session.regenerate(err => {
-            if (err) console.error(err);
+        req.session.regenerate((err) => {
+            if (err) { console.log(err); return }
+
+            req.session.user = { steamid64, personaname, avatarfull };
+
+            req.session.save(err => {
+                if (err) { console.log(err); return }
+                res.redirect(process.env.CLIENT_BASEURL);
+            })
         })
-        
-        req.session.user = { steamid64, personaname, avatarfull };
-
-        req.session.save(() => {
-            console.log('Session saved sucessfully!', req.session);
-        })
-
-        res.redirect(process.env.CLIENT_BASEURL);
-
     } catch (error) {
         console.error('Error during authentication:', error);
         return res.status(500).send('Internal Server Error');
     }
 });
-
 router.get('/', async function (req, res, next) {
-    return res.jsend.success({ user: req.session?.user, authenticated: req.session?.user ? true : false });
+    console.log(req.session);
+    return res.jsend.success({ user: req.session?.user || null, authenticated: req.session?.user ? true : false });
 });
-
 router.get('/logout', function (req, res, next) {
     res.clearCookie('connect.sid', { domain: process.env.CLIENT_BASEURL, path: '/' });
     req.session.destroy(err => {
