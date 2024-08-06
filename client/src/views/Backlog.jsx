@@ -21,7 +21,7 @@ import '../css/index.css';
 import { RxCross2 } from 'react-icons/rx';
 
 function Backlog() {
-    
+
     const baseURL = import.meta.env.VITE_SERVER_BASEURL;
     const timer = new Timer();
     const utils = new Utils();
@@ -32,14 +32,14 @@ function Backlog() {
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(null);
     const [ filter, setFilter ] = useState('');
-    
+
     const [ showAppID, setShowAppID ] = useGlobalState(state => [ state.showAppID, state.setShowAppID ]);
     const [ showGameTitle, setShowGameTitle ] = useGlobalState(state => [ state.showGameTitle, state.setShowGameTitle ]);
     const [ order ] = useGlobalState(state => [ state.order ]);
-    
+
     const [ page, setPage ] = useState(1);
     const [ gamesPerPage, setGamesPerPage ] = useState(100);
-    
+
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ modalTitle, setModalTitle ] = useState(null);
     const [ modalBody, setModalBody ] = useState(null);
@@ -47,14 +47,13 @@ function Backlog() {
     const [ modalVisible, setModalVisible ] = useState(false);
     const [ modalButtonText, setModalButtonText ] = useState(null);
     const [ modalCurrentApp, setModalCurrentApp ] = useState(null);
-    const [ remove, setRemove ] = useState(false);
+    const [ removed, setRemoved ] = useState(false);
     const [ gameCardScale, setGameCardScale ] = useState(parseInt(localStorage.getItem('cardScale') || 1));
 
     const gamesWrapperRef = useRef(null);
     const modalWrapperRef = useRef(null);
     const gamesFormRef = useRef(null);
 
-    const [ refreshing, setRefreshing ] = useState(false);
 
     const [ loadingVisible, setLoadingVisible ] = useState(true);
 
@@ -64,7 +63,6 @@ function Backlog() {
 
     const removeFromBacklog = async (appid) => {
         setModalVisible(false);
-        setRefreshing(true);
         timer.delay(0.1, () => { setModalOpen(false) })
 
         const response = await fetch(`${baseURL}/backlog`, {
@@ -78,11 +76,9 @@ function Backlog() {
         if (response.ok) {
             const data = await response.json();
             console.log(data.data.message);
-            setRefreshing(false);
         }
         else throw new Error('Could not remove from backlog');
 
-        setRefreshing(false);
     }
 
     useEffect(() => {
@@ -102,7 +98,6 @@ function Backlog() {
                 const response = await fetch(`${baseURL}/backlog/${steamid}`);
                 if (response.ok) {
                     const games = await response.json();
-                    setRefreshing(false);
 
                     if (games && games.data.appids) {
                         setGames(games);
@@ -117,15 +112,14 @@ function Backlog() {
         };
 
         getGames();
-    }, [ refreshing, remove ]);
+    }, [ removed ]);
 
     /* Modal */
     useEffect(() => {
-
         if (modalOpen && modalCurrentApp) {
             let buttonText = `Remove ${modalCurrentApp.name} from the backlog`;
             setModalButtonText(buttonText);
-            if (remove) {
+            if (removed) {
                 buttonText = `Removing ${modalCurrentApp.name} from the backlog`
                 setModalButtonText(buttonText);
             }
@@ -138,17 +132,17 @@ function Backlog() {
                             <input type="hidden" name='name' value={modalCurrentApp.name} />
                             <input type="hidden" name='playtime_forever' value={modalCurrentApp.playtime_forever} />
                             <input type="hidden" name='steamid' value={localStorage.getItem('steamid')} />
-                            <button type='button' className={`modal-footer-btn ${remove === true ? 'removed' : 'remove'}`} onClick={(() => {
+                            <button type='button' className={`modal-footer-btn ${removed === true ? 'removed' : 'remove'}`} onClick={(() => {
                                 if (confirm(`Are you sure you want to remove ${modalCurrentApp.name} from the backlog?`)) {
-                                    setRemove(true);
-                                    timer.delay(1, (async () => { await removeFromBacklog(modalCurrentApp.appid).then(() => { setRemove(false) }) }))
+                                    setRemoved(true);
+                                    timer.delay(1, (async () => { await removeFromBacklog(modalCurrentApp.appid).then(() => { setRemoved(false) }) }))
                                 }
                             })}>{modalButtonText}</button>
                         </form>
                     </span>
                 </>)
         }
-    }, [ modalOpen, modalCurrentApp, modalButtonText, remove ])
+    }, [ modalOpen, modalCurrentApp, modalButtonText, removed ])
 
     /* Games */
     useEffect(() => {
@@ -237,8 +231,12 @@ function Backlog() {
         const endIndex = currentPage * itemsPerPage;
         const paginatedItems = array.slice(startIndex, endIndex);
 
-        if (games)
+        if (games) {
             utils.sortAlphabetically(order, games.data.appids)
+        }
+
+        if (page > 1 && paginatedItems.length <= 0)
+            utils.previousPage(page, setPage, gamesWrapperRef);
 
         return paginatedItems.map(app => (
             <CardWrapper key={app.appid} app={app} showAppID={showAppID} showGameTitle={showGameTitle} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
@@ -280,7 +278,7 @@ function Backlog() {
                 seeAllGames={() => { setGamesPerPage(filtered.length); utils.scrollToTop(gamesWrapperRef); utils.goToFirstPage(setPage, gamesWrapperRef) }} />
             <GamesWrapper ref={gamesWrapperRef} content={paginate(gamesPerPage, page, filtered)} order={order} />
             <div className="panel">
-                {page !== 1 ?
+                {page !== 1 && totalPages > 1 ?
                     <button className='pagination-first-button' onClick={() => { utils.goToFirstPage(setPage, gamesWrapperRef) }}>1</button>
                     : null}
 
@@ -288,13 +286,13 @@ function Backlog() {
                     {page !== 1 ?
                         <button className='pagination-button' onClick={() => { utils.previousPage(page, setPage, gamesWrapperRef) }}><FaCircleArrowLeft /></button>
                         : <button className='pagination-button disabled hidden'><FaCircleArrowLeft /></button>}
-                    <p>{page}</p>
-                    {page !== totalPages ?
+                    {totalPages > 1 ? <p>{page}</p> : null}
+                    {page !== totalPages && totalPages > 1 ?
                         <button className='pagination-button' onClick={() => { utils.nextPage(page, totalPages, setPage, gamesWrapperRef) }}><FaCircleArrowRight /></button>
                         : <button className='pagination-button disabled hidden'><FaCircleArrowRight /></button>}
                 </span>
 
-                {page !== totalPages ?
+                {page !== totalPages && totalPages > 1 ?
                     <button className='pagination-last-button' onClick={() => { utils.goToLastPage(setPage, totalPages, gamesWrapperRef) }}>{totalPages}</button>
                     : null}
             </div>
