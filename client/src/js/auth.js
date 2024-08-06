@@ -3,7 +3,7 @@ class Auth {
     handleLogin() {
         location.href = `${import.meta.env.VITE_SERVER_BASEURL}/auth/login`;
     }
-    
+
     async checkSteamAuthenticated(authenticationState, navHook) {
         try {
             const response = await fetch(`${import.meta.env.VITE_SERVER_BASEURL}/auth`, {
@@ -81,7 +81,9 @@ class Auth {
         });
         if (response.ok) {
             localStorage.clear();
-            window.dispatchEvent(new Event('storage'));
+            setTimeout(() => {
+                window.dispatchEvent(new Event('storage'));
+            }, 100)
         } else {
             console.log('Failed to log out');
         }
@@ -89,10 +91,10 @@ class Auth {
     async requestDeleteAccountData(steamid, navHook) {
         if (confirm('Are you sure you want to delete your data?\nThis will clear out your backlog entirely')) {
             try {
-                const response = await fetch(`${baseURL}/backlog/` + steamid, { method: 'DELETE', headers: { 'Content-Type': 'application/json' },  credentials: 'include' });
+                const response = await fetch(`${baseURL}/backlog/` + steamid, { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, credentials: 'include' });
                 if (response.ok) {
-                    this.logout();
                     navHook('/');
+                    this.logout();
                 } else {
                     console.log('Failed to fetch response');
                     return;
