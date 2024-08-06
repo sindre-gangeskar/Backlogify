@@ -107,8 +107,8 @@ router.delete('/backlog/account', async function (req, res, next) {
   const { steamid } = req.body;
   const exists = checkJsonExists(steamid, backlogDirPath);
   if (exists) {
-    console.log('Successful deletion of account!')
-    deleteJSON(steamid, backlogDirPath);
+    await deleteJSON(steamid, backlogDirPath);
+    console.log('Successful deletion of account!')    
   }
   else console.log(`No backlog exists for steam user: ${steamid}. Forcing a log-out`)
 
