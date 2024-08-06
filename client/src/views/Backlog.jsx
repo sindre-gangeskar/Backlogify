@@ -76,11 +76,11 @@ function Backlog() {
 
         /* Refresh Games after deletion */
         if (response.ok) {
-            console.log(`Deleted: ${appid} from backlog`)
+            const data = await response.json();
+            console.log(data.message);
+            setRefreshing(false);
         }
         else throw new Error('Could not remove from backlog');
-
-        setRefreshing(false);
     }
 
     useEffect(() => {
