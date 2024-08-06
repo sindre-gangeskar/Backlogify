@@ -98,7 +98,8 @@ class Auth {
                         method: 'DELETE',
                         credentials: 'include',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ steamid })
+                        body: JSON.stringify({ steamid }),
+                        mode: 'same-origin'
                     });
                 if (response.ok) {
                     await this.logout();
