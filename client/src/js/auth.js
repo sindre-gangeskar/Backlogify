@@ -91,7 +91,12 @@ class Auth {
     async requestDeleteAccountData(steamid, navHook) {
         if (confirm('Are you sure you want to delete your data?\nThis will clear out your backlog entirely')) {
             try {
-                const response = await fetch(`${baseURL}/backlog/` + steamid, { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, credentials: 'include' });
+                const response = await fetch(`${baseURL}/backlog/${steamid}`,
+                    {
+                        method: 'DELETE',
+                        credentials: 'include',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
                 if (response.ok) {
                     navHook('/');
                     this.logout();
