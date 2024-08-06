@@ -12,7 +12,6 @@ const SQLiteStore = require('connect-sqlite3')(session);
 const corsOptions = {
     origin: process.env.CLIENT_BASEURL,
     credentials: true,
-    allowedHeaders: [ 'Content-Type', 'Authorization' ]
 };
 
 var indexRouter = require('./routes/index');
@@ -41,7 +40,6 @@ app.use(session({
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
         secure: isProduction ? true : false,
-        sameSite: isProduction ? 'none' : true
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,
