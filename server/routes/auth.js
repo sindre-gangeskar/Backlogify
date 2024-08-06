@@ -17,7 +17,7 @@ router.get('/login/authenticated', async function (req, res, next) {
     try {
         const steam = await steamSignIn.verifyLogin(req.url);
         const steamid64 = steam.getSteamID64();
-        const response = await axios.get(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.KEY}&steamids=${steamid64}`, {withCredentials: true});
+        const response = await axios.get(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.KEY}&steamids=${steamid64}`);
         const { personaname, avatarfull } = response.data.response.players[ 0 ];
 
         
