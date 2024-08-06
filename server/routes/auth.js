@@ -25,16 +25,14 @@ router.get('/login/authenticated', async function (req, res, next) {
             if (err) { console.log(err); return }
             console.log('User session has been generated')
 
-            req.session.user = { steamid64, personaname, avatarfull };
-
-            req.session.save(err => {
-                if (err) { console.log(err); return }
-                console.log('Session has been saved', req.session.user);
-                res.redirect(process.env.CLIENT_BASEURL);
-            })
         })
+        req.session.user = { steamid64, personaname, avatarfull };
 
-
+        req.session.save(err => {
+            if (err) { console.log(err); return }
+            console.log('Session has been saved', req.session.user);
+            res.redirect(process.env.CLIENT_BASEURL);
+        })
     } catch (error) {
         console.error('Error during authentication:', error);
         return res.status(500).send('Internal Server Error');
