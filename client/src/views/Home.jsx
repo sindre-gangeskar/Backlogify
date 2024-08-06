@@ -1,7 +1,7 @@
 import '../css/Home.css';
 import { FaSteam } from "react-icons/fa";
 import { useEffect, useState } from 'react';
-import { useBlocker, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Auth from '../js/auth';
 import useGlobalState from '../js/globalStateStore';
 const auth = new Auth();
@@ -12,9 +12,8 @@ function Home() {
 
     /* Check Session State */
     useEffect(() => {
-        auth.checkSteamAuthenticated(setAuthenticated, navigate, () => {
-
-        });
+        auth.checkSteamAuthenticated(setAuthenticated, navigate);
+        console.log(authenticated)
         document.title = 'Home'
     }, []);
 
