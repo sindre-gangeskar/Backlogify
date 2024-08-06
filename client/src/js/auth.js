@@ -1,15 +1,18 @@
+import { locals } from "../../../server/app";
+
 const baseURL = import.meta.env.VITE_SERVER_BASEURL;
 class Auth {
     handleLogin() {
         location.href = `${import.meta.env.VITE_SERVER_BASEURL}/auth/login`;
     }
+    
     async checkSteamAuthenticated(authenticationState, navHook) {
         try {
             const response = await fetch(`${import.meta.env.VITE_SERVER_BASEURL}/auth`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 }
             });
 
@@ -21,11 +24,14 @@ class Auth {
                     localStorage.setItem('steamid', data.data.user.steamid64)
                     localStorage.setItem('username', data.data.user.personaname)
                     localStorage.setItem('avatar', data.data.user.avatarfull)
-
+                    localStorage.forEach(element => {
+                        console.log(element);
+                    });
                     if (!localStorage.getItem('redirected')) {
                         localStorage.setItem('redirected', true);
                         navHook('/overview');
                     }
+
                     window.dispatchEvent(new Event('storage'));
                 }
                 else {
