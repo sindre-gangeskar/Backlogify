@@ -13,9 +13,9 @@ function Home() {
     /* Check Session State */
     useEffect(() => {
         auth.checkSteamAuthenticated(setAuthenticated, navigate);
-        document.title = 'Home'
         console.log(authenticated)
-    }, [useGlobalState]);
+        document.title = 'Home'
+    }, []);
 
     const loginContent = (
         <>

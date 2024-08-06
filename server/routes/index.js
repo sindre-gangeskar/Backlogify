@@ -88,12 +88,15 @@ router.post('/backlog', async function (req, res, next) {
 router.delete('/backlog', async function (req, res, next) {
   const { appid, steamid } = req.body;
   try {
-    const exists = fs.existsSync(path.join(__dirname, `../data/backlog/${steamid}.json`));
+    const backlogFilePath = path.join(__dirname, '../', 'data', 'backlog', `${steamid}.json`);
+    const backlogDirPath = path.join(__dirname, '..', 'data', 'backlog');
+    console.log(backlogFilePath);
+    const exists = fs.existsSync(backlogFilePath);
 
     if (exists) {
-      const data = JSON.parse(fs.readFileSync(path.join(__dirname, `../data/backlog/${steamid}.json`)));
+      const data = parseJSON(steamid, backlogDirPath);
       const dataToKeep = data.filter(x => +x.appid !== +appid);
-      fs.writeFileSync(path.join(__dirname, `../data/backlog/${steamid}.json`), JSON.stringify(dataToKeep, null, 2));
+      saveJSON(steamid, backlogDirPath, dataToKeep);
       return res.jsend.success({ data: { appid }, message: 'Successfully removed game from backlog' });
     }
 
@@ -104,9 +107,9 @@ router.delete('/backlog', async function (req, res, next) {
 })
 
 router.delete('/backlog/:steamid', async function (req, res, next) {
-  const { steamid } = req.params;
+  const { steamid } = req.body;
   const exists = checkJsonExists(steamid, '../data/backlog');
-  
+
   if (exists) {
     deleteJSON(steamid, path.join(__dirname, `../data/backlog/${steamid}.json`));
     console.log(`Successfully deleted backlog for user: ${steamid}`);
