@@ -20,6 +20,7 @@ import Timer from '../js/Timer';
 import '../css/Overview.css';
 import '../css/index.css';
 import Utils from '../js/utils';
+
 function Overview() {
     const timer = new Timer();
     const utils = new Utils();
@@ -67,13 +68,13 @@ function Overview() {
         document.title = 'Overview';
     }, [])
 
-
     /* Games */
     useEffect(() => {
         let finished = false;
 
         const getGames = async () => {
             setLoading(true);
+            setLoadingVisible(true);
 
             try {
                 const response = await fetch(`${baseURL}/overview/${steamid}`, {
@@ -96,7 +97,8 @@ function Overview() {
             } catch (error) {
                 setError(error.message);
             } finally {
-                timer.delay(1.5, (() => { setLoadingVisible(false) }))
+                await timer.delay(1.5)
+                setLoadingVisible(false)
             }
         };
 
@@ -215,28 +217,60 @@ function Overview() {
 
     /* Set progress bar visibility */
     useEffect(() => {
-        if (modalCurrentApp && modalOpen) {
-            timer.delay(0.1, () => { setAchievementsVisible(true); })
+        const callAchivements = async () => {
+            if (modalCurrentApp && modalOpen) {
+                await timer.delay(0.5);
+                setAchievementsVisible(true);
+            }
+            if (!modalOpen) {
+                await timer.delay(0.2);
+                setAchievementsVisible(false);
+            }
         }
-        if (!modalOpen) {
-            timer.delay(0.1, () => { setAchievementsVisible(false); });
-        }
-
+        callAchivements();
     }, [ modalOpen ])
 
     /* Initialize the achievement bar transition  */
     useEffect(() => {
         if (achievementsVisible) {
-            timer.delay(0.2, () => {
-                setAchievementTransition(true);
-            })
+            timer.delay(0.2)
+            setAchievementTransition(true);
         }
         else {
+            setAchievementProgress(0);
             setAchievementTransition(false);
         }
 
     }, [ achievementsVisible ])
 
+
+    function paginate(itemsPerPage, currentPage, array) {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = currentPage * itemsPerPage;
+        const paginatedItems = array.slice(startIndex, endIndex);
+
+        if (games)
+            utils.sortAlphabetically(order, games.data.appids)
+
+        return paginatedItems.map(app => (
+            <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={showAppID} showGameTitle={showGameTitle} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
+        ))
+    }
+    function handleFilter(searchValue) {
+        setFilter(searchValue);
+        setPage(1);
+    }
+    async function initializeModal(app) {
+        setModalCurrentApp(app);
+        setModalOpen(true);
+        await timer.delay(0.1);
+        setModalVisible(true)
+    }
+    async function closeModal() {
+        setModalVisible(false);
+        await timer.delay(0.1);
+        setModalOpen(false);
+    }
     async function handleSubmit(event) {
         event.preventDefault();
         const form = new FormData(gamesFormRef.current);
@@ -260,33 +294,6 @@ function Overview() {
         } catch (error) {
             console.error(error);
         }
-    }
-    function handleFilter(searchValue) {
-        setFilter(searchValue);
-        setPage(1);
-    }
-    function initializeModal(app) {
-        setModalCurrentApp(app);
-        setModalOpen(true);
-        timer.delay(0.1, (() => { setModalVisible(true) }));
-    }
-    function closeModal() {
-        setModalVisible(false);
-        timer.delay(0.1, () => {
-            setModalOpen(false);
-        });
-    }
-    function paginate(itemsPerPage, currentPage, array) {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = currentPage * itemsPerPage;
-        const paginatedItems = array.slice(startIndex, endIndex);
-
-        if (games)
-            utils.sortAlphabetically(order, games.data.appids)
-
-        return paginatedItems.map(app => (
-            <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={showAppID} showGameTitle={showGameTitle} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
-        ))
     }
 
     if (error) {

@@ -1,12 +1,8 @@
 class Timer {
-    delay(seconds, callback) {
-        if (typeof callback !== 'function')
-            throw new Error('Callback must be a function');
-        const timer = setTimeout(() => {
-            callback();
-        }, seconds * 1000)
-
-        return () => clearTimeout(timer);
+    async delay(seconds) {
+        return new Promise(resolve => {
+            setTimeout(resolve, seconds * 1000);
+        });
     }
 }
 

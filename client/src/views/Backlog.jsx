@@ -63,7 +63,8 @@ function Backlog() {
 
     const removeFromBacklog = async (appid) => {
         setModalVisible(false);
-        timer.delay(0.1, () => { setModalOpen(false) })
+        await timer.delay(0.1);
+        setModalOpen(false)
 
         const response = await fetch(`${baseURL}/backlog`, {
             method: 'DELETE',
@@ -132,10 +133,11 @@ function Backlog() {
                             <input type="hidden" name='name' value={modalCurrentApp.name} />
                             <input type="hidden" name='playtime_forever' value={modalCurrentApp.playtime_forever} />
                             <input type="hidden" name='steamid' value={localStorage.getItem('steamid')} />
-                            <button type='button' className={`modal-footer-btn ${removed === true ? 'removed' : 'remove'}`} onClick={(() => {
+                            <button type='button' className={`modal-footer-btn ${removed === true ? 'removed' : 'remove'}`} onClick={(async () => {
                                 if (confirm(`Are you sure you want to remove ${modalCurrentApp.name} from the backlog?`)) {
                                     setRemoved(true);
-                                    timer.delay(1, (async () => { await removeFromBacklog(modalCurrentApp.appid).then(() => { setRemoved(false) }) }))
+                                    await removeFromBacklog(modalCurrentApp.appid)
+                                    setRemoved(false);
                                 }
                             })}>{modalButtonText}</button>
                         </form>
@@ -147,9 +149,10 @@ function Backlog() {
     /* Games */
     useEffect(() => {
         let finished = false;
+
         const getGames = async () => {
-            setLoadingVisible(true);
             setLoading(true);
+            setLoadingVisible(true);
             try {
                 const response = await fetch(`${baseURL}/backlog/${steamid}`);
                 if (response.ok && !finished) {
@@ -158,28 +161,26 @@ function Backlog() {
                         setGames(games);
                     } else {
                         setGames(null);
-                        setError(
-                            <p>
-                                No backlog has been created for this account. Try adding a game to the backlog first in <a onClick={() => { navigate('/overview') }}>Overview</a>
-                            </p>);
+                        setError(<p>No backlog has been created for this account. Try adding a game to the backlog first in <a onClick={() => { navigate('/overview') }}>Overview</a></p>);
                     }
                 }
             } catch (error) {
                 setError(<h2>{error}</h2>);
             } finally {
-                timer.delay(0.5, (() => { setLoadingVisible(false) }));
-                setLoading(false);
+                await timer.delay(1.5);
+                setLoadingVisible(false);
             }
         };
+
         getGames();
-        return (() => { finished = true })
+        return (() => { finished = true; setLoading(false) })
     }, [ steamid ]);
 
 
     function handleFilter(searchValue) {
         setFilter(searchValue);
     }
-    function initializeModal(app) {
+    async function initializeModal(app) {
         setModalCurrentApp(app);
         setModalTitle(
             <span className="modal-top">
@@ -220,11 +221,13 @@ function Backlog() {
         </>)
 
         setModalOpen(true);
-        timer.delay(0.1, () => { setModalVisible(true) })
+        await timer.delay(0.1);
+        setModalVisible(true)
     }
-    function closeModal() {
+    async function closeModal() {
         setModalVisible(false);
-        timer.delay(0.2, () => { setModalOpen(false) })
+        await timer.delay(0.2)
+        setModalOpen(false)
     }
     function paginate(itemsPerPage, currentPage, array) {
         const startIndex = (currentPage - 1) * itemsPerPage;

@@ -20,11 +20,14 @@ const allowedOrigins = [
 const corsOptions = {
     origin: function (origin, cb) {
         if (!origin) return cb(null, true);
+
         if (allowedOrigins.includes(origin)) return cb(null, true)
+        
         else cb(new Error('Not allowed by CORS'))
     },
     credentials: true,
 };
+
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
@@ -57,8 +60,8 @@ app.use(session({
     secret: process.env.SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
-        secure: true,
-        sameSite: 'none'
+        secure: process.env.NODE_ENV !== 'dev' ? true : false,
+        sameSite: process.env.NODE_ENV !== 'dev' ? 'none' : 'strict'
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,

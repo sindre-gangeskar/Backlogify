@@ -19,7 +19,7 @@ class Auth {
                     localStorage.setItem('steamid', data.data.user.steamid64)
                     localStorage.setItem('username', data.data.user.personaname)
                     localStorage.setItem('avatar', data.data.user.avatarfull)
-                  
+
                     if (!localStorage.getItem('redirected')) {
                         localStorage.setItem('redirected', true);
                         navHook('/overview');
@@ -87,7 +87,7 @@ class Auth {
             console.log('Failed to log out');
         }
     }
-    async requestDeleteAccountData(event, ref, navHook) {
+    async requestDeleteAccountData(event, ref, navHook, authenticationState) {
         event.preventDefault();
         const form = new FormData(ref.current);
         const steamid = form.get('steamid');
@@ -104,6 +104,7 @@ class Auth {
                     });
                 if (response.ok) {
                     await this.logout();
+                    authenticationState(false);
                     navHook('/');
                 } else {
                     console.log('Failed to fetch response');
