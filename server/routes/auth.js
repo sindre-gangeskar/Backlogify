@@ -23,17 +23,12 @@ router.get('/login/authenticated', async function (req, res, next) {
 
             req.session.user = { steamid64, personaname, avatarfull };
 
-            const requestOrigin = req.headers.host;
-            const requestClient = req.headers.location
-
-            console.log('Request origin:', requestOrigin)
-            console.log('Request Client:', requestClient)
             req.session.save(err => {
                 if (err) { console.log(err); return }
                 if (referrer.origin === `https://${process.env.CLIENT_BASEURL}`)
                     res.redirect(`https://${process.env.CLIENT_BASEURL}`);
                 else if (referrer.origin === `https://${process.env.CUSTOM_CLIENT_URL}`)
-                    res.redirect(`https://${process.env.CLIENT_BASEURL}`);
+                    res.redirect(`https://${process.env.CUSTOM_CLIENT_URL}`);
             })
         })
     } catch (error) {
