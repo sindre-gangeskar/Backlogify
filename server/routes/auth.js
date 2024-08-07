@@ -24,8 +24,10 @@ router.get('/login/authenticated', async function (req, res, next) {
             req.session.user = { steamid64, personaname, avatarfull };
 
             const requestOrigin = req.headers.host;
+            const requestClient = req.headers.location
 
             console.log('Request origin:', requestOrigin)
+            console.log('Request Client:', requestClient)
             req.session.save(err => {
                 if (err) { console.log(err); return }
               /*   if (req.headers.origin === process.env.CLIENT_BASEURL.toString()) */
