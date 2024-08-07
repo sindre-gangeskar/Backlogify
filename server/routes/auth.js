@@ -4,7 +4,7 @@ const SteamSignIn = require('steam-signin');
 const axios = require('axios');
 const jsend = require('jsend');
 const steamSignIn = new SteamSignIn(process.env.REALM);
-
+let referrer;
 router.use(jsend.middleware);
 router.get('/login', function (req, res, next) {
     res.statusCode = 302;
@@ -25,7 +25,10 @@ router.get('/login/authenticated', async function (req, res, next) {
 
             req.session.save(err => {
                 if (err) { console.log(err); return }
-                res.redirect(process.env.CLIENT_BASEURL);
+                if (referrer.origin === `https://${process.env.CLIENT_BASEURL}`)
+                    res.redirect(`https://${process.env.CLIENT_BASEURL}`);
+                else if (referrer.origin === `https://${process.env.CUSTOM_CLIENT_URL}`)
+                    res.redirect(`https://${process.env.CUSTOM_CLIENT_URL}`);
             })
         })
     } catch (error) {
@@ -34,6 +37,7 @@ router.get('/login/authenticated', async function (req, res, next) {
     }
 });
 router.get('/', async function (req, res, next) {
+    referrer = req.headers;
     return res.jsend.success({ user: req.session?.user || null, authenticated: req.session?.user ? true : false });
 });
 router.get('/logout', function (req, res, next) {

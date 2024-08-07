@@ -12,8 +12,10 @@ function Home() {
 
     /* Check Session State */
     useEffect(() => {
-        auth.checkSteamAuthenticated(setAuthenticated, navigate);
-        console.log(authenticated)
+        const checkAuthentication = async () => {
+            await auth.checkSteamAuthenticated(setAuthenticated, navigate);
+        }
+        checkAuthentication();
         document.title = 'Home'
     }, []);
 
