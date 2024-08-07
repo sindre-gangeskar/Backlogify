@@ -42,7 +42,7 @@ router.get('/login/authenticated', async function (req, res, next) {
     }
 });
 router.get('/', async function (req, res, next) {
-    referrer = req.header.referrer;
+    referrer = req.header;
 
     console.log('Refferer:', referrer);
     return res.jsend.success({ user: req.session?.user || null, authenticated: req.session?.user ? true : false });
