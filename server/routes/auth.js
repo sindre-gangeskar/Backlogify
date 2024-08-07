@@ -33,7 +33,7 @@ router.get('/login/authenticated', async function (req, res, next) {
                 if (referrer.origin === `https://${process.env.CLIENT_BASEURL}`)
                     res.redirect(`https://${process.env.CLIENT_BASEURL}`);
                 else if (referrer.origin === `https://${process.env.CUSTOM_CLIENT_URL}`)
-                    res.redirect(`https://${process.env.CUSTOM_CLIENT_URL}`);
+                    res.redirect(`https://${process.env.CLIENT_BASEURL}`);
             })
         })
     } catch (error) {
