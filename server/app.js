@@ -40,7 +40,7 @@ if (!fs.existsSync(backlogPath))
 
 var app = express();
 
-/* app.set('trust proxy', true); */
+app.set('trust proxy', true);
 app.use(cors(corsOptions));
 
 app.options('*', cors(corsOptions));
