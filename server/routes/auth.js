@@ -23,7 +23,7 @@ router.get('/login/authenticated', async function (req, res, next) {
 
             req.session.user = { steamid64, personaname, avatarfull };
 
-            const requestOrigin = req.headers.origin;
+            const requestOrigin = req.headers.host;
 
             console.log('Request origin:', requestOrigin)
             req.session.save(err => {
