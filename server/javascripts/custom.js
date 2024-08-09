@@ -4,7 +4,7 @@ const path = require('path');
 const fetch = require('node-fetch');
 
 async function getOwnedGames(id) {
-    const response = await fetch(`${process.env.STEAM_API_BASEURL}/${process.env.STEAM_API_OWNEDGAMES_URL}/?key=${process.env.STEAM_API_KEY}&steamid=${id}&format=json&include_appinfo=true`);
+    const response = await fetch(`${process.env.STEAM_API_BASE_URL}/${process.env.STEAM_API_OWNEDGAMES_URL}/?key=${process.env.STEAM_API_KEY}&steamid=${id}&format=json&include_appinfo=true`);
     try {
         if (response.ok) {
             const data = await response.json();

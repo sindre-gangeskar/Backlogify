@@ -1,4 +1,8 @@
 @import '../css//variables.css';
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 .games-wrapper {
     position: relative;
     padding: 30px;
@@ -24,12 +28,24 @@
 .games-wrapper:has(.card-wrapper.sm) {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
+<<<<<<< HEAD
 .games-wrapper:has(.card-wrapper.md) {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 .games-wrapper:has(.card-wrapper.lg) {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
+=======
+
+.games-wrapper:has(.card-wrapper.md) {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.games-wrapper:has(.card-wrapper.lg) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+>>>>>>> main
 .games-wrapper:has(.card-wrapper.xl) {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }

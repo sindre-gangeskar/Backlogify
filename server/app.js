@@ -16,7 +16,9 @@ const allowedOrigins = [
     `http://${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`,
     `https://${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`,
     `https://www.${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`,
-    `http://www.${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`
+    `http://www.${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`,
+    process.env.BACKLOGIFY_CLIENT_BASE_URL,
+    process.env.BACKLOGIFY_CUSTOM_CLIENT_URL
 ]
 
 const corsOptions = {

@@ -3,13 +3,14 @@ const router = express.Router();
 const SteamSignIn = require('steam-signin');
 const axios = require('axios');
 const jsend = require('jsend');
-const steamSignIn = new SteamSignIn(`${process.env.NODE_ENV === 'dev' ? 'http' : 'https'}://${process.env.STEAM_SERVER_REALM}:${process.env.PORT}`);
+const steamSignIn = new SteamSignIn(process.env.STEAM_SERVER_REALM);
 let referrer;
 router.use(jsend.middleware);
+
 router.get('/login', function (req, res, next) {
     res.statusCode = 302;
     console.log(process.env.STEAM_SERVER_REALM);
-    res.setHeader('Location', steamSignIn.getUrl(`${req.protocol}://${process.env.STEAM_SERVER_REALM}:${process.env.PORT}/auth/login/authenticated`));
+    res.setHeader('Location', steamSignIn.getUrl(`${process.env.STEAM_SERVER_REALM}/auth/login/authenticated`));
     res.end();
 });
 router.get('/login/authenticated', async function (req, res, next) {

@@ -25,7 +25,7 @@ function Library() {
     const timer = new Timer();
     const utils = new Utils();
     const steamid = localStorage.getItem('steamid');
-    const baseURL = import.meta.env.BACKLOGIFY_SERVER_BASE_URL;
+    const baseURL = import.meta.env.VITE_SERVER_BASEURL;
 
     const [ order ] = useGlobalState(state => [ state.order ]);
     const [ games, setGames ] = useGlobalState(state => [ state.games, state.setGames ]);
@@ -77,7 +77,7 @@ function Library() {
             setLoadingVisible(true);
 
             try {
-                const response = await fetch(`${baseURL}/overview/${steamid}`, {
+                const response = await fetch(`${baseURL}/library/${steamid}`, {
                     method: 'GET',
                     credentials: 'include'
                 });
