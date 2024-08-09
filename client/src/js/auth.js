@@ -1,12 +1,12 @@
 const serverURL = import.meta.env.VITE_SERVER_BASEURL;
 class Auth {
     handleLogin() {
-        location.href = `${import.meta.env.VITE_SERVER_BASEURL}/auth/login`;
+        location.href = `https://${import.meta.env.VITE_SERVER_BASEURL}/auth/login`;
     }
 
     async checkSteamAuthenticated(authenticationState, navHook) {
         try {
-            const response = await fetch(`${serverURL}/auth`, {
+            const response = await fetch(`https://${serverURL}/auth`, {
                 method: 'GET',
                 credentials: 'include',
             });
