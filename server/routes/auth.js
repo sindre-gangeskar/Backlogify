@@ -4,7 +4,6 @@ const SteamSignIn = require('steam-signin');
 const axios = require('axios');
 const jsend = require('jsend');
 const steamSignIn = new SteamSignIn(process.env.STEAM_SERVER_REALM);
-let referrer;
 
 
 router.use(jsend.middleware);
@@ -29,7 +28,7 @@ router.get('/login/authenticated', async function (req, res, next) {
 
             req.session.save(err => {
                 if (err) { console.log(err); return }
-                res.redirect(`${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`);
+                res.redirect(`${process.env.NODE_ENV !== 'dev' ? process.env.BACKLOGIFY_CLIENT_BASE_URL : process.env.DEVELOPMENT_URL}`);
             })
         })
     } catch (error) {
@@ -38,7 +37,6 @@ router.get('/login/authenticated', async function (req, res, next) {
     }
 });
 router.get('/', async function (req, res, next) {
-    referrer = req.headers;
     return res.jsend.success({ user: req.session.user || null, authenticated: !!req.session.user });
 });
 router.get('/logout', function (req, res, next) {
