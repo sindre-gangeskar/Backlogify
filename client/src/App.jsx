@@ -23,15 +23,13 @@ function App() {
   const timer = new Timer();
   const navigate = useNavigate();
 
-
   useIdleTimer({
     disabled: !authenticated,
     timeout: 1000 * 60 * 5,
     onIdle: (() => {
       setModalOpen(true);
-      timer.delay(0.1, () => {
-        setModalVisible(true);
-      })
+      timer.delay(0.1);
+      setModalVisible(true);
       auth.inactiveLogout(setAuthenticated, navigate);
     }),
   })
@@ -50,11 +48,10 @@ function App() {
     footer: <button className="modal-footer-btn add confirm" onClick={closeModal}>OK</button>
   })
 
-  function closeModal() {
+  async function closeModal() {
     setModalVisible(false);
-    timer.delay(0.1, () => {
-      setModalOpen(false);
-    })
+    await timer.delay(0.1);
+    setModalOpen(false);
   }
 
   return (

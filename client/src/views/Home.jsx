@@ -21,7 +21,7 @@ function Home() {
 
     const loginContent = (
         <>
-            <button onClick={(async () => { auth.handleLogin(setAuthenticated) })}>Click here to login<FaSteam size={50} className='steam-logo' /></button>
+            <button onClick={auth.handleLogin}>Click here to login<FaSteam size={50} className='steam-logo' /></button>
             <p>No username or password is stored when using this application</p>
         </>
     )

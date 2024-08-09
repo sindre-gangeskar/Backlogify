@@ -27,19 +27,13 @@ class Auth {
 
                     window.dispatchEvent(new Event('storage'));
                 }
-                else {
-                    authenticationState(false);
-                    localStorage.clear();
-                }
             }
             else {
                 authenticationState(false);
-                localStorage.clear();
             }
         } catch (error) {
             console.error('Error checking authentication status:', error);
             authenticationState(false);
-            localStorage.clear();
         }
     };
     async checkSession(navHook, authenticationState) {
