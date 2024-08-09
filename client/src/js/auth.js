@@ -1,7 +1,7 @@
-const serverURL = import.meta.env.BACKLOGIFY_SERVER_BASE_URL;
+const serverURL = import.meta.env.VITE_SERVER_BASEURL;
 class Auth {
     handleLogin() {
-        location.href = `${serverURL}/auth/login`;
+        location.href = `${import.meta.env.VITE_SERVER_BASEURL}/auth/login`;
     }
 
     async checkSteamAuthenticated(authenticationState, navHook) {
