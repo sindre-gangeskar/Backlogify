@@ -77,7 +77,7 @@ function Library() {
             setLoadingVisible(true);
 
             try {
-                const response = await fetch(`${baseURL}/overview/${steamid}`, {
+                const response = await fetch(`${baseURL}/library/${steamid}`, {
                     method: 'GET',
                     credentials: 'include'
                 });
