@@ -17,7 +17,7 @@ import useGlobalState from '../js/globalStateStore';
 import Timer from '../js/Timer';
 
 /* CSS */
-import '../css/Overview.css';
+import '../css/Library.css';
 import '../css/index.css';
 import Utils from '../js/utils';
 
@@ -25,7 +25,7 @@ function Overview() {
     const timer = new Timer();
     const utils = new Utils();
     const steamid = localStorage.getItem('steamid');
-    const baseURL = import.meta.env.VITE_SERVER_BASEURL;
+    const baseURL = import.meta.env.BACKLOGIFY_SERVER_BASE_URL;
 
     const [ order ] = useGlobalState(state => [ state.order ]);
     const [ games, setGames ] = useGlobalState(state => [ state.games, state.setGames ]);

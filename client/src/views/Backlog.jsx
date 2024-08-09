@@ -15,14 +15,14 @@ import Timer from '../js/Timer';
 import Utils from '../js/utils';
 
 /* CSS */
-import '../css/Overview.css';
+import '../css/Library.css';
 import '../css/index.css';
 
 import { RxCross2 } from 'react-icons/rx';
 
 function Backlog() {
 
-    const baseURL = import.meta.env.VITE_SERVER_BASEURL;
+    const baseURL = import.meta.env.BACKLOGIFY_SERVER_BASE_URL;
     const timer = new Timer();
     const utils = new Utils();
     const navigate = useNavigate();
