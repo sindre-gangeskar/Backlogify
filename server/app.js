@@ -65,7 +65,7 @@ app.use(session({
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
         secure: process.env.NODE_ENV !== 'dev' ? true : false,
-        sameSite: process.env.NODE_ENV !== 'dev' ? 'none' : ''
+        sameSite: process.env.NODE_ENV !== 'dev' ? 'none' : '',
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,

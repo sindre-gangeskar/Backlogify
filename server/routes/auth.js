@@ -30,11 +30,7 @@ router.get('/login/authenticated', async function (req, res, next) {
             req.session.save(err => {
                 if (err) { console.log(err); return }
 
-                const protocol = req.protocol;
-                if (referrer?.origin === `${protocol}://${process.env.BACKLOGIFY_CLIENT_BASE_URL}`)
-                    res.redirect(`${protocol}://${process.env.BACKLOGIFY_CLIENT_BASE_URL}`);
-                else if (referrer?.origin === `${protocol}://${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`)
-                    res.redirect(`${protocol}://${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`);
+                res.redirect(`${req.protocol}://${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`);
             })
         })
     } catch (error) {
@@ -44,7 +40,7 @@ router.get('/login/authenticated', async function (req, res, next) {
 });
 router.get('/', async function (req, res, next) {
     referrer = req.headers;
-    return res.jsend.success({ user: req.session.user || null, authenticated: !!req.session.user});
+    return res.jsend.success({ user: req.session.user || null, authenticated: !!req.session.user });
 });
 router.get('/logout', function (req, res, next) {
     res.clearCookie('connect.sid', { domain: process.env.BACKLOGIFY_CLIENT_BASE_URL, path: '/' });
