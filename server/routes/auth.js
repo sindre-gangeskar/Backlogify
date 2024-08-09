@@ -3,7 +3,7 @@ const router = express.Router();
 const SteamSignIn = require('steam-signin');
 const axios = require('axios');
 const jsend = require('jsend');
-const steamSignIn = new SteamSignIn(process.env.STEAM_SERVER_REALM);
+const steamSignIn = new SteamSignIn(`https://${process.env.STEAM_SERVER_REALM}`);
 let referrer;
 
 
