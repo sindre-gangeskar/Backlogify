@@ -1,12 +1,12 @@
-const baseURL = import.meta.env.VITE_SERVER_BASEURL;
+const serverURL = import.meta.env.BACKLOGIFY_SERVER_BASE_URL;
 class Auth {
     handleLogin() {
-        location.href = `${import.meta.env.VITE_SERVER_BASEURL}/auth/login`;
+        location.href = `${serverURL}/auth/login`;
     }
 
     async checkSteamAuthenticated(authenticationState, navHook) {
         try {
-            const response = await fetch(`${import.meta.env.VITE_SERVER_BASEURL}/auth`, {
+            const response = await fetch(`${serverURL}/auth`, {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -22,7 +22,7 @@ class Auth {
 
                     if (!localStorage.getItem('redirected')) {
                         localStorage.setItem('redirected', true);
-                        navHook('/overview');
+                        navHook('/library');
                     }
 
                     window.dispatchEvent(new Event('storage'));
@@ -38,7 +38,7 @@ class Auth {
     };
     async checkSession(navHook, authenticationState) {
         const checkSession = async () => {
-            const response = await fetch(`${baseURL}/auth`, { method: 'GET', credentials: 'include', headers: { 'Content-Type': 'application/json' } });
+            const response = await fetch(`${serverURL}/auth`, { method: 'GET', credentials: 'include', headers: { 'Content-Type': 'application/json' } });
             if (response.ok) {
                 const data = await response.json();
                 if (!data.data.authenticated) {
@@ -69,7 +69,7 @@ class Auth {
         navHook('/');
     }
     async logout() {
-        const response = await fetch(`${baseURL}/auth/logout`, {
+        const response = await fetch(`${serverURL}/auth/logout`, {
             method: 'GET',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' }
@@ -88,7 +88,7 @@ class Auth {
 
         if (confirm('Are you sure you want to delete your data?\nThis will clear out your backlog entirely')) {
             try {
-                const response = await fetch(`${baseURL}/backlog/account`,
+                const response = await fetch(`${serverURL}/backlog/account`,
                     {
                         method: 'DELETE',
                         credentials: 'include',

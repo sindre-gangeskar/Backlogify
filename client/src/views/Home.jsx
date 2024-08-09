@@ -32,7 +32,7 @@ function Home() {
                 <div className="avatar-wrapper">
                     <img src={localStorage.getItem('avatar')} alt="avatar" />
                 </div>
-                <button onClick={(() => { auth.handleLogout(setAuthenticated, navigate) })}>Log out<FaSteam size={50} className='steam-logo' /></button>
+                <button onClick={(async () => { await auth.handleLogout(setAuthenticated, navigate) })}>Log out<FaSteam size={50} className='steam-logo' /></button>
                 <div className="steam-background">
                     <FaSteam className='steam-background' size={80 + 'vh'}></FaSteam>
                 </div>

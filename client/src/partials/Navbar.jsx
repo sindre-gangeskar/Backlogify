@@ -10,7 +10,7 @@ function Navbar() {
     const auth = new Auth();
     const navigate = useNavigate();
     const deleteDataRef = useRef(null);
-    const routes = [ { path: '/', name: 'home' }, { path: '/overview', name: 'overview' }, { path: '/backlog', name: 'backlog' } ]
+    const routes = [ { path: '/', name: 'home' }, { path: '/library', name: 'library' }, { path: '/backlog', name: 'backlog' } ]
     const [ authenticated, setAuthenticated ] = useGlobalState(state => [ state.authenticated, state.setAuthenticated ]);
     const steamid = localStorage.getItem('steamid');
     const setAuthNavbar = () => (

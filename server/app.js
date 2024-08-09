@@ -11,10 +11,12 @@ const SQLiteStore = require('connect-sqlite3')(session);
 
 
 const allowedOrigins = [
-    `http://${process.env.CLIENT_BASEURL}`,
-    `https://${process.env.CLIENT_BASEURL}`,
-    `http://${process.env.CUSTOM_CLIENT_URL}`,
-    `https://${process.env.CUSTOM_CLIENT_URL}`
+    `http://${process.env.BACKLOGIFY_CLIENT_BASE_URL}`,
+    `https://${process.env.BACKLOGIFY_CLIENT_BASE_URL}`,
+    `http://${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`,
+    `https://${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`,
+    `https://www.${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`,
+    `http://www.${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`
 ]
 
 const corsOptions = {
@@ -22,7 +24,7 @@ const corsOptions = {
         if (!origin) return cb(null, true);
 
         if (allowedOrigins.includes(origin)) return cb(null, true)
-        
+
         else cb(new Error('Not allowed by CORS'))
     },
     credentials: true,
@@ -57,11 +59,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     saveUninitialized: false,
     resave: false,
-    secret: process.env.SECRET,
+    secret: process.env.SESSION_SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60 * 3,
         secure: process.env.NODE_ENV !== 'dev' ? true : false,
-        sameSite: process.env.NODE_ENV !== 'dev' ? 'none' : 'strict'
+        sameSite: process.env.NODE_ENV !== 'dev' ? 'none' : ''
     },
     store: new SQLiteStore({
         ttl: 60 * 60 * 3,

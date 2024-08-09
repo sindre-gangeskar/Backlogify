@@ -3,19 +3,20 @@ const router = express.Router();
 const SteamSignIn = require('steam-signin');
 const axios = require('axios');
 const jsend = require('jsend');
-const steamSignIn = new SteamSignIn(process.env.REALM);
+const steamSignIn = new SteamSignIn(`${process.env.NODE_ENV === 'dev' ? 'http' : 'https'}://${process.env.STEAM_SERVER_REALM}:${process.env.PORT}`);
 let referrer;
 router.use(jsend.middleware);
 router.get('/login', function (req, res, next) {
     res.statusCode = 302;
-    res.setHeader('Location', steamSignIn.getUrl(`${process.env.REALM}/auth/login/authenticated`));
+    console.log(process.env.STEAM_SERVER_REALM);
+    res.setHeader('Location', steamSignIn.getUrl(`${req.protocol}://${process.env.STEAM_SERVER_REALM}:${process.env.PORT}/auth/login/authenticated`));
     res.end();
 });
 router.get('/login/authenticated', async function (req, res, next) {
     try {
         const steam = await steamSignIn.verifyLogin(req.url);
         const steamid64 = steam.getSteamID64();
-        const response = await axios.get(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.KEY}&steamids=${steamid64}`);
+        const response = await axios.get(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.STEAM_API_KEY}&steamids=${steamid64}`);
         const { personaname, avatarfull } = response.data.response.players[ 0 ];
 
         req.session.regenerate((err) => {
@@ -27,10 +28,10 @@ router.get('/login/authenticated', async function (req, res, next) {
                 if (err) { console.log(err); return }
 
                 const protocol = req.protocol;
-                if (referrer?.origin === `${protocol}://${process.env.CLIENT_BASEURL}`)
-                    res.redirect(`${protocol}://${process.env.CLIENT_BASEURL}`);
-                else if (referrer?.origin === `${protocol}://${process.env.CUSTOM_CLIENT_URL}`)
-                    res.redirect(`${protocol}://${process.env.CUSTOM_CLIENT_URL}`);
+                if (referrer?.origin === `${protocol}://${process.env.BACKLOGIFY_CLIENT_BASE_URL}`)
+                    res.redirect(`${protocol}://${process.env.BACKLOGIFY_CLIENT_BASE_URL}`);
+                else if (referrer?.origin === `${protocol}://${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`)
+                    res.redirect(`${protocol}://${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`);
             })
         })
     } catch (error) {
@@ -43,7 +44,7 @@ router.get('/', async function (req, res, next) {
     return res.jsend.success({ user: req.session?.user || null, authenticated: req.session?.user ? true : false });
 });
 router.get('/logout', function (req, res, next) {
-    res.clearCookie('connect.sid', { domain: process.env.CLIENT_BASEURL, path: '/' });
+    res.clearCookie('connect.sid', { domain: process.env.BACKLOGIFY_CLIENT_BASE_URL, path: '/' });
     req.session.destroy(err => {
         if (err) console.log('Could not delete session', err);
         res.clearCookie('connect.sid');
