@@ -6,7 +6,6 @@ const jsend = require('jsend');
 const steamSignIn = new SteamSignIn(process.env.STEAM_SERVER_REALM);
 let referrer;
 
-var shared = {}; 
 
 router.use(jsend.middleware);
 
@@ -29,7 +28,6 @@ router.get('/login/authenticated', async function (req, res, next) {
             req.session.user = { steamid64, personaname, avatarfull };
 
             req.session.save(err => {
-                shared = req.session;
                 if (err) { console.log(err); return }
 
                 const protocol = req.protocol;
@@ -46,16 +44,14 @@ router.get('/login/authenticated', async function (req, res, next) {
 });
 router.get('/', async function (req, res, next) {
     referrer = req.headers;
-    return res.jsend.success({ user: shared.user || null, authenticated: shared.user !== null ? true : false });
+    return res.jsend.success({ user: req.session.user || null, authenticated: !!req.session.user});
 });
 router.get('/logout', function (req, res, next) {
     res.clearCookie('connect.sid', { domain: process.env.BACKLOGIFY_CLIENT_BASE_URL, path: '/' });
     req.session.destroy(err => {
-        shared = {};
         if (err) console.log('Could not delete session', err);
         res.clearCookie('connect.sid');
         return res.jsend.success({ message: 'Successfully logged out' })
-
     })
 });
 
