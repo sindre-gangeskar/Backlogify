@@ -161,7 +161,7 @@ function Backlog() {
                         setGames(games);
                     } else {
                         setGames(null);
-                        setError(<p>No backlog has been created for this account. Try adding a game to the backlog first in <a onClick={() => { navigate('/overview') }}>Overview</a></p>);
+                        setError(<p>No backlog has been created for this account. Try adding a game to the backlog first in <a onClick={() => { navigate('/library') }}>Library</a></p>);
                     }
                 }
             } catch (error) {
