@@ -21,7 +21,7 @@ import '../css/Library.css';
 import '../css/index.css';
 import Utils from '../js/utils';
 
-function Overview() {
+function Library() {
     const timer = new Timer();
     const utils = new Utils();
     const steamid = localStorage.getItem('steamid');
@@ -355,4 +355,4 @@ function Overview() {
     );
 }
 
-export default Overview;
+export default Library;
