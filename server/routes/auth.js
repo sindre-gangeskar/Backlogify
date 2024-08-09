@@ -6,7 +6,7 @@ const jsend = require('jsend');
 const steamSignIn = new SteamSignIn(process.env.STEAM_SERVER_REALM);
 let referrer;
 
-var sharedData = {};
+var sharedData = {}; 
 
 router.use(jsend.middleware);
 
