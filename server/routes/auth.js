@@ -12,7 +12,7 @@ router.use(jsend.middleware);
 router.get('/login', function (req, res, next) {
     res.statusCode = 302;
     console.log(process.env.STEAM_SERVER_REALM);
-    res.setHeader('Location', steamSignIn.getUrl(`https://${process.env.STEAM_SERVER_REALM}/auth/login/authenticated`));
+    res.setHeader('Location', steamSignIn.getUrl(`${process.env.STEAM_SERVER_REALM}/auth/login/authenticated`));
     res.end();
 });
 router.get('/login/authenticated', async function (req, res, next) {
@@ -29,7 +29,6 @@ router.get('/login/authenticated', async function (req, res, next) {
 
             req.session.save(err => {
                 if (err) { console.log(err); return }
-
                 res.redirect(`${process.env.BACKLOGIFY_CUSTOM_CLIENT_URL}`);
             })
         })
