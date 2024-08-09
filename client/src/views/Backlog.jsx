@@ -15,7 +15,7 @@ import Timer from '../js/Timer';
 import Utils from '../js/utils';
 
 /* CSS */
-import '../css/Overview.css';
+import '../css/Library.css';
 import '../css/index.css';
 
 import { RxCross2 } from 'react-icons/rx';

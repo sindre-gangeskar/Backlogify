@@ -8,7 +8,7 @@ const fs = require('fs');
 const backlogDirPath = path.join(__dirname, '..', 'data', 'backlog');
 
 router.use(jsend.middleware);
-router.get(`/overview/:steamid`, async function (req, res, next) {
+router.get(`/library/:steamid`, async function (req, res, next) {
   if (!backlogDirPath)
     fs.mkdirSync(path.resolve(__dirname, '../data/backlog'));
 

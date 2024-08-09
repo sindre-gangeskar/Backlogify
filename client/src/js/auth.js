@@ -22,7 +22,7 @@ class Auth {
 
                     if (!localStorage.getItem('redirected')) {
                         localStorage.setItem('redirected', true);
-                        navHook('/overview');
+                        navHook('/library');
                     }
 
                     window.dispatchEvent(new Event('storage'));

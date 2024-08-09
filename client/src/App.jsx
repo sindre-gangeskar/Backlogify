@@ -1,6 +1,6 @@
 import './css/App.css'
 import './css/index.css';
-import Overview from './views/Overview'
+import Library from './views/Library'
 import Backlog from './views/Backlog'
 import Navbar from './partials/Navbar';
 import Footer from './partials/Footer';
@@ -59,9 +59,9 @@ function App() {
       <Modal className={`modal-wrapper ${modalVisible ? 'open' : 'close'}`} title={modal.title} isOpen={modalOpen} body={modal.body} onClose={closeModal} footer={modal.footer} backdrop="false" ></Modal>
       <Navbar />
       <Routes>
-        <Route path='/overview' key={'/overview'} element={
+        <Route path='/library' key={'/library'} element={
           <>
-            <Overview key={'overview'} setVisible={setVisible} />
+            <Library key={'library'} setVisible={setVisible} />
             <Footer key={'footer'} />
           </>
         }></Route>
