@@ -3,66 +3,64 @@
     width: 100%;
     height: 50px;
     margin-bottom: 50px;
-    padding-bottom: 30px;
+    padding: 15px 15px;
     background-color: var(--gray);
     display: flex;
-    align-items: baseline;
+    align-items: center;
     position: absolute;
     top: 0;
     z-index: 10;
 }
 
 .navbar-profile-wrapper {
-    text-align: center;
     position: relative;
-    display: flex;
-    align-items: center;
+    display: grid;
+    height: 100%;
+    width: 250px;
+    grid-auto-flow: column;
     gap: 25px;
     margin-left: auto;
-    margin-right: 25px;
+    margin-right: 50px;
     min-width: 50px;
-    padding: 10px;
-    border-bottom: 1px solid var(--secondary-tertiary-color);
-    width: calc(250px);
+    padding: 15px;
+    align-items: center;
     justify-content: center;
-    z-index: 1;
+    cursor: pointer;
+    background-color: var(--gray);
+    text-align: center;
+    border-bottom: 1px solid var(--secondary-tertiary-color);
 }
 
 .profile-dropdown {
-    background-color: var(--gray);
     position: absolute;
-    display: flex;
     width: 100%;
-    top: 100%;
-    left: 50%;
-    margin: 0 auto;
-    padding: 15px 0;
-    border: 1px solid var(--secondary-tertiary-color);
-    border-top: none;
-    transform: translateX(-50%);
-    flex-direction: column;
-}
-
-
-
-.navbar-profile-wrapper .profile-dropdown {
-    opacity: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: var(--gray);
+    display: grid;
+    grid-auto-flow: row;
+    justify-content: space-around;
+    transform: translateY(-100%);
     transition: 200ms ease;
+    z-index: -1;
+    cursor: auto;
+    gap: 25px;
+    padding: 15px 0px;
 }
 
-.navbar-profile-wrapper:hover .profile-dropdown {
-    display: flex;
-    width: 100%;
-    opacity: 1;
-    left: 50%;
-    transform: translate(-50%, 0%);
+
+.navbar-profile-wrapper:hover .profile-dropdown,
+.profile-dropdown:hover {
+    transform: translateY(100%);
 }
 
-.profile-dropdown  button {
-    width: 250px
+.profile-dropdown button {
+    position: relative;
+    width: 250px;
+    padding: 15px;
 }
+
 
 .dropdown-item.nav-link:hover {
     cursor: pointer;
@@ -80,7 +78,6 @@
 }
 
 .nav-username {
-    position: relative;
     font-weight: 800;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -109,7 +106,10 @@ ul {
     border: none;
 }
 
-.logout-btn, .logout-btn:active, .logout-btn:hover, .logout-btn:focus{
+.logout-btn,
+.logout-btn:active,
+.logout-btn:hover,
+.logout-btn:focus {
     position: relative;
     width: 100%;
     border: none;

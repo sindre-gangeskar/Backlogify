@@ -94,6 +94,9 @@ img {
 .btn.negative {
   background: linear-gradient(45deg, var(--danger), var(--danger-dark)) !important;
 }
+.btn.negative:hover{
+  border: 1px solid red;
+}
 .btn.positive{
   background: linear-gradient(45deg, var(--secondary-tertiary-color), var(--third-tertiary-color)) !important;
 }

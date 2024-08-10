@@ -1,5 +1,10 @@
 .steamid {
+    z-index: 1;
+}
+
+.login-wrapper p {
     position: relative;
+    z-index: 1;
 }
 
 .login-wrapper {
@@ -9,16 +14,14 @@
     display: grid;
     justify-content: center;
     align-items: center;
-    align-self: center;
-    text-align: center;
     background-color: var(--gray);
+    z-index: 1;
 }
 
 .login-wrapper button {
     position: relative;
     z-index: 1;
     width: 100%;
-    margin: auto;
     margin-top: 15px;
     border-radius: 0;
     border: 1px solid var(--secondary-tertiary-color);
@@ -35,33 +38,32 @@
     outline: 1px solid var(--secondary-tertiary-color);
 }
 
-.avatar-wrapper{
+.avatar-wrapper {
+    position: relative;
+    display: flex;
     z-index: 1;
     height: 350px;
     width: 350px;
-    margin: 0px auto;
-    padding: 0;
     border: 6px solid var(--third-tertiary-color);
 }
-.avatar-wrapper img{
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-.title{
-    position: relative;
+
+
+.title {
     font-size: 2rem;
-    z-index: 1;
+    max-width: 350px;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
-.steam-background{
+
+.steam-background {
     position: absolute;
     margin: 0 auto;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 0;
-    opacity: 0.3;
-    color: black;
-    width: 0;
+    opacity: 0.1;
+    display: flex;
+    fill: black;
 }
