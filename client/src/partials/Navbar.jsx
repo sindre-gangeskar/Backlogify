@@ -5,6 +5,7 @@ import '../css/Navbar.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import { FaSteam } from "react-icons/fa";
+import SteamBacklogifyIcon from './SteamBacklogifyIcon';
 
 function Navbar() {
     const auth = new Auth();
@@ -50,7 +51,7 @@ function Navbar() {
     const navbarContent = () => authenticated ? setAuthNavbar() : setGuestNavbar();
     return (
         <div className='nav navbar'>
-            <h2 className="navbar-brand"><FaSteam size={25} /> Steam Backlogify</h2>
+            <h2 className="navbar-brand"><SteamBacklogifyIcon width={50} height={50} className={'navbar-icon'} /> Steam Backlogify</h2>
             {navbarContent()}
         </div >
     )

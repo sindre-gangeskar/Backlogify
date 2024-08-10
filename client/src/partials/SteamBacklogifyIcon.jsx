@@ -1,8 +1,9 @@
 import React from "react";
 
-function SteamBacklogifyIcon({ width, height }) {
+function SteamBacklogifyIcon({ width, height, className }) {
     return (
         <svg
+            className={className}
             width={width}
             height={height}
             opacity={'opacity'}

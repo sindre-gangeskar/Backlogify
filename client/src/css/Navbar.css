@@ -12,6 +12,53 @@
     z-index: 10;
 }
 
+.navbar-group {
+    margin-left: 55px;
+    position: relative;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: center;
+    width: fit-content;
+    align-items: center;
+    padding: 0;
+    gap: 15px;
+}
+
+.nav-link {
+    position: relative;
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    border: none;
+    margin: 0px auto;
+    padding: 0;
+    margin: 0;
+}
+
+
+.nav-link:hover {
+    color: var(--secondary-tertiary-color);
+    transition: 300ms ease;
+}
+
+.nav-link::after {
+    position: relative;
+    content: '';
+    display: block;
+    width: 0%;
+    height: 2px;
+    background-color: var(--secondary-tertiary-color);
+    transition: 300ms ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+    transition: 300ms ease;
+}
+
 .navbar-profile-wrapper {
     position: relative;
     display: grid;
@@ -49,7 +96,6 @@
     padding: 15px 0px;
 }
 
-
 .navbar-profile-wrapper:hover .profile-dropdown,
 .profile-dropdown:hover {
     transform: translateY(100%);
@@ -85,26 +131,7 @@
     text-wrap: nowrap;
 }
 
-ul {
-    margin-left: 15px;
-    width: fit-content;
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    align-items: center;
-    text-align: center;
-    justify-content: space-between;
-    list-style: none;
-}
 
-.nav-link {
-    text-decoration: none;
-    text-align: center;
-    color: white;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    border: none;
-}
 
 .logout-btn,
 .logout-btn:active,
@@ -118,29 +145,22 @@ ul {
     text-transform: uppercase;
 }
 
-.nav-link:hover {
-    color: var(--secondary-tertiary-color);
-    transition: 300ms ease;
-}
-
-.nav-link::after {
-    position: relative;
-    content: '';
-    display: block;
-    width: 0%;
-    height: 4px;
-    background-color: var(--secondary-tertiary-color);
-    transition: 300ms ease;
-}
-
-.nav-link:hover::after {
-    width: 100%;
-    transition: 300ms ease;
-}
-
 .navbar-brand {
     margin-left: 15px;
     text-wrap: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    align-items: center;
+    align-content: center;
+    display: grid;
+    grid-auto-flow: column;
+}
+.navbar-icon{
+    margin-right: 15px;
+    color: black;
+    fill: white;
+}
+
+ul{
+    list-style: none;
 }
