@@ -2,7 +2,7 @@ import React from 'react';
 const AchievementsProgress = React.memo(React.forwardRef(({ visible, achievements, achieved, progress, play }, ref) => {
     return (
         <>
-            {achievements.length ? (
+            {achievements.length > 0 ? (
                 <div className={`achievements-progress-wrapper ${visible === true ? 'visible' : 'hidden'}`}>
                     <p className='achievements-title'>{`${achieved.length} / ${achievements.length} unlocked`}</p>
                     <div className="achievements-progress-track">

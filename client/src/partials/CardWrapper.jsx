@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from "react";
+import React, { forwardRef } from "react";
 import ImageWithFallback from "./ImageWithFallback";
 import { BiCheckCircle } from "react-icons/bi";
 
@@ -7,7 +7,6 @@ const CardWrapper = React.memo(forwardRef(({ app, onClick, showAppID, showGameTi
     return (
         <div ref={ref} className={`card-wrapper ${scale == 0 ? 'sm' : scale == 1 ? 'md' : scale === 2 ? 'lg' : 'xl'}`} onClick={onClick}>
             <div className={`card-appid ${showAppID === true ? 'visible' : ''}`}>{app.appid}</div>
-            {/* <div className={`card-title ${showGameTitle === true ? 'visible' : ''}`}>{app.name}</div> */}
             <div className={`card-title ${showGameTitle === true ? 'visible' : ''}`}>{app.name}</div>
 
             {backlogged ? <div className={`backlogged-overlay`}><BiCheckCircle className="backlogged-check" /></div> : ''}

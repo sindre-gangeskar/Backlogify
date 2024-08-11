@@ -50,16 +50,20 @@ router.get('/backlog/:steamid', async function (req, res, next) {
 
 router.get('/achievements/:steamid/:appid', async function (req, res, next) {
   try {
-    const { steamid, appid } = req.params;
+    const steamid = req.params.steamid;
+    const appid = req.params.appid;
+
     const response = await fetch(`http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${appid}&key=${process.env.STEAM_API_KEY}&steamid=${steamid}&l=en`)
 
     if (response.ok) {
       const data = await response.json();
-
-      if (data.playerstats.achievements) {
-        const achievements = data.playerstats.achievements;
-        const achieved = achievements.filter(x => x.achieved === 1);
-        return res.jsend.success({ achievements: achievements, achieved: achieved });
+      if (data.playerstats) {
+        if (data.playerstats.achievements) {
+          const achievements = data.playerstats.achievements;
+          const achieved = achievements.filter(x => x.achieved === 1);
+          return res.jsend.success({ achievements: achievements, achieved: achieved });
+        }
+        else return res.jsend.success({ achievements: [], achieved: [] });
       }
     } else {
       return res.jsend.success({ message: 'No achievements currently exist for selected game' });
@@ -108,7 +112,7 @@ router.delete('/backlog/account', async function (req, res, next) {
   const exists = checkJsonExists(steamid, backlogDirPath);
   if (exists) {
     await deleteJSON(steamid, backlogDirPath);
-    console.log('Successful deletion of account!')    
+    console.log('Successful deletion of account!')
   }
   else console.log(`No backlog exists for steam user: ${steamid}. Forcing a log-out`)
 

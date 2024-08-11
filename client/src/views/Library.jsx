@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BiCheckCircle } from "react-icons/bi";
-import { RxCross2 } from 'react-icons/rx';
+import { RxCheckCircled, RxCross2 } from 'react-icons/rx';
 import { FaCircleArrowRight, FaCircleArrowLeft } from "react-icons/fa6";
 /* Components */
 import ImageWithFallback from '../partials/ImageWithFallback';
@@ -11,6 +11,7 @@ import CardWrapper from '../partials/CardWrapper';
 import HeroPoster from '../partials/HeroPoster';
 import Modal from '../partials/Modal';
 import AchievementsProgress from '../partials/AchievementsProgress';
+import AchievementsList from '../partials/AchievementsList';
 import GamesWrapper from '../partials/GamesWrapper';
 import useGlobalState from '../js/globalStateStore';
 /* Classes */
@@ -44,6 +45,7 @@ function Library() {
     const [ achievementProgress, setAchievementProgress ] = useState(0);
     const [ achievementsVisible, setAchievementsVisible ] = useState(false);
     const [ achievementTransition, setAchievementTransition ] = useState(false);
+    const [ achievementsFetched, setAchievementsFetched ] = useState(false);
 
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ modalTitle, setModalTitle ] = useState(null);
@@ -52,7 +54,6 @@ function Library() {
     const [ modalFooter, setModalFooter ] = useState(null);
     const [ modalVisible, setModalVisible ] = useState(false);
     const [ modalCurrentApp, setModalCurrentApp ] = useState(null);
-
     const [ loadingVisible, setLoadingVisible ] = useState(true);
 
     const gamesWrapperRef = useRef(null);
@@ -106,42 +107,13 @@ function Library() {
         return (() => { finished = true; setLoading(false) });
     }, [ steamid ]);
 
-    /* Modal submission */
-    useEffect(() => {
-        const fetchAchievements = async () => {
-            if (modalCurrentApp) {
-                try {
-                    const response = await fetch(`${baseURL}/achievements/${steamid}/${modalCurrentApp.appid}`, {
-                        method: 'GET',
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-                    if (response.ok) {
-                        const data = await response.json();
-                        if (data.data.achievements && data.data.achieved) {
-                            setAchievements(data.data.achievements);
-                            setAchieved(data.data.achieved);
-                        }
-                        else {
-                            setAchievements([]);
-                            setAchieved([]);
-                        }
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-        }
-        fetchAchievements();
-
-    }, [ modalCurrentApp ])
-
     /* Set achievement progress on achievements change */
     useEffect(() => {
         if (modalCurrentApp && achievements.length > 0) {
             const progress = Math.round((achieved.length / achievements.length) * 100);
             setAchievementProgress(progress);
         }
-    }, [ achievements, modalOpen ])
+    }, [ modalOpen, achievements ])
 
     /* Initiate modal with data */
     useEffect(() => {
@@ -156,22 +128,16 @@ function Library() {
                     </span>
                 </>);
                 setModalBody(<>
-                    <div className="modal-body">
-                        <table className='gd-table-wrapper'>
-                            <thead className='gd-head'>
-                                <tr>
-                                    <td>Total Playtime in hours</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{Math.round(modalCurrentApp.playtime_forever / 60)}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <AchievementsProgress progress={achievementProgress} achievements={achievements} achieved={achieved} visible={achievementsVisible} key={modalCurrentApp} ref={progressBarRef} play={achievementTransition} />
+
+                    <div className="modal-body" key={modalCurrentApp.appid}>
+                        <div className="playtime-wrapper">
+                            <p>Total Playtime in hours:</p>
+                            <p>{Math.round(modalCurrentApp.playtime_forever / 60)}</p>
+                        </div>
+                        <AchievementsList key={modalCurrentApp.appid} achievements={achievements} achieved={achieved} visible={achievementsVisible} achievedIcon={<BiCheckCircle className='achievement-icon positive' size={25} />} notAchievedIcon={<RxCross2 className='achievement-icon negative' size={25} />} />
+                        <AchievementsProgress progress={achievementProgress} achievements={achievements} achieved={achieved} visible={achievementsVisible} ref={progressBarRef} play={achievementTransition} />
                         <div className="hero-poster-wrapper">
-                            <HeroPoster app={modalCurrentApp} key={modalCurrentApp.appid} className="hero-poster" />
+                            <HeroPoster app={modalCurrentApp} className="hero-poster" />
                         </div>
 
                         <div className="library-hero-wrapper" >
@@ -206,9 +172,8 @@ function Library() {
                 );
             }
         }
-
         initiateModal(modalCurrentApp);
-    }, [ modalCurrentApp, achievementProgress, achievements, achieved, achievementTransition, modalCurrentApp?.backlogged ])
+    }, [ modalCurrentApp, achievementTransition, achievementsVisible, achievementProgress, modalCurrentApp?.backlogged ])
 
     /* Save card scale value to localStorage on change */
     useEffect(() => {
@@ -217,18 +182,14 @@ function Library() {
 
     /* Set progress bar visibility */
     useEffect(() => {
-        const callAchivements = async () => {
+        const callAchievements = async () => {
             if (modalCurrentApp && modalOpen) {
-                await timer.delay(0.5);
+                await timer.delay(0.25);
                 setAchievementsVisible(true);
             }
-            if (!modalOpen) {
-                await timer.delay(0.2);
-                setAchievementsVisible(false);
-            }
         }
-        callAchivements();
-    }, [ modalOpen ])
+        callAchievements();
+    }, [ modalOpen, modalCurrentApp ])
 
     /* Initialize the achievement bar transition  */
     useEffect(() => {
@@ -243,7 +204,6 @@ function Library() {
 
     }, [ achievementsVisible ])
 
-
     function paginate(itemsPerPage, currentPage, array) {
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = currentPage * itemsPerPage;
@@ -253,23 +213,47 @@ function Library() {
             utils.sortAlphabetically(order, games.data.appids)
 
         return paginatedItems.map(app => (
-            <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={showAppID} showGameTitle={showGameTitle} scale={gameCardScale} onClick={(() => { initializeModal(app); })} />
+            <CardWrapper key={app.appid} app={app} backlogged={app.backlogged ? true : false} showAppID={showAppID} showGameTitle={showGameTitle} scale={gameCardScale} onClick={(async () => { await initializeModal(app); })} />
         ))
     }
     function handleFilter(searchValue) {
         setFilter(searchValue);
         setPage(1);
     }
+
+    async function awaitModalLoading(app) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                await fetchAchievements(app);
+                console.log('Resolved');
+                resolve();
+
+            } catch (error) {
+                console.log('Rejected');
+                reject(error);
+            }
+        })
+    }
+
     async function initializeModal(app) {
+        await awaitModalClosed();
+        await awaitModalLoading(app);
         setModalCurrentApp(app);
+
         setModalOpen(true);
         await timer.delay(0.1);
         setModalVisible(true)
     }
     async function closeModal() {
         setModalVisible(false);
+        setAchievementsVisible(false)
         await timer.delay(0.1);
         setModalOpen(false);
+    }
+    async function awaitModalClosed() {
+        return new Promise(resolve => {
+            resolve(modalOpen === false);
+        })
     }
     async function handleSubmit(event) {
         event.preventDefault();
@@ -293,6 +277,29 @@ function Library() {
 
         } catch (error) {
             console.error(error);
+        }
+    }
+    async function fetchAchievements(app) {
+        setAchievementsFetched(false);
+        try {
+            const response = await fetch(`${baseURL}/achievements/${steamid}/${app.appid}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            });
+            if (response.ok) {
+                const data = await response.json();
+                data.data.achievements ? setAchievements(data.data.achievements) : setAchievements([]);
+                data.data.achieved ? setAchieved(data.data.achieved) : setAchieved([]);
+            }
+            else {
+                setAchieved([]);
+                setAchievements([]);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        finally {
+            setAchievementsFetched(true);
         }
     }
 
@@ -327,16 +334,16 @@ function Library() {
                     : null}
 
                 <span className="pagination-controls">
-                    {page !== 1 ?
+                    {page !== 1 && totalPages > 1 ?
                         <button className='pagination-button' onClick={() => { utils.previousPage(page, setPage, gamesWrapperRef) }}><FaCircleArrowLeft /></button>
                         : <button className='pagination-button disabled hidden'><FaCircleArrowLeft /></button>}
-                    <p>{page}</p>
-                    {page !== totalPages ?
+                    <p>{totalPages > 1 ? page : ''}</p>
+                    {page !== totalPages && totalPages > 1 ?
                         <button className='pagination-button' onClick={() => { utils.nextPage(page, totalPages, setPage, gamesWrapperRef) }}><FaCircleArrowRight /></button>
                         : <button className='pagination-button disabled hidden'><FaCircleArrowRight /></button>}
                 </span>
 
-                {page !== totalPages ?
+                {page !== totalPages && totalPages > 1 ?
                     <button className='pagination-last-button' onClick={() => { utils.goToLastPage(setPage, totalPages, gamesWrapperRef) }}>{totalPages}</button>
                     : null}
             </div>
