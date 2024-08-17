@@ -21,6 +21,7 @@ import Timer from '../js/Timer';
 import '../css/Library.css';
 import '../css/index.css';
 import Utils from '../js/utils';
+import AchievementCard from '../partials/AchievementCard';
 
 function Library() {
     const timer = new Timer();
@@ -42,9 +43,12 @@ function Library() {
 
     const [ achievements, setAchievements ] = useState([]);
     const [ achieved, setAchieved ] = useState([]);
+    const [ achievementIcons, setAchievementIcons ] = useState([]);
+    const [ achievementIndex, setAchievementIndex ] = useState(0);
     const [ achievementProgress, setAchievementProgress ] = useState(0);
     const [ achievementsVisible, setAchievementsVisible ] = useState(false);
     const [ achievementTransition, setAchievementTransition ] = useState(false);
+    const [ achievementDescription, setAchievementDescription ] = useState('');
     const [ achievementsFetched, setAchievementsFetched ] = useState(false);
 
     const [ modalOpen, setModalOpen ] = useState(false);
@@ -112,6 +116,7 @@ function Library() {
         if (modalCurrentApp && achievements.length > 0) {
             const progress = Math.round((achieved.length / achievements.length) * 100);
             setAchievementProgress(progress);
+            setAchievementIndex(0);
         }
     }, [ modalOpen, achievements ])
 
@@ -128,14 +133,18 @@ function Library() {
                     </span>
                 </>);
                 setModalBody(<>
-
                     <div className="modal-body" key={modalCurrentApp.appid}>
                         <div className="playtime-wrapper">
                             <p>Total Playtime in hours:</p>
                             <p>{Math.round(modalCurrentApp.playtime_forever / 60)}</p>
                         </div>
-                        <AchievementsList key={modalCurrentApp.appid} achievements={achievements} achieved={achieved} visible={achievementsVisible} achievedIcon={<BiCheckCircle className='achievement-icon positive' size={25} />} notAchievedIcon={<RxCross2 className='achievement-icon negative' size={25} />} />
+
+                        <div className="achievements-wrapper" key={modalCurrentApp.appid}>
+                            <AchievementsList icons={achievementIcons} setAchievementIndex={(index) => { setAchievementIndex(index) }} achievements={achievements} achieved={achieved} visible={achievementsVisible} achievedIcon={<BiCheckCircle className='achievement-status-icon positive' size={25} />} notAchievedIcon={<RxCross2 className='achievement-status-icon negative' size={25} />} />
+                            <AchievementCard icons={achievementIcons} achievementIndex={achievementIndex} achievements={achievements} />
+                        </div>
                         <AchievementsProgress progress={achievementProgress} achievements={achievements} achieved={achieved} visible={achievementsVisible} ref={progressBarRef} play={achievementTransition} />
+
                         <div className="hero-poster-wrapper">
                             <HeroPoster app={modalCurrentApp} className="hero-poster" />
                         </div>
@@ -173,12 +182,17 @@ function Library() {
             }
         }
         initiateModal(modalCurrentApp);
-    }, [ modalCurrentApp, achievementTransition, achievementsVisible, achievementProgress, modalCurrentApp?.backlogged ])
+    }, [ modalCurrentApp, achievementTransition, achievementsVisible, achievementProgress, modalCurrentApp?.backlogged, achievementIndex ])
 
     /* Save card scale value to localStorage on change */
     useEffect(() => {
         localStorage.setItem('cardScale', +gameCardScale);
     }, [ gameCardScale ])
+
+    useEffect(() => {
+        console.log(achievementIndex);
+        setAchievementDescription(achievements[ achievementIndex ]?.description)
+    }, [ achievementIndex ])
 
     /* Set progress bar visibility */
     useEffect(() => {
@@ -220,7 +234,6 @@ function Library() {
         setFilter(searchValue);
         setPage(1);
     }
-
     async function awaitModalLoading(app) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -234,7 +247,6 @@ function Library() {
             }
         })
     }
-
     async function initializeModal(app) {
         await awaitModalClosed();
         await awaitModalLoading(app);
@@ -290,6 +302,7 @@ function Library() {
                 const data = await response.json();
                 data.data.achievements ? setAchievements(data.data.achievements) : setAchievements([]);
                 data.data.achieved ? setAchieved(data.data.achieved) : setAchieved([]);
+                data.data.icons ? setAchievementIcons(data.data.icons) : setAchievementIcons([]);
             }
             else {
                 setAchieved([]);

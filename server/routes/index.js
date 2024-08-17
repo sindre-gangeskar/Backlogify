@@ -53,15 +53,25 @@ router.get('/achievements/:steamid/:appid', async function (req, res, next) {
     const steamid = req.params.steamid;
     const appid = req.params.appid;
 
+    const achievementResponse = await fetch(`http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=${process.env.STEAM_API_KEY}&appid=${appid}&l=en&format=json`);
     const response = await fetch(`http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${appid}&key=${process.env.STEAM_API_KEY}&steamid=${steamid}&l=en`)
 
-    if (response.ok) {
+    if (response.ok && achievementResponse.ok) {
       const data = await response.json();
+      const achievementData = await achievementResponse.json();
+      const details = achievementData.game.availableGameStats.achievements;
+
+      const icons = details?.map(detail => ({
+        icon: detail.icon,
+        icongray: detail.icongray,
+        description: detail.description
+      }));
+
       if (data.playerstats) {
         if (data.playerstats.achievements) {
           const achievements = data.playerstats.achievements;
           const achieved = achievements.filter(x => x.achieved === 1);
-          return res.jsend.success({ achievements: achievements, achieved: achieved });
+          return res.jsend.success({ achievements: achievements, achieved: achieved, icons: icons });
         }
         else return res.jsend.success({ achievements: [], achieved: [] });
       }
