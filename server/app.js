@@ -1,4 +1,6 @@
 require('dotenv').config();
+const jsend = require('jsend');
+const { errorHandler } = require('./middleware/middleware');
 var express = require('express');
 var cors = require('cors');
 var path = require('path');
@@ -41,7 +43,7 @@ if (!fs.existsSync(backlogPath))
     fs.mkdirSync(path.join(__dirname, 'data', 'backlog'), { recursive: true })
 
 var app = express();
-
+app.use(jsend.middleware);
 app.set('trust proxy', true);
 app.use(cors(corsOptions));
 
@@ -72,5 +74,5 @@ app.use(session({
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-
+app.use(errorHandler);
 module.exports = app;
