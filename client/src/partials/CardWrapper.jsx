@@ -10,7 +10,10 @@ const CardWrapper = React.memo(forwardRef(({ app, onClick, showAppID, showGameTi
             <div className={`card-title ${showGameTitle === true ? 'visible' : ''}`}>{app.name}</div>
 
             {backlogged ? <div className={`backlogged-overlay`}><BiCheckCircle className="backlogged-check" /></div> : ''}
-
+            
+            <div className="card-reflection-mask"></div>
+            <div className="card-reflection"></div>
+            
             <ImageWithFallback
                 root={ref}
                 rootMargin={'1000px 0px 1000px 0px'}

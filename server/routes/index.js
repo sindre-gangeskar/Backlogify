@@ -1,131 +1,48 @@
 require('dotenv').config();
 var express = require('express');
 var router = express.Router();
-const jsend = require('jsend');
-const { getOwnedGames, parseJSON, saveJSON, mapGamesJSON, checkJsonExists, deleteJSON } = require('../javascripts/custom');
+
+const asyncHandler = require('../javascripts/asyncHandler');
+
+const SteamLibraryService = require('../services/SteamLibraryService');
+const steamLibraryService = new SteamLibraryService();
+
 const path = require('path');
-const fs = require('fs');
 const backlogDirPath = path.join(__dirname, '..', 'data', 'backlog');
 
-router.use(jsend.middleware);
-router.get(`/library/:steamid`, async function (req, res, next) {
-  if (!backlogDirPath)
-    fs.mkdirSync(path.resolve(__dirname, '../data/backlog'));
+router.get(`/library/:steamid`, asyncHandler(async function (req, res, next) {
+  const games = await steamLibraryService.getOwnedGames(req.params.steamid);
+  const backlog = await steamLibraryService.parseBacklog(req.params.steamid, backlogDirPath);
+  const filtered = await steamLibraryService.mapGames(games, backlog)
+  return res.jsend.success({ appids: filtered });
+}));
 
-  const id = req.params.steamid;
+router.get('/backlog/:steamid', asyncHandler(async function (req, res, next) {
+  const backlog = await steamLibraryService.parseBacklog(req.params.steamid, backlogDirPath);
+  return res.status(200).jsend.success({ message: 'Successfully retrieved backlog', appids: backlog.appids })
+}))
 
-  try {
-    const backlogExists = checkJsonExists(id, backlogDirPath);
-    const backlogJson = backlogExists ? parseJSON(id, backlogDirPath) : null;
+router.get('/achievements/:steamid/:appid', asyncHandler(async function (req, res, next) {
+  const data = await steamLibraryService.retrieveAchievements(req.params.appid, req.params.steamid);
+  return res.status(200).jsend.success({ achievements: data.achievements, achieved: data.achieved, icons: data.icons });
+}))
 
-    const data = await getOwnedGames(id);
-    if (data.response.games && data.response.games.length > 0) {
+router.post('/backlog', asyncHandler(async function (req, res, next) {
+  const { name, appid, steamid } = req.body;
 
-      const filtered = mapGamesJSON(data.response.games, backlogJson)
-      return res.jsend.success({ appids: filtered });
-    } else return res.jsend.success({ appids: [], message: 'Please set your Steam account profile games visibility to public' });
+  await steamLibraryService.saveGame(steamid, appid, backlogDirPath, req.body);
+  return res.status(200).jsend.success({ statusCode: 200, result: { message: `Added ${name} to backlog`, data: { name, appid } } });
+}))
 
-  } catch (error) {
-    return res.jsend.fail({ message: `Could not find games associated with steam id: ${id}`, appids: [] });
-  }
-
-});
-
-router.get('/backlog/:steamid', async function (req, res, next) {
-  const id = req.params.steamid;
-  try {
-    const exists = checkJsonExists(id, backlogDirPath);
-
-    if (exists) {
-      const data = parseJSON(id, backlogDirPath);
-      return res.jsend.success({ appids: data });
-    }
-    else {
-      res.jsend.fail({ data: 'Could not find games associates with steam id' });
-    }
-  } catch (error) {
-    return res.jsend.error({ message: 'something went wrong: ' + error });
-  }
-})
-
-router.get('/achievements/:steamid/:appid', async function (req, res, next) {
-  try {
-    const steamid = req.params.steamid;
-    const appid = req.params.appid;
-
-    const achievementResponse = await fetch(`http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=${process.env.STEAM_API_KEY}&appid=${appid}&l=en&format=json`);
-    const response = await fetch(`http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${appid}&key=${process.env.STEAM_API_KEY}&steamid=${steamid}&l=en`)
-
-    if (response.ok && achievementResponse.ok) {
-      const data = await response.json();
-      const achievementData = await achievementResponse.json();
-      const details = achievementData.game.availableGameStats.achievements;
-
-      const icons = details?.map(detail => ({
-        icon: detail.icon,
-        icongray: detail.icongray,
-        description: detail.description
-      }));
-
-      if (data.playerstats) {
-        if (data.playerstats.achievements) {
-          const achievements = data.playerstats.achievements;
-          const achieved = achievements.filter(x => x.achieved === 1);
-          return res.jsend.success({ achievements: achievements, achieved: achieved, icons: icons });
-        }
-        else return res.jsend.success({ achievements: [], achieved: [] });
-      }
-    } else {
-      return res.jsend.success({ message: 'No achievements currently exist for selected game' });
-    }
-  } catch (error) {
-    console.log(error);
-  }
-})
-
-router.post('/backlog', async function (req, res, next) {
-  const { name, appid, playtime_forever, steamid } = req.body;
-  let data = [];
-
-  const exists = checkJsonExists(steamid, backlogDirPath);
-  if (exists) data = parseJSON(steamid, backlogDirPath);
-
-  const app = data.some(app => app.appid === +appid)
-
-  if (app) return res.jsend.success({ data: app, message: 'Game already exists in backlog' });
-
-  await data.push({ name: name, appid: +appid, playtime_forever: +playtime_forever, backlogged: true });
-  saveJSON(steamid, backlogDirPath, data);
-  return res.jsend.success({ data: { name, appid }, message: 'Added game to backlog' });
-})
-
-router.delete('/backlog', async function (req, res, next) {
+router.delete('/backlog', asyncHandler(async function (req, res, next) {
   const { appid, steamid } = req.body;
-  try {
-    const exists = checkJsonExists(steamid, backlogDirPath)
-    if (exists) {
-      const data = parseJSON(steamid, backlogDirPath);
-      const dataToKeep = data.filter(x => +x.appid !== +appid);
-      saveJSON(steamid, backlogDirPath, dataToKeep);
-      console.log(fs.readdirSync(path.join(__dirname, '..', 'data', 'backlog')));
-      return res.jsend.success({ data: { appid }, message: 'Successfully removed game from backlog' });
-    }
+  await steamLibraryService.deleteGame(steamid, appid, backlogDirPath);
+  return res.jsend.success({ data: { appid }, message: 'Successfully removed game from backlog' });
+}))
 
-    else return res.jsend.fail({ data: null, message: 'No backlog for current user exists' });
-  } catch (error) {
-    return res.jsend.fail({ data: { error: error, message: error.statusText } });
-  }
-})
-
-router.delete('/backlog/account', async function (req, res, next) {
+router.delete('/backlog/account', asyncHandler(async function (req, res, next) {
   const { steamid } = req.body;
-  const exists = checkJsonExists(steamid, backlogDirPath);
-  if (exists) {
-    await deleteJSON(steamid, backlogDirPath);
-    console.log('Successful deletion of account!')
-  }
-  else console.log(`No backlog exists for steam user: ${steamid}. Forcing a log-out`)
-
-  return res.end();
-})
+  await steamLibraryService.deleteBacklog(steamid, backlogDirPath);
+  return res.status(200).jsend.success({ statusCode: 200, result: { message: 'Successfully deleted account data' } });
+}))
 module.exports = router;

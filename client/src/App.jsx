@@ -38,7 +38,8 @@ function App() {
     const checkCurrentSession = async () => {
       await auth.checkSession(navigate, setAuthenticated);
     }
-    checkCurrentSession();
+    if (authenticated)
+      checkCurrentSession();
   }, [ useGlobalState ])
 
   const modal = ({

@@ -29,6 +29,7 @@ function Library() {
     const steamid = localStorage.getItem('steamid');
     const baseURL = import.meta.env.VITE_SERVER_BASEURL;
 
+    const [ authenticated ] = useGlobalState(state => [ state.authenticated ]);
     const [ order ] = useGlobalState(state => [ state.order ]);
     const [ games, setGames ] = useGlobalState(state => [ state.games, state.setGames ]);
     const [ loading, setLoading ] = useState(true);
@@ -95,7 +96,6 @@ function Library() {
                     }
 
                     else {
-                        console.log(data);
                         setError(data.data.message);
                     }
                 }
@@ -106,8 +106,8 @@ function Library() {
                 setLoadingVisible(false)
             }
         };
-
-        getGames();
+        if (authenticated)
+            getGames();
         return (() => { finished = true; setLoading(false) });
     }, [ steamid ]);
 
@@ -160,10 +160,9 @@ function Library() {
                     </div>
                 </>)
 
-                let buttonText = `Add ${modalCurrentApp.name} to the backlog`;
+                var buttonText = `Add ${modalCurrentApp.name} to the backlog`;
                 if (modalCurrentApp.backlogged)
                     buttonText = `${modalCurrentApp.name} is added to the backlog`
-
                 setModalFooter(
                     <>
                         <div className="modal-footer">
@@ -190,7 +189,6 @@ function Library() {
     }, [ gameCardScale ])
 
     useEffect(() => {
-        console.log(achievementIndex);
         setAchievementDescription(achievements[ achievementIndex ]?.description)
     }, [ achievementIndex ])
 
@@ -238,11 +236,9 @@ function Library() {
         return new Promise(async (resolve, reject) => {
             try {
                 await fetchAchievements(app);
-                console.log('Resolved');
                 resolve();
 
             } catch (error) {
-                console.log('Rejected');
                 reject(error);
             }
         })
@@ -286,7 +282,6 @@ function Library() {
                 setModalCurrentApp({ ...modalCurrentApp, backlogged: true });
                 modalCurrentApp.backlogged = true;
             }
-
         } catch (error) {
             console.error(error);
         }
@@ -300,16 +295,20 @@ function Library() {
             });
             if (response.ok) {
                 const data = await response.json();
-                data.data.achievements ? setAchievements(data.data.achievements) : setAchievements([]);
-                data.data.achieved ? setAchieved(data.data.achieved) : setAchieved([]);
-                data.data.icons ? setAchievementIcons(data.data.icons) : setAchievementIcons([]);
+                const achievements = data.data?.achievements;
+                const achieved = data.data?.achieved;
+                const icons = data.data?.icons;
+
+                achievements?.length > 0 ? setAchievements(achievements) : setAchievements([]);
+                achieved?.length > 0 ? setAchieved(achieved) : setAchieved([]);
+                icons?.length > 0 ? setAchievementIcons(icons) : setAchievementIcons([]);
             }
             else {
                 setAchieved([]);
                 setAchievements([]);
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
         finally {
             setAchievementsFetched(true);

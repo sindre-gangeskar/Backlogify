@@ -28,7 +28,7 @@ function Backlog() {
     const navigate = useNavigate();
     const steamid = localStorage.getItem('steamid');
 
-    const [ games, setGames ] = useState(null);
+    const [ games, setGames ] = useState([]);
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(null);
     const [ filter, setFilter ] = useState('');
@@ -57,8 +57,7 @@ function Backlog() {
 
     const [ loadingVisible, setLoadingVisible ] = useState(true);
 
-    const filtered = games ? games?.data.appids.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
-
+    const filtered = games ? games?.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())) : [];
     const totalPages = Math.ceil(filtered.length / gamesPerPage);
 
     const removeFromBacklog = async (appid) => {
@@ -76,10 +75,8 @@ function Backlog() {
         /* Refresh Games after deletion */
         if (response.ok) {
             const data = await response.json();
-            console.log(data.data.message);
         }
         else throw new Error('Could not remove from backlog');
-
     }
 
     useEffect(() => {
@@ -99,13 +96,7 @@ function Backlog() {
                 const response = await fetch(`${baseURL}/backlog/${steamid}`);
                 if (response.ok) {
                     const games = await response.json();
-
-                    if (games && games.data.appids) {
-                        setGames(games);
-                    } else {
-                        setGames(null);
-                        setError(`No backlog has been created for this account.\nTry adding a game to the backlog first`);
-                    }
+                    setGames(games.data.appids);
                 }
             } catch (error) {
                 setError(`No backlog has been created for this account.\nTry adding a game to the backlog first`);
@@ -156,13 +147,8 @@ function Backlog() {
             try {
                 const response = await fetch(`${baseURL}/backlog/${steamid}`);
                 if (response.ok && !finished) {
-                    const games = await response.json();
-                    if (games && games.data.appids) {
-                        setGames(games);
-                    } else {
-                        setGames(null);
-                        setError(<p>No backlog has been created for this account. Try adding a game to the backlog first in <a onClick={() => { navigate('/library') }}>Library</a></p>);
-                    }
+                    const data = await response.json();
+                    setGames(data.data.appids);
                 }
             } catch (error) {
                 setError(<h2>{error}</h2>);
@@ -235,7 +221,7 @@ function Backlog() {
         const paginatedItems = array.slice(startIndex, endIndex);
 
         if (games) {
-            utils.sortAlphabetically(order, games.data.appids)
+            utils.sortAlphabetically(order, games)
         }
 
         if (page > 1 && paginatedItems.length <= 0)
@@ -279,7 +265,7 @@ function Backlog() {
                 set50PerPage={() => { setGamesPerPage(50); utils.scrollToTop(gamesWrapperRef) }}
                 set100PerPage={() => { setGamesPerPage(100); utils.scrollToTop(gamesWrapperRef) }}
                 seeAllGames={() => { setGamesPerPage(filtered.length); utils.scrollToTop(gamesWrapperRef); utils.goToFirstPage(setPage, gamesWrapperRef) }} />
-            <GamesWrapper ref={gamesWrapperRef} content={paginate(gamesPerPage, page, filtered)} order={order} />
+            <GamesWrapper ref={gamesWrapperRef} content={games ? paginate(gamesPerPage, page, filtered) : <p>There are no games in the backlog</p>} order={order} />
             <div className="panel">
                 {page !== 1 && totalPages > 1 ?
                     <button className='pagination-first-button' onClick={() => { utils.goToFirstPage(setPage, gamesWrapperRef) }}>1</button>
