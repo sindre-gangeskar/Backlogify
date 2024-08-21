@@ -127,7 +127,7 @@
     height: 100%;
     width: 100%;
     mix-blend-mode: inherit;
-    background-image: linear-gradient(25deg,
+    background: linear-gradient(25deg,
             rgb(0, 0, 0, 0)20%,
             rgba(192, 192, 192, 0.0)32%,
             rgba(192, 192, 192, 0.145)34%,
@@ -137,7 +137,7 @@
             rgba(192, 192, 192, 0.145) 90%,
             rgba(192, 192, 192, 0.0)100%);
 
-    background: -webkit-linear-gradient(25deg,
+    background: -webkit-linear-gradient(60deg,
             rgb(0, 0, 0, 0)20%,
             rgba(192, 192, 192, 0.0)32%,
             rgba(192, 192, 192, 0.145)34%,
