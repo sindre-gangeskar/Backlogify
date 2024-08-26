@@ -70,9 +70,8 @@
     box-shadow: 0px 40px 30px black;
     cursor: pointer;
     transform-origin: bottom;
-
+    z-index: 1;
     transform: scaleY(1.1) scaleX(1.1);
-    ;
 }
 
 .card-wrapper::after {
@@ -105,13 +104,98 @@
     opacity: 1;
 }
 
+.card-details-wrapper {
+    clip-path: (0 0 0 0);
+    border: 1px solid #ffffff70;
+    position: absolute;
+    pointer-events: none;
+    width: 250px;
+    height: auto;
+    left: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    margin-left: 5px;
+    background-color: var(--gray);
+    transition: 250ms ease;
+    outline: 1px solid var(--gray);
+    outline-offset: -8px;
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
+
+.card-details-wrapper .name {
+    text-align: start;
+    font-weight: bolder;
+    overflow: hidden;
+    width: 100%;
+}
+
+.card-details-wrapper .body {
+    position: relative;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    bottom: 0;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 85%;
+    height: auto;
+    background-color: transparent;
+    object-fit: contain;
+    z-index: 10;
+    margin: 15px auto;
+    border: none;
+    outline: none;
+    aspect-ratio: 16/9;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    padding-top: 10px;
+}
+
+.video-wrapper .video {
+    width: 100%;
+    object-fit: contain;
+    background-color: black;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-radius: 0.5rem;
+}
+
+.card-details-wrapper>.body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-details-wrapper>.footer {
+    padding-top: 10px;
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: left;
+    font-size: 14px;
+    flex-shrink: 1;
+    border-top: 1px solid var(--gray);
+}
+
+.footer>p {
+    flex: 1;
+    padding: 0;
+    margin: 5px;
+}
 
 .card-reflection {
     pointer-events: none;
     clip-path: inset(0 0 0 0);
     position: absolute;
     mix-blend-mode: screen;
-    z-index: 1;
     transition: 800ms cubic-bezier(0.19, 1, 0.22, 1);
     width: 100%;
     height: 100%;
@@ -146,6 +230,61 @@
             rgba(192, 192, 192, 0.145) 81%,
             rgba(192, 192, 192, 0.145) 90%,
             rgba(192, 192, 192, 0.0)100%);
+}
+
+.card-details-reflection {
+    outline: 1px solid #ffffff70;
+    outline-offset: -12px;
+    pointer-events: none;
+    border-radius: 1.0rem;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    clip-path: (0 0 0 0);
+    overflow: hidden;
+}
+
+.card-details-reflection.play .card-details-reflection{
+    transition-delay: 500ms;
+    height: 125%;
+}
+
+.card-details-reflection::after {
+    top: 0;
+    left: 0;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+    mix-blend-mode: inherit;
+    background: linear-gradient(60deg,
+            rgb(0, 0, 0, 0)20%,
+            rgba(192, 192, 192, 0.0)32%,
+            rgba(192, 192, 192, 0.145)34%,
+            rgba(192, 192, 192, 0.0)40%,
+            rgba(0, 0, 0, 0.2) 80%,
+            rgba(192, 192, 192, 0.145) 81%,
+            rgba(192, 192, 192, 0.145) 90%,
+            rgba(192, 192, 192, 0.0)100%);
+
+    background: -webkit-linear-gradient(60deg,
+            rgb(0, 0, 0, 0)20%,
+            rgba(192, 192, 192, 0.0)32%,
+            rgba(192, 192, 192, 0.145)34%,
+            rgba(192, 192, 192, 0.0)40%,
+            rgba(0, 0, 0, 0.2) 80%,
+            rgba(192, 192, 192, 0.145) 81%,
+            rgba(192, 192, 192, 0.145) 90%,
+            rgba(192, 192, 192, 0.0)100%);
+}
+
+.card-wrapper:hover .card-details-wrapper>.card-details-reflection::after {
+    height: 200%;
+    transition-duration: 1000ms;
+    transition-delay: 250ms;
 }
 
 .card-appid {
@@ -213,14 +352,13 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 0;
     background-image: linear-gradient(to bottom, var(--secondary-tertiary-color-25), var(--third-tertiary-color-50));
     align-content: center;
     backdrop-filter: contrast(130%) brightness(50%);
 }
 
 .backlogged-check {
-    z-index: 2;
     position: relative;
     width: 50%;
     height: 50%;
@@ -260,5 +398,15 @@
 
     100% {
         opacity: 0.3;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }

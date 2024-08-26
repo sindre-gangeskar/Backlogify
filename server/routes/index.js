@@ -10,11 +10,22 @@ const steamLibraryService = new SteamLibraryService();
 const path = require('path');
 const backlogDirPath = path.join(__dirname, '..', 'data', 'backlog');
 
+router.get('/library/gameDetails/:appid', asyncHandler(async function (req, res, next) {
+  const { appid } = req.params.appid;
+  const data = await steamLibraryService.getGameDetails(req.params.appid);
+
+  return res.status(200).jsend.success({
+    statusCode: 200, result: {
+      data: data
+    }
+  })
+}))
+
 router.get(`/library/:steamid`, asyncHandler(async function (req, res, next) {
   const games = await steamLibraryService.getOwnedGames(req.params.steamid);
   const backlog = await steamLibraryService.parseBacklog(req.params.steamid, backlogDirPath);
   const filtered = await steamLibraryService.mapGames(games, backlog)
-  return res.jsend.success({ appids: filtered });
+  return res.status(200).jsend.success({ appids: filtered });
 }));
 
 router.get('/backlog/:steamid', asyncHandler(async function (req, res, next) {

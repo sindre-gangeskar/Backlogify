@@ -149,6 +149,32 @@ class SteamLibraryService {
             backlogged: backlog.appids.some(x => +x.appid === +app.appid) ? true : false
         }))
     }
+    async getGameDetails(appid) {
+        try {
+            const response = await fetch(`https://store.steampowered.com/api/appdetails?appids=${appid}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data[`${appid}`].data)
+                if (data) return data[`${appid}`].data;
+                else {
+                    const notFoundError = new Error('Cannot find data for specified appid');
+                    notFoundError.name = 'GameDetailsNotFoundError';
+                    notFoundError.statusCode = 404;
+                    throw notFoundError;
+                }
+            }
+
+        } catch (error) {
+            if (error.statusCode == 404) throw error;
+            else throw error;
+        }
+    }
 }
 
 module.exports = SteamLibraryService;
