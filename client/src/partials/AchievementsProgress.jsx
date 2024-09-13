@@ -4,7 +4,7 @@ const AchievementsProgress = React.memo(React.forwardRef(({ visible, achievement
         <>
             {achievements.length > 0 ? (
                 <div className={`achievements-progress-wrapper ${visible === true ? 'visible' : 'hidden'}`}>
-                    <p className='achievements-title'>{`${achieved.length} / ${achievements.length} unlocked`}</p>
+                    <p className='achievements-title'>{`${achieved.length} / ${achievements.length} achievements unlocked`}</p>
                     <div className="achievements-progress-track">
                         <div className="achievements-progress-bar" style={{ width: `${play ? `${progress}%` : '0%'}` }} ref={ref}></div>
                     </div>
