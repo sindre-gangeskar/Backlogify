@@ -4,7 +4,6 @@ import Auth from '../js/auth';
 import '../css/Navbar.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
-import { FaSteam } from "react-icons/fa";
 import SteamBacklogifyIcon from './SteamBacklogifyIcon';
 
 function Navbar() {

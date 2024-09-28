@@ -84,7 +84,7 @@ class Auth {
     async requestDeleteAccountData(event, ref, navHook, authenticationState) {
         event.preventDefault();
         const form = new FormData(ref.current);
-        const steamid = form.get('steamid');
+        const steamId = form.get('steamid');
 
         if (confirm('Are you sure you want to delete your data?\nThis will clear out your backlog entirely')) {
             try {
@@ -93,7 +93,7 @@ class Auth {
                         method: 'DELETE',
                         credentials: 'include',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ steamid }),
+                        body: JSON.stringify({ steamId }),
                         mode: 'cors'
                     });
                 if (response.ok) {

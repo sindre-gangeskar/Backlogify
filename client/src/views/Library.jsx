@@ -143,7 +143,7 @@ function Library() {
                     <div className="modal-body" key={appDetails.appid}>
 
                         <div className="media-viewer">
-                            <img src={appDetails.screenshots[imagesIndex].path_full} alt="" />
+                            <img src={appDetails.screenshots[ imagesIndex ].path_full} alt="" />
                         </div>
 
                         <div className="media-wrapper">
@@ -323,12 +323,11 @@ function Library() {
         const appid = form.get('appid');
         const playtime_forever = form.get('playtime_forever');
         const steamid = form.get('steamid');
-
         try {
             const response = await fetch(`${baseURL}/backlog`, {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST',
-                body: JSON.stringify({ appid, name, playtime_forever, steamid, backlogged: true })
+                body: JSON.stringify({ steamid, name, appid, playtime_forever, backlogged: true })
             });
 
             if (response.ok) {

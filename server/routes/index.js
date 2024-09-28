@@ -2,18 +2,21 @@ require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 
+const SteamBacklogifyDBService = require('../services/SteamBacklogifyDBService');
+const steamDB = new SteamBacklogifyDBService();
+const dbName = process.env.MONGODB_NAME;
+
 const asyncHandler = require('../javascripts/asyncHandler');
 
 const SteamLibraryService = require('../services/SteamLibraryService');
 const steamLibraryService = new SteamLibraryService();
 
-const path = require('path');
-const backlogDirPath = path.join(__dirname, '..', 'data', 'backlog');
+steamDB.connect().then(() => {
+  steamDB.getDb();
+})
 
 router.get('/library/gameDetails/:appid', asyncHandler(async function (req, res, next) {
-  const { appid } = req.params.appid;
   const data = await steamLibraryService.getGameDetails(req.params.appid);
-
   return res.status(200).jsend.success({
     statusCode: 200, result: {
       data: data
@@ -23,14 +26,14 @@ router.get('/library/gameDetails/:appid', asyncHandler(async function (req, res,
 
 router.get(`/library/:steamid`, asyncHandler(async function (req, res, next) {
   const games = await steamLibraryService.getOwnedGames(req.params.steamid);
-  const backlog = await steamLibraryService.parseBacklog(req.params.steamid, backlogDirPath);
+  const backlog = await steamDB.findAllBackloggedItems(req.params.steamid);
   const filtered = await steamLibraryService.mapGames(games, backlog)
   return res.status(200).jsend.success({ appids: filtered });
 }));
 
 router.get('/backlog/:steamid', asyncHandler(async function (req, res, next) {
-  const backlog = await steamLibraryService.parseBacklog(req.params.steamid, backlogDirPath);
-  return res.status(200).jsend.success({ message: 'Successfully retrieved backlog', appids: backlog.appids })
+  const backlog = await steamDB.findAllBackloggedItems(req.params.steamid);
+  return res.status(200).jsend.success({ message: 'Successfully retrieved backlog', appids: backlog })
 }))
 
 router.get('/achievements/:steamid/:appid', asyncHandler(async function (req, res, next) {
@@ -39,21 +42,24 @@ router.get('/achievements/:steamid/:appid', asyncHandler(async function (req, re
 }))
 
 router.post('/backlog', asyncHandler(async function (req, res, next) {
-  const { name, appid, steamid } = req.body;
-
-  await steamLibraryService.saveGame(steamid, appid, backlogDirPath, req.body);
-  return res.status(200).jsend.success({ statusCode: 200, result: { message: `Added ${name} to backlog`, data: { name, appid } } });
+  const { steamid, appid, name, playtime_forever, backlogged } = req.body;
+  await steamDB.addToBacklog(steamid, appid, name, playtime_forever, backlogged);
+  return res.status(200).jsend.success({
+    statusCode: 200, result: {
+      message: `Added ${name} to backlog`,
+    }
+  });
 }))
 
 router.delete('/backlog', asyncHandler(async function (req, res, next) {
-  const { appid, steamid } = req.body;
-  await steamLibraryService.deleteGame(steamid, appid, backlogDirPath);
+  const { appid, steamId } = req.body;
+  await steamDB.deleteOneFromBacklog(steamId, appid)
   return res.jsend.success({ data: { appid }, message: 'Successfully removed game from backlog' });
 }))
 
 router.delete('/backlog/account', asyncHandler(async function (req, res, next) {
-  const { steamid } = req.body;
-  await steamLibraryService.deleteBacklog(steamid, backlogDirPath);
+  const { steamId } = req.body;
+  await steamDB.deleteEntireBacklog(steamId);
   return res.status(200).jsend.success({ statusCode: 200, result: { message: 'Successfully deleted account data' } });
 }))
 module.exports = router;

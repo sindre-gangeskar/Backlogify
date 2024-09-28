@@ -69,7 +69,7 @@ function Backlog() {
             method: 'DELETE',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ appid: +appid, steamid: steamid })
+            body: JSON.stringify({ appid: appid, steamId: steamid })
         })
 
         /* Refresh Games after deletion */

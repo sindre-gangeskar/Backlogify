@@ -38,11 +38,6 @@ if (!fs.existsSync(dbDirectory)) {
     fs.mkdirSync(path.join(__dirname, 'db'), { recursive: true });
 }
 
-const backlogPath = path.join(__dirname, 'data', 'backlog');
-if (!fs.existsSync(backlogPath))
-    fs.mkdirSync(path.join(__dirname, 'data', 'backlog'), { recursive: true })
-
-
 var app = express();
 app.use(jsend.middleware);
 app.set('trust proxy', true);
