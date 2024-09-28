@@ -8,8 +8,8 @@
 |:------------------------------------------------------------------:|:------------------------------------------------------------------:|
 
 ## Built with:
-- MongoDB for storing backlogged games per steam user
-- React in front-end
-- Express.js as back-end server communicating with front-end and the database
+- **MongoDB** for storing each Steam user's backlog of games
+- **React** for the front-end user interface
+- **Express.js** for the back-end, handling communications between front-end and the database
 
 ### WIP - Still in development
