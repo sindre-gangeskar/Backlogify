@@ -12,5 +12,4 @@
 - React in front-end
 - Express.js as back-end server communicating with front-end and the database
 
-## Project is live
-[Viist Steam Backlogify](https://steambacklogify.info)
+### WIP - Still in development
